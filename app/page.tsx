@@ -1,42 +1,45 @@
-"use client";
-
 import React from "react";
-import { TopNavbar } from "@/components/navbar/TopNavbar";
-import { useNavbarMerge } from "@/components/navbar/useNavbarMerge";
-import { HeroSection } from "@/components/hero/HeroSection";
-import { AboutSection } from "@/components/about/AboutSection";
-import { StoriesSection } from "@/components/stories/StoriesSection";
-import { DocsSection } from "@/components/docs/DocsSection";
-import { ContactSection } from "@/components/contact/ContactSection";
-import { Footer } from "@/components/footer/Footer";
+import { getLatestStories, getBentoDocuments } from "@/db/queries";
+import { HomePageClient } from "@/components/home/HomePageClient";
 
-export default function HomePage() {
-  const { isMerged } = useNavbarMerge("bottom-nav-sentinel");
+export const instant = false;
+
+export default async function HomePage() {
+  const [stories, docs] = await Promise.all([
+    getLatestStories(6),
+    getBentoDocuments(5),
+  ]);
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "De Paul Public School & Junior College, Rajamudy",
+    alternateName: "De Paul Public School Rajamudy",
+    url: "https://depaulidukki.com",
+    logo: "https://depaulidukki.com/assets/branding/logo.png",
+    image: "https://depaulidukki.com/opengraph-image.png",
+    description:
+      "De Paul Public School & Junior College, Rajamudy, Idukki, Kerala. Affiliated to CBSE (No. 930624). Committed to holistic education and moral integrity.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Upputhode Road, Rajamudy P.O.",
+      addressLocality: "Rajamudy",
+      addressRegion: "Kerala",
+      postalCode: "685604",
+      addressCountry: "IN",
+    },
+    telephone: "+91-9605602400",
+    email: "depaulrajamudy@gmail.com",
+    slogan: "For God & Country",
+  };
 
   return (
-    <div className="min-h-screen flex flex-col relative selection:bg-brand-royal selection:text-white">
-      {/* Dynamic Floating / Merged Header */}
-      <TopNavbar isMerged={isMerged} />
-
-      <main className="flex-1 w-full">
-        {/* Section 1: Hero Section */}
-        <HeroSection isMerged={isMerged} />
-
-        {/* Section 2: About Section */}
-        <AboutSection />
-
-        {/* Section 3: Stories Section */}
-        <StoriesSection />
-
-        {/* Section 4: Docs Bento Section */}
-        <DocsSection />
-
-        {/* Section 5: Contact Section */}
-        <ContactSection />
-      </main>
-
-      {/* Footer */}
-      <Footer />
-    </div>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <HomePageClient stories={stories} docs={docs} />
+    </>
   );
 }

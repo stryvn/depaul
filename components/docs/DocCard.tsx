@@ -1,20 +1,25 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { FileText, Download, CheckCircle2, ShieldCheck } from "lucide-react";
+import { FileText, Download, CheckCircle2, ShieldCheck, ArrowUpRight } from "lucide-react";
 import { cn } from "../ui/utils";
 
 export interface DocItem {
   id: number;
   title: string;
   category: string;
-  type: "PDF" | "DOC";
-  size: string;
+  type?: string;
+  fileType?: string;
+  size?: string;
+  fileSize?: string;
   date: string;
   description: string;
   isFeatured?: boolean;
   downloadsCount: number;
+  fileUrl?: string;
+  href?: string;
 }
 
 interface DocCardProps {
@@ -24,7 +29,12 @@ interface DocCardProps {
 }
 
 export function DocCard({ doc, isFeatured = false, className }: DocCardProps) {
-  const isPDF = doc.type === "PDF";
+  const fileType = doc.fileType || doc.type || "PDF";
+  const fileSize = doc.fileSize || doc.size || "1.0 MB";
+  const isPDF = fileType.toUpperCase() === "PDF";
+  const isPortal = fileType.toUpperCase() === "PORTAL";
+  const destinationUrl = doc.href || (doc.id ? `/api/documents/${doc.id}/download` : (doc.fileUrl || "#"));
+  const isInternal = destinationUrl.startsWith("/");
 
   if (isFeatured) {
     return (
@@ -43,10 +53,12 @@ export function DocCard({ doc, isFeatured = false, className }: DocCardProps) {
             <span
               className={cn(
                 "px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider",
-                isPDF ? "bg-red-50 text-brand-crimson border border-red-200" : "bg-blue-50 text-brand-royal border border-blue-200"
+                isPDF
+                  ? "bg-red-50 text-brand-crimson border border-red-200"
+                  : "bg-blue-50 text-brand-royal border border-blue-200"
               )}
             >
-              {doc.type} • {doc.size}
+              {fileType} • {fileSize}
             </span>
             <span className="flex items-center gap-1 text-xs font-medium text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
               <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
@@ -81,15 +93,17 @@ export function DocCard({ doc, isFeatured = false, className }: DocCardProps) {
               Format
             </span>
             <span className="text-sm font-semibold text-surface-dark">
-              Standard PDF Document
+              Standard {fileType} Document
             </span>
           </div>
 
           <motion.a
-            href="#"
+            href={destinationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-royal hover:bg-blue-900 text-white text-sm font-semibold shadow-md group/btn transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-brand-royal hover:bg-blue-900 text-white text-sm font-semibold shadow-md group/btn transition-colors cursor-pointer"
           >
             <span>Download</span>
             <Download className="w-4 h-4 group-hover/btn:translate-y-0.5 transition-transform" />
@@ -112,10 +126,12 @@ export function DocCard({ doc, isFeatured = false, className }: DocCardProps) {
           <span
             className={cn(
               "px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider",
-              isPDF ? "bg-red-50 text-brand-crimson border border-red-200" : "bg-blue-50 text-brand-royal border border-blue-200"
+              isPDF
+                ? "bg-red-50 text-brand-crimson border border-red-200"
+                : "bg-blue-50 text-brand-royal border border-blue-200"
             )}
           >
-            {doc.type} • {doc.size}
+            {fileType} • {fileSize}
           </span>
           <span className="text-[11px] font-medium text-slate-500">{doc.date}</span>
         </div>
@@ -135,15 +151,31 @@ export function DocCard({ doc, isFeatured = false, className }: DocCardProps) {
 
       <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between">
         <span className="text-xs text-slate-500 font-medium">{doc.category}</span>
-        <motion.a
-          href="#"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-crimson group-hover:text-white flex items-center justify-center text-slate-700 transition-colors shadow-sm"
-          title={`Download ${doc.title}`}
-        >
-          <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
-        </motion.a>
+        {isInternal ? (
+          <Link
+            href={destinationUrl}
+            className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-royal group-hover:text-white flex items-center justify-center text-slate-700 transition-colors shadow-sm cursor-pointer hover:scale-110 active:scale-95"
+            title={isPortal ? "Open TC Verification Portal" : `View ${doc.title}`}
+          >
+            {isPortal ? (
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            ) : (
+              <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+            )}
+          </Link>
+        ) : (
+          <motion.a
+            href={destinationUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            className="w-8 h-8 rounded-full bg-slate-100 group-hover:bg-brand-crimson group-hover:text-white flex items-center justify-center text-slate-700 transition-colors shadow-sm cursor-pointer"
+            title={`Download ${doc.title}`}
+          >
+            <Download className="w-4 h-4 group-hover:translate-y-0.5 transition-transform" />
+          </motion.a>
+        )}
       </div>
     </div>
   );

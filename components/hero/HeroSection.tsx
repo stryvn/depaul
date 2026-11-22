@@ -42,12 +42,6 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80" />
       </div>
 
-      {/* Decorative Brand Accent Lines */}
-      <div className="absolute inset-0 pointer-events-none z-10 opacity-15">
-        <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-white to-transparent" />
-        <div className="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-white to-transparent" />
-      </div>
-
       {/* Center Content placed lower to reveal full campus building overhead */}
       <div className="relative z-20 flex flex-col items-center justify-center px-4 max-w-5xl mx-auto w-full mb-6 sm:mb-8">
         <HeroTitle />

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 
@@ -9,12 +9,75 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0B1B3D" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B1B3D" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "De Paul Public School Rajamudy — For God & Country",
+  metadataBase: new URL("https://depaulidukki.com"),
+  title: {
+    default: "De Paul Public School Rajamudy — For God & Country",
+    template: "%s | De Paul Public School Rajamudy",
+  },
   description:
-    "De Paul Public School, Rajamudy, Idukki, Kerala. Committed to nurturing young minds with academic excellence, moral integrity, and social responsibility.",
+    "De Paul Public School & Junior College, Rajamudy, Idukki, Kerala. Affiliated to CBSE (No. 930624). Committed to holistic education, academic excellence, and moral integrity.",
+  keywords: [
+    "De Paul Public School",
+    "De Paul Rajamudy",
+    "Schools in Idukki",
+    "CBSE Schools Kerala",
+    "Junior College Rajamudy",
+    "Vincentian School Idukki",
+  ],
   icons: {
-    icon: "/assets/branding/logo.png",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/assets/branding/logo.png" },
+    ],
+    apple: "/apple-icon.png",
+  },
+  openGraph: {
+    title: "De Paul Public School Rajamudy — For God & Country",
+    description:
+      "De Paul Public School & Junior College, Rajamudy, Idukki, Kerala. Committed to holistic education, academic excellence, and moral integrity.",
+    url: "https://depaulidukki.com",
+    siteName: "De Paul Public School & Junior College",
+    locale: "en_IN",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "De Paul Public School & Junior College, Rajamudy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "De Paul Public School Rajamudy",
+    description:
+      "De Paul Public School & Junior College, Rajamudy, Idukki, Kerala. For God & Country.",
+    images: ["/twitter-image.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  alternates: {
+    canonical: "https://depaulidukki.com",
   },
 };
 

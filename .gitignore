@@ -35,3 +35,7 @@ next-env.d.ts
 # Agent skills and hooks
 .agents/
 .agent/
+
+# Local SQLite & Uploads
+local.db*
+/public/uploads/

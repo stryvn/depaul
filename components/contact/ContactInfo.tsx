@@ -111,7 +111,7 @@ export function ContactInfo() {
           </a>
 
           <a
-            href="https://instagram.com"
+            href="https://www.instagram.com/depaulschoolrajamudy"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-pink-600/30 hover:bg-pink-600 border border-pink-500/40 text-white text-xs font-medium transition-all hover:scale-105"
@@ -121,7 +121,7 @@ export function ContactInfo() {
           </a>
 
           <a
-            href="https://facebook.com"
+            href="https://www.facebook.com/depaulschoolrajamudy"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-blue-600/30 hover:bg-blue-600 border border-blue-500/40 text-white text-xs font-medium transition-all hover:scale-105"
@@ -131,7 +131,7 @@ export function ContactInfo() {
           </a>
 
           <a
-            href="https://youtube.com"
+            href="https://www.youtube.com/@depaulschoolrajamudy"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-red-600/30 hover:bg-red-600 border border-red-500/40 text-white text-xs font-medium transition-all hover:scale-105"

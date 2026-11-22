@@ -28,7 +28,7 @@ export function SectionHeading({
     <div
       className={cn(
         "mb-12 md:mb-16",
-        align === "center" ? "text-center mx-auto max-w-3xl" : "max-w-2xl",
+        align === "center" ? "text-center mx-auto max-w-3xl" : "w-full",
         className
       )}
     >
@@ -44,20 +44,39 @@ export function SectionHeading({
           {badge}
         </span>
       )}
-      <div className={cn("flex flex-col sm:flex-row items-center", align === "center" ? "justify-center gap-4" : "justify-between")}>
-        <h2
-          className={cn(
-            "text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight",
-            isDark ? "text-white" : "text-brand-royal"
+      <div
+        className={cn(
+          "flex flex-col sm:flex-row gap-4",
+          align === "center"
+            ? "items-center justify-center"
+            : "items-start sm:items-end justify-between"
+        )}
+      >
+        <div className={align === "center" ? "" : "max-w-2xl"}>
+          <h2
+            className={cn(
+              "text-3xl sm:text-4xl lg:text-5xl font-display font-bold tracking-tight",
+              isDark ? "text-white" : "text-brand-royal"
+            )}
+          >
+            {title}
+          </h2>
+          {subtitle && (
+            <p
+              className={cn(
+                "mt-3 text-base sm:text-lg leading-relaxed",
+                isDark ? "text-slate-300" : "text-surface-muted"
+              )}
+            >
+              {subtitle}
+            </p>
           )}
-        >
-          {title}
-        </h2>
+        </div>
         {actionText && actionHref && (
           <a
             href={actionHref}
             className={cn(
-              "text-sm font-semibold inline-flex items-center gap-1 group transition-colors",
+              "text-sm font-semibold inline-flex items-center gap-1 group transition-colors shrink-0 mb-1",
               isDark
                 ? "text-brand-sky hover:text-white"
                 : "text-brand-crimson hover:text-red-700"
@@ -70,16 +89,6 @@ export function SectionHeading({
           </a>
         )}
       </div>
-      {subtitle && (
-        <p
-          className={cn(
-            "mt-3 text-base sm:text-lg leading-relaxed",
-            isDark ? "text-slate-300" : "text-surface-muted"
-          )}
-        >
-          {subtitle}
-        </p>
-      )}
     </div>
   );
 }

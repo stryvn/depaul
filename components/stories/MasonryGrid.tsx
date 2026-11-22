@@ -12,7 +12,7 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Annual Event",
     category: "Sports & Athletics",
     image: "/assets/events/sportsday01.jpeg",
-    isFeatured: true,
+    slug: "annual-sports-meet-athlos-celebrates-athletic-brilliance",
   },
   {
     id: 2,
@@ -21,6 +21,7 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Campus Meet",
     category: "Academics & Tech",
     image: "/assets/events/Nexora2k26.jpeg",
+    slug: "nexora-fest-inter-school-tech-cultural-summit",
   },
   {
     id: 3,
@@ -29,6 +30,7 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Celebration",
     category: "Campus Life",
     image: "/assets/events/childrensday.jpeg",
+    slug: "childrens-day-commemoration-cultural-assemblies",
   },
   {
     id: 4,
@@ -37,6 +39,7 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Eco Initiative",
     category: "Social Outreach",
     image: "/assets/events/environmentday.jpg",
+    slug: "environment-day-greenery-plantation-drive",
   },
   {
     id: 5,
@@ -45,6 +48,7 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Athletics",
     category: "Sports",
     image: "/assets/events/sportsday02.jpeg",
+    slug: "inter-house-track-field-championships",
   },
   {
     id: 6,
@@ -53,13 +57,23 @@ export const STORIES_DATA: StoryItem[] = [
     date: "Academic Excellence",
     category: "Academics",
     image: "/assets/attachments/biologylab.jpg",
+    slug: "advanced-laboratories-experiential-stem-curriculum",
   },
 ];
 
-export function MasonryGrid() {
-  const featuredStory = STORIES_DATA[0];
-  const sideStories = STORIES_DATA.slice(1, 5);
-  const bottomStory = STORIES_DATA[5];
+interface MasonryGridProps {
+  stories?: StoryItem[];
+}
+
+export function MasonryGrid({ stories }: MasonryGridProps) {
+  const items = stories && stories.length > 0 ? stories : STORIES_DATA;
+  const featuredStory = items[0];
+  const sideStories = items.slice(1, 5);
+  const bottomStory = items[5];
+
+  if (!featuredStory) {
+    return null;
+  }
 
   return (
     <div>
@@ -71,25 +85,35 @@ export function MasonryGrid() {
         </div>
 
         {/* Stories 2 & 3 */}
-        <div className="col-span-1 row-span-1">
-          <StoryTile story={sideStories[0]} className="h-full" />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <StoryTile story={sideStories[1]} className="h-full" />
-        </div>
+        {sideStories[0] && (
+          <div className="col-span-1 row-span-1">
+            <StoryTile story={sideStories[0]} className="h-full" />
+          </div>
+        )}
+        {sideStories[1] && (
+          <div className="col-span-1 row-span-1">
+            <StoryTile story={sideStories[1]} className="h-full" />
+          </div>
+        )}
 
         {/* Stories 4 & 5 */}
-        <div className="col-span-1 row-span-1">
-          <StoryTile story={sideStories[2]} className="h-full" />
-        </div>
-        <div className="col-span-1 row-span-1">
-          <StoryTile story={sideStories[3]} className="h-full" />
-        </div>
+        {sideStories[2] && (
+          <div className="col-span-1 row-span-1">
+            <StoryTile story={sideStories[2]} className="h-full" />
+          </div>
+        )}
+        {sideStories[3] && (
+          <div className="col-span-1 row-span-1">
+            <StoryTile story={sideStories[3]} className="h-full" />
+          </div>
+        )}
 
         {/* Story 6 spanning across or wide */}
-        <div className="col-span-3 row-span-1">
-          <StoryTile story={bottomStory} className="h-full" />
-        </div>
+        {bottomStory && (
+          <div className="col-span-3 row-span-1">
+            <StoryTile story={bottomStory} className="h-full" />
+          </div>
+        )}
       </div>
 
       {/* Mobile & Tablet Layout (< 1024px) */}
@@ -100,13 +124,15 @@ export function MasonryGrid() {
         </div>
 
         {/* 2-column grid of smaller squares below */}
-        <div className="grid grid-cols-2 gap-3 sm:gap-4">
-          {STORIES_DATA.slice(1).map((story) => (
-            <div key={story.id} className="aspect-square">
-              <StoryTile story={story} className="h-full w-full" />
-            </div>
-          ))}
-        </div>
+        {items.length > 1 && (
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+            {items.slice(1).map((story) => (
+              <div key={story.id} className="aspect-square">
+                <StoryTile story={story} className="h-full w-full" />
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

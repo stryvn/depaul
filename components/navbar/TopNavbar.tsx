@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Copy, Check, Menu, ArrowUpRight } from "lucide-react";
 import { cn } from "../ui/utils";
-import { WhatsAppIcon, PhoneCallIcon, InstagramIcon, FacebookIcon } from "../ui/SocialIcons";
+import { WhatsAppIcon, PhoneCallIcon, InstagramIcon, FacebookIcon, YoutubeIcon } from "../ui/SocialIcons";
 import { NavButton } from "./NavButton";
 
 interface NavbarProps {
@@ -13,24 +13,25 @@ interface NavbarProps {
 }
 
 export const NAV_LINKS_LEFT = [
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
-  { name: "Docs", href: "#docs" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Docs", href: "/#docs" },
 ];
 
 export const NAV_LINKS_RIGHT = [
-  { name: "News", href: "#stories" },
+  { name: "Stories", href: "/#stories" },
   { name: "Alumni", href: "/alumni" },
-  { name: "TC", href: "#docs" },
+  { name: "TC", href: "/tc" },
 ];
 
 const MOBILE_MENU_LINKS = [
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
-  { name: "Docs", href: "#docs" },
-  { name: "News", href: "#stories" },
+  { name: "Home", href: "/" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Docs", href: "/#docs" },
+  { name: "Stories", href: "/#stories" },
   { name: "Alumni", href: "/alumni" },
-  { name: "TC", href: "#docs" },
+  { name: "TC", href: "/tc" },
 ];
 
 export function TopNavbar({ isMerged }: NavbarProps) {
@@ -321,7 +322,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
             {/* Center Column: Logo + School Name (Naturally and perfectly centered between columns) */}
             <div className="flex items-center justify-center shrink-0 px-2 sm:px-4">
               <a
-                href="#"
+                href="/"
                 className="flex items-center gap-2 sm:gap-2.5 px-2 py-0.5 rounded-full group select-none whitespace-nowrap"
               >
                 <div className="relative w-7 h-7 sm:w-8 sm:h-8 shrink-0 group-hover:scale-105 transition-transform">
@@ -368,10 +369,30 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                 <div className="hidden lg:block mr-auto" />
               )}
 
-              {/* Social icons: always anchored at outer right end */}
-              <div className="flex items-center gap-1 shrink-0 ml-auto">
+              {/* Social icons: on desktop (>= lg) always visible; on mobile (< lg) only visible in unmerged/hero state, hidden when full/merged */}
+              <div
+                className={cn(
+                  "flex items-center gap-1 shrink-0 ml-auto",
+                  isMerged ? "hidden lg:flex" : "flex"
+                )}
+              >
                 <a
-                  href="https://instagram.com"
+                  href="https://www.youtube.com/@depaulschoolrajamudy"
+                  target="_blank"
+                  rel="noreferrer"
+                  className={cn(
+                    "p-1.5 rounded-full transition-all",
+                    isMerged
+                      ? "text-slate-600 hover:text-brand-crimson hover:bg-slate-900/5"
+                      : "text-white/80 hover:text-white hover:bg-white/20"
+                  )}
+                  title="YouTube Channel"
+                  aria-label="YouTube Channel"
+                >
+                  <YoutubeIcon className="w-3.5 h-3.5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/depaulschoolrajamudy"
                   target="_blank"
                   rel="noreferrer"
                   className={cn(
@@ -381,11 +402,12 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                       : "text-white/80 hover:text-white hover:bg-white/20"
                   )}
                   title="Instagram"
+                  aria-label="Instagram"
                 >
                   <InstagramIcon className="w-3.5 h-3.5" />
                 </a>
                 <a
-                  href="https://facebook.com"
+                  href="https://www.facebook.com/depaulschoolrajamudy"
                   target="_blank"
                   rel="noreferrer"
                   className={cn(
@@ -395,6 +417,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                       : "text-white/80 hover:text-white hover:bg-white/20"
                   )}
                   title="Facebook"
+                  aria-label="Facebook"
                 >
                   <FacebookIcon className="w-3.5 h-3.5" />
                 </a>

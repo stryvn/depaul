@@ -29,14 +29,15 @@ export const DOCS_DATA: DocItem[] = [
   },
   {
     id: 3,
-    title: "Transfer Certificate (TC) Application & Guidelines",
+    title: "Transfer Certificate (TC) Portal & Verification",
     category: "Admissions",
-    type: "PDF",
-    size: "640 KB",
-    date: "Oct 2026",
+    type: "PORTAL",
+    size: "Online",
+    date: "Active",
     description:
-      "Official withdrawal procedure, clearance certificate checklist, and sample TC specimen format.",
-    downloadsCount: 540,
+      "Verify student Transfer Certificates online or access official withdrawal procedures and verification guidelines.",
+    downloadsCount: 1420,
+    href: "/tc",
   },
   {
     id: 4,
@@ -62,9 +63,14 @@ export const DOCS_DATA: DocItem[] = [
   },
 ];
 
-export function BentoGrid() {
-  const featuredDoc = DOCS_DATA[0];
-  const otherDocs = DOCS_DATA.slice(1, 5);
+interface BentoGridProps {
+  docs?: DocItem[];
+}
+
+export function BentoGrid({ docs }: BentoGridProps) {
+  const dataset = docs && docs.length > 0 ? docs : DOCS_DATA;
+  const featuredDoc = dataset.find((d) => d.isFeatured) || dataset[0];
+  const otherDocs = dataset.filter((d) => d.id !== featuredDoc.id).slice(0, 4);
 
   return (
     <div>

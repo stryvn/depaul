@@ -10,13 +10,14 @@ export function ContactSection() {
       {/* Background patterns */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-700/40 via-brand-royal to-blue-950 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 relative z-10">
         <ScrollReveal>
           <SectionHeading
             badge="Get In Touch"
             title="Contact & Campus Visit"
             subtitle="Plan a visit to our picturesque Rajamudy campus or get in touch with our admissions counsellors."
             theme="dark"
+            align="left"
           />
         </ScrollReveal>
 

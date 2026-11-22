@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Calendar, ArrowUpRight } from "lucide-react";
 import { cn } from "../ui/utils";
 
@@ -9,9 +10,12 @@ export interface StoryItem {
   id: number;
   title: string;
   excerpt: string;
-  date: string;
+  date?: string;
+  publishedAt?: string;
   category: string;
-  image: string;
+  image?: string;
+  coverImage?: string;
+  slug?: string;
   isFeatured?: boolean;
 }
 
@@ -22,17 +26,22 @@ interface StoryTileProps {
 }
 
 export function StoryTile({ story, className, isFeatured = false }: StoryTileProps) {
+  const imageUrl = story.coverImage || story.image || "/assets/events/sportsday01.jpeg";
+  const displayDate = story.publishedAt || story.date || "";
+  const href = story.slug ? `/stories/${story.slug}` : "#";
+
   return (
-    <article
+    <Link
+      href={href}
       className={cn(
-        "group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 bg-slate-900 border border-slate-800 cursor-pointer flex flex-col justify-end",
+        "group relative rounded-2xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300 bg-slate-900 border border-slate-800 cursor-pointer flex flex-col justify-end block",
         className
       )}
     >
       {/* Image with zoom on hover */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <Image
-          src={story.image}
+          src={imageUrl}
           alt={story.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -61,10 +70,12 @@ export function StoryTile({ story, className, isFeatured = false }: StoryTilePro
 
       {/* Bottom Content Bar overlaid */}
       <div className="relative z-10 p-5 sm:p-6 transition-transform duration-300 group-hover:-translate-y-1">
-        <div className="flex items-center gap-2 text-xs text-brand-sky font-medium mb-1.5">
-          <Calendar className="w-3.5 h-3.5" />
-          <span>{story.date}</span>
-        </div>
+        {displayDate && (
+          <div className="flex items-center gap-2 text-xs text-brand-sky font-medium mb-1.5">
+            <Calendar className="w-3.5 h-3.5" />
+            <span>{displayDate}</span>
+          </div>
+        )}
 
         <h3
           className={cn(
@@ -88,6 +99,6 @@ export function StoryTile({ story, className, isFeatured = false }: StoryTilePro
           </p>
         )}
       </div>
-    </article>
+    </Link>
   );
 }

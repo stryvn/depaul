@@ -11,12 +11,12 @@ interface BottomNavBarProps {
 }
 
 const BOTTOM_LINKS = [
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
-  { name: "Docs", href: "#docs" },
-  { name: "News", href: "#stories" },
+  { name: "About", href: "/about" },
+  { name: "Contact", href: "/contact" },
+  { name: "Docs", href: "/#docs" },
+  { name: "Stories", href: "/#stories" },
   { name: "Alumni", href: "/alumni" },
-  { name: "TC", href: "#docs" },
+  { name: "TC", href: "/tc" },
 ];
 
 export function BottomNavBar({ isMerged }: BottomNavBarProps) {
