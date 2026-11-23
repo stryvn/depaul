@@ -1,0 +1,161 @@
+/* Exact TC Portal Layout & Motion Styles */
+/* Cloned from https://de-paul-about-motion.lankypier2.chatgpt.site/tc/ */
+
+.tc-page {
+  --navy: #0b1b3d;
+  --blue: #173e82;
+  --secondary: #475871;
+  --line: #d7e0ec;
+  --pale: #edf3fa;
+  --paper: #f8fafc;
+  --page-gutter: 20px;
+  --page-max: 1380px;
+
+  background: #f3f6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.tc-page main {
+  padding-top: 109px;
+  flex: 1;
+}
+
+.tc-layout {
+  width: min(var(--page-max), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  align-items: start;
+  gap: clamp(16px, 2.5vw, 34px);
+  padding-bottom: clamp(40px, 6vw, 82px);
+}
+
+.tc-title {
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--navy);
+  color: white;
+}
+
+.tc-title-copy {
+  padding: clamp(26px, 3.6vw, 50px);
+}
+
+.tc-document {
+  display: block;
+  margin-bottom: 20px;
+  color: #aecbf0;
+}
+
+.tc-title h1 {
+  font-size: clamp(2.7rem, 4.75vw, 5rem);
+  line-height: 1;
+  font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+
+.tc-title .lede {
+  margin-top: 16px;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+}
+
+.tc-photo {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 2;
+  object-fit: cover;
+  object-position: center 44%;
+  display: block;
+}
+
+.tc-help {
+  margin-top: clamp(18px, 2.4vw, 32px);
+  padding: clamp(18px, 2.6vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--pale);
+}
+
+.tc-help h2 {
+  font-size: clamp(1.14rem, 1.9vw, 1.48rem);
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+  color: var(--navy);
+  font-weight: 700;
+  margin: 0;
+}
+
+.tc-help p {
+  margin-block: 8px 12px;
+  color: var(--secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.tc-help a,
+.tc-fallback a {
+  color: var(--blue);
+  font-weight: 700;
+  text-underline-offset: 4px;
+  text-decoration: underline;
+  transition: opacity 0.2s;
+}
+
+.tc-help a:hover,
+.tc-fallback a:hover {
+  opacity: 0.85;
+}
+
+.tc-verification {
+  min-width: 0;
+}
+
+.tc-frame {
+  display: block;
+  width: 100%;
+  height: 760px;
+  border: 0;
+  background: transparent;
+}
+
+.tc-fallback {
+  padding-inline: clamp(6px, 1.5vw, 20px);
+  text-align: end;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 800px) {
+  .tc-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .tc-intro {
+    display: contents;
+  }
+  .tc-title {
+    grid-row: 1;
+  }
+  .tc-help {
+    grid-row: 3;
+    margin-top: 0;
+  }
+  .tc-title h1 {
+    font-size: clamp(2.35rem, 7vw, 3.5rem);
+  }
+  .tc-photo {
+    aspect-ratio: 3.1;
+  }
+  .tc-frame {
+    height: 790px;
+  }
+  .tc-fallback {
+    text-align: start;
+  }
+}

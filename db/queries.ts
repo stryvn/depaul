@@ -335,6 +335,18 @@ export function incrementDocumentDownloads(id: number): Document | undefined {
     .get();
 }
 
+/** Atomically increment download counter by slug. */
+export function incrementDocumentDownloadsBySlug(slug: string): Document | undefined {
+  return db
+    .update(documents)
+    .set({
+      downloadsCount: sql`${documents.downloadsCount} + 1`,
+    })
+    .where(eq(documents.slug, slug))
+    .returning()
+    .get();
+}
+
 /** Document statistics for admin overview cards. */
 export function getDocumentStats() {
   const total = db.select({ count: sql<number>`count(*)` }).from(documents).get()?.count ?? 0;

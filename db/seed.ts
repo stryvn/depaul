@@ -1,5 +1,5 @@
 import { db } from "./index";
-import { stories, documents, alumni } from "./schema";
+import { stories, documents } from "./schema";
 
 const initialDocuments = [
   {
@@ -304,114 +304,6 @@ async function seed() {
       console.log(`Seeded document: ${doc.title}`);
     } catch (err) {
       console.error(`Error inserting document ${doc.title}:`, err);
-    }
-  }
-
-  console.log("Seeding initial alumni records...");
-  const initialAlumni = [
-    {
-      name: "Dr. Ananya Varghese",
-      email: "ananya.varghese@health.kerala.gov.in",
-      phone: "+91 94471 23456",
-      showEmailPublicly: true,
-      batchYear: 2014,
-      classOrStream: "Class 12 Bio-Maths",
-      admissionNumber: "0842",
-      occupation: "Senior Resident Physician",
-      organization: "Government Medical College, Kottayam",
-      city: "Kottayam",
-      country: "India",
-      linkedinUrl: "https://linkedin.com",
-      bio: "Passionate about rural community health and internal medicine. Fond memories of science exhibitions at De Paul.",
-      message: "De Paul instilled in me the discipline and empathy that guide my medical practice every day. Forever proud to be a Depaulian!",
-      avatarUrl: null,
-      isFeatured: true,
-      status: "ACTIVE" as const,
-    },
-    {
-      name: "Rahul K. Nair",
-      email: "rahul.nair@techcorp.io",
-      phone: "+91 98460 78901",
-      showEmailPublicly: false,
-      batchYear: 2017,
-      classOrStream: "Class 12 Computer Science",
-      admissionNumber: "1124",
-      occupation: "Staff Cloud Systems Engineer",
-      organization: "Amazon Web Services (AWS)",
-      city: "Bengaluru",
-      country: "India",
-      linkedinUrl: "https://linkedin.com",
-      bio: "Specializing in distributed computing and cloud infrastructure. Class captain and computer club coordinator at De Paul.",
-      message: "The teachers at De Paul taught us that no dream is too high if you stay grounded in your values. For God & Country!",
-      avatarUrl: null,
-      isFeatured: true,
-      status: "ACTIVE" as const,
-    },
-    {
-      name: "Sherin Mathew",
-      email: "sherin.mathew@legalpartners.in",
-      phone: "+91 97455 34567",
-      showEmailPublicly: true,
-      batchYear: 2019,
-      classOrStream: "Class 12 Commerce",
-      admissionNumber: "1356",
-      occupation: "Corporate Advocate & Legal Counsel",
-      organization: "High Court of Kerala",
-      city: "Kochi",
-      country: "India",
-      linkedinUrl: "https://linkedin.com",
-      bio: "Handling commercial arbitration and intellectual property rights.",
-      message: "De Paul's debate competitions and elocution contests shaped my voice and confidence in the courtroom.",
-      avatarUrl: null,
-      isFeatured: false,
-      status: "ACTIVE" as const,
-    },
-    {
-      name: "Jerin Tom",
-      email: "jerin.tom@eduexcel.org",
-      phone: "+91 94950 12345",
-      showEmailPublicly: false,
-      batchYear: 2021,
-      classOrStream: "Class 12 Science",
-      admissionNumber: "1590",
-      occupation: "Graduate Research Scholar",
-      organization: "Indian Institute of Science (IISc)",
-      city: "Bengaluru",
-      country: "India",
-      linkedinUrl: "https://linkedin.com",
-      bio: "Pursuing computational physics and renewable materials research.",
-      message: "Gratitude to all my teachers in Rajamudy who sparked my love for physics in the school lab.",
-      avatarUrl: null,
-      isFeatured: true,
-      status: "ACTIVE" as const,
-    },
-    {
-      name: "Merin George",
-      email: "merin.george@creativepixel.com",
-      phone: "+91 98952 67890",
-      showEmailPublicly: true,
-      batchYear: 2022,
-      classOrStream: "Class 12 Humanities / Commerce",
-      admissionNumber: "1675",
-      occupation: "UI/UX Product Designer",
-      organization: "FinTech Studio",
-      city: "Ernakulam",
-      country: "India",
-      linkedinUrl: "https://linkedin.com",
-      bio: "Designing accessible digital experiences for millions of users.",
-      message: "Always remembering the annual school days, youth festivals, and the green hills of Rajamudy!",
-      avatarUrl: null,
-      isFeatured: false,
-      status: "ACTIVE" as const,
-    },
-  ];
-
-  for (const person of initialAlumni) {
-    try {
-      await db.insert(alumni).values(person).onConflictDoNothing();
-      console.log(`Seeded alumni: ${person.name}`);
-    } catch (err) {
-      console.error(`Error inserting alumni ${person.name}:`, err);
     }
   }
 

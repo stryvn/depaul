@@ -7,7 +7,43 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Phone, Mail, MapPin, Clock } from "lucide-react";
 import { TopNavbar } from "@/components/navbar/TopNavbar";
 import { Footer } from "@/components/footer/Footer";
-import { WhatsAppIcon } from "@/components/ui/SocialIcons";
+import {
+  WhatsAppIcon,
+  InstagramIcon,
+  FacebookIcon,
+  YoutubeIcon,
+} from "@/components/ui/SocialIcons";
+
+const SOCIAL_LINKS = [
+  {
+    name: "WhatsApp",
+    href: "https://wa.me/919605602400",
+    icon: WhatsAppIcon,
+    className:
+      "bg-emerald-600/10 hover:bg-emerald-600 border-emerald-600/20 hover:border-emerald-600 text-emerald-700 hover:text-white",
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/depaulschoolrajamudy",
+    icon: InstagramIcon,
+    className:
+      "bg-pink-600/10 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 border-pink-600/20 hover:border-pink-500 text-pink-700 hover:text-white",
+  },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/depaulschoolrajamudy",
+    icon: FacebookIcon,
+    className:
+      "bg-blue-600/10 hover:bg-blue-600 border-blue-600/20 hover:border-blue-600 text-blue-700 hover:text-white",
+  },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@depaulschoolrajamudy",
+    icon: YoutubeIcon,
+    className:
+      "bg-red-600/10 hover:bg-red-600 border-red-600/20 hover:border-red-600 text-red-700 hover:text-white",
+  },
+];
 
 export function ContactPageClient() {
   return (
@@ -145,25 +181,41 @@ export function ContactPageClient() {
                 </dl>
               </div>
 
-              {/* Office hours & quick WhatsApp action */}
-              <div className="mt-6 pt-5 border-t border-[#cedaeb] flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600">
-                <div className="flex items-center gap-2 font-medium">
+              {/* Office hours & Social Channels */}
+              <div className="mt-6 pt-5 border-t border-[#cedaeb] space-y-3.5">
+                <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                  <span>Mon – Sat: 8:30 AM – 4:30 PM</span>
+                  <span>Mon – Sat: 8:30 AM – 4:30 PM (Sunday Closed)</span>
                 </div>
-                <a
-                  href="https://wa.me/919605602400"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-600/10 hover:bg-emerald-600 text-emerald-700 hover:text-white font-semibold transition-all shadow-xs"
-                >
-                  <WhatsAppIcon className="w-3.5 h-3.5" />
-                  <span>WhatsApp</span>
-                </a>
+
+                <div>
+                  <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">
+                    Social &amp; Direct Messaging
+                  </h4>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {SOCIAL_LINKS.map((item) => {
+                      const Icon = item.icon;
+                      return (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold tracking-wide transition-all duration-200 active:scale-95 shadow-xs ${item.className}`}
+                          title={item.name}
+                          aria-label={item.name}
+                        >
+                          <Icon className="w-3.5 h-3.5" />
+                          <span>{item.name}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
             </section>
 
-            {/* Right Card: Interactive Campus Map & Location */}
+            {/* Right Card: Google Maps Location & Directions */}
             <section
               aria-labelledby="location-title"
               className="lg:col-span-7 flex flex-col min-w-0"
@@ -186,13 +238,14 @@ export function ContactPageClient() {
                 </a>
               </div>
 
-              {/* Interactive Vector Campus Map Iframe */}
+              {/* Embedded Google Maps Container */}
               <div className="relative w-full flex-1 min-h-[350px] sm:min-h-[420px] rounded-xl border border-[#c9d6e5] overflow-hidden bg-[#eef0ed] shadow-sm">
                 <iframe
-                  src="/campus-map.html"
-                  title="Interactive map of the De Paul campus in Rajamudy"
+                  src="https://maps.google.com/maps?q=De+Paul+Public+School+Rajamudy+Idukki&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  title="Google Maps interactive location of De Paul Public School Rajamudy"
                   loading="lazy"
                   className="w-full h-full border-0 absolute inset-0"
+                  allowFullScreen
                 />
               </div>
             </section>

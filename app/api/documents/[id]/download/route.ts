@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { incrementDocumentDownloads } from "@/db/queries";
+import { incrementDocumentDownloads, incrementDocumentDownloadsBySlug } from "@/db/queries";
 
 export async function GET(
   request: Request,
@@ -7,13 +7,12 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const docId = parseInt(id, 10);
+    const isNumeric = /^\d+$/.test(id);
 
-    if (isNaN(docId)) {
-      return new NextResponse("Invalid document ID", { status: 400 });
-    }
+    const doc = isNumeric
+      ? incrementDocumentDownloads(parseInt(id, 10))
+      : incrementDocumentDownloadsBySlug(id);
 
-    const doc = incrementDocumentDownloads(docId);
     if (!doc || !doc.fileUrl) {
       return new NextResponse("Document not found", { status: 404 });
     }

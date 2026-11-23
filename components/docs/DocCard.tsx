@@ -9,6 +9,7 @@ import { cn } from "../ui/utils";
 export interface DocItem {
   id: number;
   title: string;
+  slug?: string;
   category: string;
   type?: string;
   fileType?: string;

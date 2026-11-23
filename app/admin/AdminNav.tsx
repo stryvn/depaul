@@ -44,7 +44,7 @@ export async function AdminNav() {
               Alumni
             </Link>
             <Link
-              href="/documents"
+              href="/docs"
               target="_blank"
               className="px-3 py-1.5 rounded-lg text-slate-500 hover:text-slate-800 transition-colors text-xs flex items-center gap-1"
             >

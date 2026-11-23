@@ -1,22 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
-import {
-  Search,
-  GraduationCap,
-  Briefcase,
-  MapPin,
-  ExternalLink,
-  Mail,
-  UserPlus,
-  Star,
-  MessageSquare,
-  Sparkles,
-  X,
-  Filter,
-} from "lucide-react";
+import { TopNavbar } from "@/components/navbar/TopNavbar";
+import { Footer } from "@/components/footer/Footer";
 import { AlumniRegistrationModal } from "./AlumniRegistrationModal";
+import "./alumni.css";
 
 export interface DirectoryAlumniItem {
   id: number;
@@ -44,408 +33,433 @@ interface Props {
 
 export function AlumniDirectoryClient({
   initialItems,
-  featuredItems,
   batchYears,
-  totalCount,
 }: Props) {
-  const [items] = useState<DirectoryAlumniItem[]>(initialItems);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedBatch, setSelectedBatch] = useState<string>("ALL");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const [activeModalAlumnus, setActiveModalAlumnus] = useState<DirectoryAlumniItem | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+  const [selectedYear, setSelectedYear] = useState("");
+  const [page, setPage] = useState(1);
+  const [activeProfile, setActiveProfile] = useState<DirectoryAlumniItem | null>(null);
 
-  // Filtered view
-  const filteredItems = items.filter((item) => {
-    if (selectedBatch !== "ALL" && item.batchYear !== parseInt(selectedBatch, 10)) return false;
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      const matchName = item.name.toLowerCase().includes(q);
-      const matchOcc = item.occupation.toLowerCase().includes(q);
-      const matchOrg = (item.organization || "").toLowerCase().includes(q);
-      const matchCity = item.city.toLowerCase().includes(q);
-      if (!matchName && !matchOcc && !matchOrg && !matchCity) return false;
+  const pageSize = 6;
+
+  // Real alumni data only
+  const allProfiles = initialItems;
+
+  // Extract distinct leaving years sorted descending
+  const availableYears = useMemo(() => {
+    const yrSet = new Set<number>([
+      ...batchYears,
+      ...allProfiles.map((p) => p.batchYear),
+    ]);
+    return Array.from(yrSet).sort((a, b) => b - a);
+  }, [batchYears, allProfiles]);
+
+  // Filter profiles based on input
+  const filteredProfiles = useMemo(() => {
+    const q = searchQuery.trim().toLowerCase();
+    return allProfiles.filter((profile) => {
+      // Class filter (X or XII)
+      if (selectedClass) {
+        const stream = (profile.classOrStream || "").toUpperCase();
+        if (selectedClass === "X") {
+          const isTen = stream.includes("10") || (stream.includes("X") && !stream.includes("XII"));
+          if (!isTen) return false;
+        } else if (selectedClass === "XII") {
+          const isTwelve = stream.includes("12") || stream.includes("XII");
+          if (!isTwelve) return false;
+        }
+      }
+
+      // Year filter
+      if (selectedYear) {
+        if (profile.batchYear !== Number(selectedYear)) return false;
+      }
+
+      // Name, city, or occupation search
+      if (q) {
+        const matchesName = profile.name.toLowerCase().includes(q);
+        const matchesCity = profile.city.toLowerCase().includes(q);
+        const matchesOcc = profile.occupation.toLowerCase().includes(q);
+        const matchesOrg = (profile.organization || "").toLowerCase().includes(q);
+        if (!matchesName && !matchesCity && !matchesOcc && !matchesOrg) return false;
+      }
+
+      return true;
+    });
+  }, [allProfiles, searchQuery, selectedClass, selectedYear]);
+
+  // Pagination calculation
+  const totalPages = Math.max(1, Math.ceil(filteredProfiles.length / pageSize));
+  const currentPage = Math.min(Math.max(1, page), totalPages);
+  const startIndex = (currentPage - 1) * pageSize;
+  const visibleProfiles = filteredProfiles.slice(startIndex, startIndex + pageSize);
+
+  const handleClearFilters = () => {
+    setSearchQuery("");
+    setSelectedClass("");
+    setSelectedYear("");
+    setPage(1);
+  };
+
+  const getInitials = (name: string) => {
+    const parts = name.trim().split(" ");
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
     }
-    return true;
-  });
+    return name.slice(0, 2).toUpperCase();
+  };
+
+  const getNormalizedClass = (classOrStream: string) => {
+    const upper = (classOrStream || "").toUpperCase();
+    if (upper.includes("10") || (upper.includes("X") && !upper.includes("XII"))) {
+      return "Class X";
+    }
+    return "Class XII";
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50/60 pb-24">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-brand-royal via-[#01417a] to-slate-900 text-white pt-28 pb-20 px-4 sm:px-6 lg:px-8">
-        {/* Subtle grid backdrop */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
-        
-        <div className="relative max-w-5xl mx-auto text-center space-y-6">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sky-200 text-xs font-semibold uppercase tracking-wider">
-            <Sparkles className="w-4 h-4 text-amber-300" />
-            <span>De Paul Public School & Junior College, Rajamudy</span>
-          </div>
+    <div className="alumni-page">
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
 
-          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-bold font-display tracking-tight text-white leading-tight">
-            De Paul Alumni Network
-          </h1>
+      {/* Official Top Navbar */}
+      <TopNavbar isMerged={true} />
 
-          <p className="text-base sm:text-lg text-sky-100/90 max-w-2xl mx-auto font-light leading-relaxed">
-            United by our motto <span className="font-semibold text-white">“For God & Country”</span>. Celebrating the global community of Depaulians shaping leadership, medicine, technology, and civil service.
-          </p>
-
-          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/20 cursor-pointer"
-            >
-              <UserPlus className="w-4 h-4" />
-              <span>Register as Alumni</span>
-            </button>
-            <div className="text-xs text-sky-200/80 font-medium sm:border-l sm:border-white/20 sm:pl-4 py-1">
-              <strong>{totalCount}</strong> Depaulians Registered
+      <main id="main" tabIndex={-1}>
+        {/* Hero Section */}
+        <section className="hero wrap alumni-hero" aria-labelledby="alumni-title">
+          <div className="hero-copy">
+            <p className="label">Rajamudy, Idukki</p>
+            <h1 id="alumni-title">
+              De Paul<br /> <span>Alumni</span>
+            </h1>
+            <p className="lede">
+              Find your classmates and see when alumni are getting together.
+            </p>
+            <div className="hero-actions">
+              <a className="contact-action" href="#directory">
+                Browse the directory
+              </a>
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="register-action"
+              >
+                Join the Directory
+              </button>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-8 relative z-20 space-y-12">
-        {/* Search & Filter Bar Card */}
-        <div className="bg-white rounded-3xl p-4 sm:p-6 shadow-xl border border-slate-200/80 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 w-full md:w-auto">
-            <Filter className="w-4 h-4 text-slate-400 hidden sm:block" />
-            <select
-              value={selectedBatch}
-              onChange={(e) => setSelectedBatch(e.target.value)}
-              className="w-full sm:w-auto px-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm font-semibold text-slate-700 focus:outline-hidden focus:ring-2 focus:ring-brand-royal/20"
-            >
-              <option value="ALL">All Batches</option>
-              {batchYears.map((yr) => (
-                <option key={yr} value={yr}>
-                  Class of {yr}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="relative w-full md:w-96">
-            <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              placeholder="Search by name, profession, company, or city..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-xs sm:text-sm text-slate-800 placeholder-slate-400 focus:outline-hidden focus:ring-2 focus:ring-brand-royal/20"
+          <figure className="hero-photo">
+            <Image
+              src="/assets/campus.webp"
+              alt="Aerial view of the De Paul campus in Rajamudy"
+              priority
+              width={1280}
+              height={720}
             />
-          </div>
-        </div>
+            <figcaption>De Paul campus, Rajamudy</figcaption>
+          </figure>
+        </section>
 
-        {/* Featured Spotlights (if any) */}
-        {featuredItems.length > 0 && selectedBatch === "ALL" && !searchQuery.trim() && (
-          <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <Star className="w-5 h-5 text-amber-500 fill-amber-500" />
-              <h2 className="text-xl font-bold text-slate-900 font-display">Featured Depaulians</h2>
+        {/* Two-column layout: Events & Directory */}
+        <div className="wrap alumni-layout">
+          {/* Left Column: Events */}
+          <section id="events" className="event-section" aria-labelledby="events-title">
+            <div className="section-heading">
+              <h2 id="events-title">Alumni events</h2>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredItems.map((alumnus) => (
-                <div
-                  key={`featured-${alumnus.id}`}
-                  onClick={() => setActiveModalAlumnus(alumnus)}
-                  className="group bg-gradient-to-br from-amber-50/60 to-white rounded-3xl p-6 border-2 border-amber-200/80 shadow-md hover:shadow-xl hover:border-amber-300 transition-all cursor-pointer relative"
-                >
-                  <div className="absolute top-4 right-4 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500 text-slate-950 font-bold text-[10px] uppercase tracking-wider">
-                    <Star className="w-3 h-3 fill-slate-950 text-slate-950" />
-                    Spotlight
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    {alumnus.avatarUrl ? (
-                      <Image
-                        src={alumnus.avatarUrl}
-                        alt={alumnus.name}
-                        width={60}
-                        height={60}
-                        className="w-14 h-14 rounded-full object-cover border-2 border-amber-300 shadow-xs shrink-0"
-                      />
-                    ) : (
-                      <div className="w-14 h-14 rounded-full bg-brand-royal text-white font-bold text-base flex items-center justify-center shrink-0 shadow-xs">
-                        {alumnus.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .slice(0, 2)
-                          .join("")
-                          .toUpperCase()}
-                      </div>
-                    )}
-                    <div>
-                      <h3 className="font-bold text-slate-900 text-base group-hover:text-brand-royal transition-colors">
-                        {alumnus.name}
-                      </h3>
-                      <div className="text-xs text-amber-800 font-semibold mt-0.5">
-                        Class of {alumnus.batchYear} • {alumnus.classOrStream}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="mt-4 pt-4 border-t border-amber-200/50 space-y-1.5 text-xs">
-                    <div className="font-medium text-slate-800 flex items-center gap-1.5">
-                      <Briefcase className="w-3.5 h-3.5 text-amber-700 shrink-0" />
-                      <span className="truncate">{alumnus.occupation}</span>
-                    </div>
-                    {alumnus.organization && (
-                      <div className="text-slate-600 truncate pl-5">{alumnus.organization}</div>
-                    )}
-                    <div className="text-slate-500 flex items-center gap-1.5 pt-1">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                      <span>{alumnus.city}, {alumnus.country}</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Directory Card Grid */}
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-slate-900 font-display">
-              {selectedBatch !== "ALL" ? `Batch of ${selectedBatch}` : "All Alumni"}
-              <span className="text-sm font-normal text-slate-500 ml-2">
-                ({filteredItems.length} {filteredItems.length === 1 ? "alumnus" : "alumni"})
-              </span>
-            </h2>
-          </div>
-
-          {filteredItems.length === 0 ? (
-            <div className="bg-white rounded-3xl p-16 text-center border border-slate-200 shadow-xs space-y-4">
-              <div className="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto">
-                <GraduationCap className="w-8 h-8" />
-              </div>
-              <h3 className="text-lg font-bold text-slate-800">No alumni found</h3>
-              <p className="text-xs sm:text-sm text-slate-500 max-w-sm mx-auto">
-                No profiles match your search criteria. Be the first from this batch or field to register!
-              </p>
-              <div className="pt-2">
-                <button
-                  onClick={() => setIsModalOpen(true)}
-                  className="px-5 py-2.5 rounded-xl bg-brand-royal text-white text-xs font-semibold hover:bg-brand-royal/90 cursor-pointer shadow-xs"
-                >
-                  Register Profile Now
-                </button>
+            <div className="agenda">
+              <div className="p-4 rounded-xl bg-white border border-slate-200/80 text-sm text-slate-500">
+                No upcoming alumni events scheduled at this time. Announcements for alumni meets and reunions will be published here.
               </div>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {filteredItems.map((alumnus) => (
-                <div
-                  key={alumnus.id}
-                  onClick={() => setActiveModalAlumnus(alumnus)}
-                  className="group bg-white rounded-3xl p-5 border border-slate-200 hover:border-brand-royal/40 shadow-xs hover:shadow-xl transition-all cursor-pointer flex flex-col justify-between"
+          </section>
+
+          {/* Right Column: Directory */}
+          <section id="directory" aria-labelledby="directory-title">
+            <div className="section-heading">
+              <h2 id="directory-title">Alumni directory</h2>
+            </div>
+
+            <form
+              className="filters"
+              role="search"
+              aria-label="Search alumni directory"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <div className="field">
+                <label htmlFor="search">Search by name or city</label>
+                <input
+                  type="search"
+                  name="search"
+                  id="search"
+                  placeholder="e.g. Maya or Kochi"
+                  value={searchQuery}
+                  onChange={(e) => {
+                    setSearchQuery(e.target.value);
+                    setPage(1);
+                  }}
+                />
+              </div>
+
+              <div className="field">
+                <label htmlFor="leaving-class">Class left</label>
+                <select
+                  name="leavingClass"
+                  id="leaving-class"
+                  value={selectedClass}
+                  onChange={(e) => {
+                    setSelectedClass(e.target.value);
+                    setPage(1);
+                  }}
                 >
-                  <div>
-                    {/* Card Top: Avatar & Badges */}
-                    <div className="flex items-start justify-between gap-3">
-                      {alumnus.avatarUrl ? (
+                  <option value="">Both classes</option>
+                  <option value="X">Class X</option>
+                  <option value="XII">Class XII</option>
+                </select>
+              </div>
+
+              <div className="field">
+                <label htmlFor="leaving-year">Year left</label>
+                <select
+                  name="leavingYear"
+                  id="leaving-year"
+                  value={selectedYear}
+                  onChange={(e) => {
+                    setSelectedYear(e.target.value);
+                    setPage(1);
+                  }}
+                >
+                  <option value="">All years</option>
+                  {availableYears.map((yr) => (
+                    <option key={yr} value={yr}>
+                      {yr}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <button
+                type="button"
+                className="clear"
+                onClick={handleClearFilters}
+              >
+                Clear filters
+              </button>
+            </form>
+
+            {/* Results count status */}
+            <p className="result-count" id="result-count" role="status" tabIndex={-1}>
+              {filteredProfiles.length > 0
+                ? `Showing ${startIndex + 1}–${startIndex + visibleProfiles.length} of ${filteredProfiles.length} ${
+                    filteredProfiles.length === 1 ? "profile" : "profiles"
+                  }`
+                : allProfiles.length === 0
+                ? "0 profiles registered"
+                : "0 matching profiles"}
+            </p>
+
+            {/* Empty state */}
+            {filteredProfiles.length === 0 && (
+              <div className="empty">
+                {allProfiles.length === 0 ? (
+                  <div className="p-8 text-center bg-white rounded-xl border border-slate-200/80 space-y-3">
+                    <p className="text-slate-700 font-semibold text-base">The alumni directory is open for registration.</p>
+                    <p className="text-slate-500 text-sm max-w-md mx-auto">
+                      Be among the first Depaulians to join the official network. Register your profile to connect with classmates.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setIsModalOpen(true)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#2059aa] text-white font-semibold text-sm hover:bg-[#17478d] transition-colors cursor-pointer mt-2"
+                    >
+                      Register Your Profile
+                    </button>
+                  </div>
+                ) : (
+                  <p id="empty">No matches found. Try changing the name, city, class or year.</p>
+                )}
+              </div>
+            )}
+
+            {/* Profiles List */}
+            {filteredProfiles.length > 0 && (
+              <ul className="alumni-list" id="alumni-list" aria-label="Alumni profiles">
+                {visibleProfiles.map((profile) => (
+                  <li key={profile.id}>
+                    <div className="profile-header">
+                      {profile.avatarUrl ? (
                         <Image
-                          src={alumnus.avatarUrl}
-                          alt={alumnus.name}
-                          width={52}
-                          height={52}
-                          className="w-13 h-13 rounded-2xl object-cover border border-slate-200 shadow-2xs shrink-0"
+                          src={profile.avatarUrl}
+                          alt={profile.name}
+                          width={46}
+                          height={46}
+                          className="initials-img"
                         />
                       ) : (
-                        <div className="w-13 h-13 rounded-2xl bg-brand-royal/10 text-brand-royal font-bold text-sm flex items-center justify-center shrink-0 border border-brand-royal/20">
-                          {alumnus.name
-                            .split(" ")
-                            .map((n) => n[0])
-                            .slice(0, 2)
-                            .join("")
-                            .toUpperCase()}
-                        </div>
+                        <span className="initials" aria-hidden="true">
+                          {getInitials(profile.name)}
+                        </span>
                       )}
-                      <span className="inline-flex items-center px-2.5 py-1 rounded-full bg-sky-50 text-brand-royal text-[11px] font-bold border border-sky-100">
-                        Class of {alumnus.batchYear}
-                      </span>
+                      <div>
+                        <h3>{profile.name}</h3>
+                        <p>{profile.city}</p>
+                      </div>
                     </div>
 
-                    {/* Alumnus Name & Stream */}
-                    <div className="mt-3.5">
-                      <h3 className="font-bold text-slate-900 text-sm group-hover:text-brand-royal transition-colors">
-                        {alumnus.name}
-                      </h3>
-                      <p className="text-[11px] text-slate-500 mt-0.5 truncate">
-                        {alumnus.classOrStream}
+                    <div className="profile-footer">
+                      <p>
+                        {getNormalizedClass(profile.classOrStream)} · {profile.batchYear}
                       </p>
+                      <button
+                        type="button"
+                        className="profile-open"
+                        aria-label={`View profile for ${profile.name}`}
+                        aria-haspopup="dialog"
+                        onClick={() => setActiveProfile(profile)}
+                      />
                     </div>
+                  </li>
+                ))}
+              </ul>
+            )}
 
-                    {/* Role & Org */}
-                    <div className="mt-3 pt-3 border-t border-slate-100 space-y-1 text-xs">
-                      <div className="font-medium text-slate-800 flex items-center gap-1.5">
-                        <Briefcase className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        <span className="truncate">{alumnus.occupation}</span>
-                      </div>
-                      {alumnus.organization && (
-                        <div className="text-slate-500 truncate pl-5 text-[11px]">
-                          {alumnus.organization}
-                        </div>
-                      )}
-                      <div className="text-slate-400 flex items-center gap-1.5 pt-1 text-[11px]">
-                        <MapPin className="w-3.5 h-3.5 text-slate-300 shrink-0" />
-                        <span className="truncate">{alumnus.city}, {alumnus.country}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Card Bottom: Message badge & Social */}
-                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
-                    {alumnus.message ? (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-medium text-brand-royal">
-                        <MessageSquare className="w-3 h-3" />
-                        <span>Has message</span>
-                      </span>
-                    ) : (
-                      <span className="text-[11px] text-slate-400">View profile</span>
-                    )}
-
-                    <div className="flex items-center gap-2">
-                      {alumnus.linkedinUrl && (
-                        <a
-                          href={alumnus.linkedinUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded-md text-slate-400 hover:text-brand-royal hover:bg-slate-100 transition-colors"
-                          title="LinkedIn Profile"
-                        >
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                      {alumnus.email && (
-                        <a
-                          href={`mailto:${alumnus.email}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="p-1 rounded-md text-slate-400 hover:text-brand-royal hover:bg-slate-100 transition-colors"
-                          title="Send Email"
-                        >
-                          <Mail className="w-3.5 h-3.5" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div
+                id="pagination"
+                className="pagination"
+                role="group"
+                aria-label="Directory pages"
+              >
+                <button
+                  type="button"
+                  id="previous-page"
+                  disabled={currentPage === 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                >
+                  Previous
+                </button>
+                <span id="page-count">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  type="button"
+                  id="next-page"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                >
+                  Next
+                </button>
+              </div>
+            )}
+          </section>
         </div>
       </main>
 
-      {/* Alumnus Detail Modal */}
-      {activeModalAlumnus && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/60 backdrop-blur-xs">
-          <div className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95">
-            <div className="flex items-start justify-between pb-4 border-b border-slate-100">
-              <div className="flex items-center gap-4">
-                {activeModalAlumnus.avatarUrl ? (
-                  <Image
-                    src={activeModalAlumnus.avatarUrl}
-                    alt={activeModalAlumnus.name}
-                    width={56}
-                    height={56}
-                    className="w-14 h-14 rounded-2xl object-cover border border-slate-200 shadow-2xs"
-                  />
-                ) : (
-                  <div className="w-14 h-14 rounded-2xl bg-brand-royal text-white font-bold text-base flex items-center justify-center">
-                    {activeModalAlumnus.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .slice(0, 2)
-                      .join("")
-                      .toUpperCase()}
-                  </div>
-                )}
-                <div>
-                  <h3 className="font-bold text-slate-900 text-lg font-display">
-                    {activeModalAlumnus.name}
-                  </h3>
-                  <div className="text-xs font-semibold text-brand-royal mt-0.5">
-                    Class of {activeModalAlumnus.batchYear} • {activeModalAlumnus.classOrStream}
-                  </div>
-                </div>
-              </div>
-              <button
-                onClick={() => setActiveModalAlumnus(null)}
-                className="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 cursor-pointer"
-              >
-                <X className="w-5 h-5" />
-              </button>
+      {/* Profile Preview Modal */}
+      {activeProfile && (
+        <div
+          className="profile-preview-overlay"
+          onClick={() => setActiveProfile(null)}
+        >
+          <div
+            className="profile-preview"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="profile-name"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="profile-preview-header">
+              {activeProfile.avatarUrl ? (
+                <Image
+                  src={activeProfile.avatarUrl}
+                  alt={activeProfile.name}
+                  width={62}
+                  height={62}
+                  className="initials-img"
+                  style={{ width: "62px", height: "62px", marginBottom: "11px" }}
+                />
+              ) : (
+                <span id="profile-initials" className="initials" aria-hidden="true">
+                  {getInitials(activeProfile.name)}
+                </span>
+              )}
+              <h2 id="profile-name">{activeProfile.name}</h2>
             </div>
 
-            <div className="mt-5 space-y-4 text-xs sm:text-sm">
-              <div className="bg-slate-50 p-4 rounded-2xl space-y-2 border border-slate-100">
-                <div className="flex items-center gap-2 text-slate-800 font-medium">
-                  <Briefcase className="w-4 h-4 text-brand-royal shrink-0" />
-                  <span>{activeModalAlumnus.occupation}</span>
-                  {activeModalAlumnus.organization && (
-                    <span className="text-slate-500">at {activeModalAlumnus.organization}</span>
-                  )}
-                </div>
-                <div className="flex items-center gap-2 text-slate-600">
-                  <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                  <span>{activeModalAlumnus.city}, {activeModalAlumnus.country}</span>
-                </div>
+            <dl className="profile-facts">
+              <div>
+                <dt>Class left</dt>
+                <dd id="profile-class">{getNormalizedClass(activeProfile.classOrStream)}</dd>
+              </div>
+              <div>
+                <dt>Year left</dt>
+                <dd id="profile-year">{activeProfile.batchYear}</dd>
+              </div>
+              <div>
+                <dt>City</dt>
+                <dd id="profile-city">{activeProfile.city}</dd>
               </div>
 
-              {activeModalAlumnus.message && (
+              {activeProfile.occupation && activeProfile.occupation !== "Alumnus" && (
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1.5 flex items-center gap-1.5">
-                    <MessageSquare className="w-3.5 h-3.5 text-brand-royal" />
-                    <span>Memory / Message to School & Batchmates</span>
-                  </h4>
-                  <div className="bg-sky-50/70 p-4 rounded-2xl text-slate-800 italic leading-relaxed border border-sky-100">
-                    “{activeModalAlumnus.message}”
-                  </div>
+                  <dt>Role</dt>
+                  <dd>
+                    {activeProfile.occupation}
+                    {activeProfile.organization ? ` · ${activeProfile.organization}` : ""}
+                  </dd>
                 </div>
               )}
 
-              {activeModalAlumnus.bio && (
+              {activeProfile.message && (
                 <div>
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">
-                    Bio & Achievements
-                  </h4>
-                  <p className="text-slate-600 leading-relaxed">{activeModalAlumnus.bio}</p>
+                  <dt>Message</dt>
+                  <dd className="italic font-normal text-slate-700">“{activeProfile.message}”</dd>
                 </div>
               )}
 
-              {/* Contact Links */}
-              <div className="pt-2 flex items-center gap-3">
-                {activeModalAlumnus.linkedinUrl && (
-                  <a
-                    href={activeModalAlumnus.linkedinUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
-                  >
-                    <span>LinkedIn Profile</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </a>
-                )}
-                {activeModalAlumnus.email && (
-                  <a
-                    href={`mailto:${activeModalAlumnus.email}`}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-brand-royal/10 hover:bg-brand-royal/20 text-brand-royal text-xs font-semibold transition-colors"
-                  >
-                    <Mail className="w-3 h-3" />
-                    <span>{activeModalAlumnus.email}</span>
-                  </a>
-                )}
-              </div>
-            </div>
+              {activeProfile.linkedinUrl && (
+                <div>
+                  <dt>LinkedIn</dt>
+                  <dd>
+                    <a
+                      href={activeProfile.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#173e82] underline font-semibold"
+                    >
+                      View LinkedIn Profile ↗
+                    </a>
+                  </dd>
+                </div>
+              )}
 
-            <div className="mt-6 flex justify-end">
+              {activeProfile.email && (
+                <div>
+                  <dt>Email</dt>
+                  <dd>
+                    <a
+                      href={`mailto:${activeProfile.email}`}
+                      className="text-[#173e82] underline font-semibold"
+                    >
+                      {activeProfile.email}
+                    </a>
+                  </dd>
+                </div>
+              )}
+            </dl>
+
+            <div className="profile-actions">
               <button
-                onClick={() => setActiveModalAlumnus(null)}
-                className="px-5 py-2 bg-slate-100 text-slate-700 font-semibold text-xs rounded-xl hover:bg-slate-200 cursor-pointer"
-              >
-                Close
-              </button>
+                type="button"
+                className="profile-close"
+                aria-label="Close profile"
+                onClick={() => setActiveProfile(null)}
+              />
             </div>
           </div>
         </div>
@@ -455,10 +469,10 @@ export function AlumniDirectoryClient({
       <AlumniRegistrationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSuccess={() => {
-          // Re-fetch or window reload to see immediate activation
-        }}
       />
+
+      {/* Official Footer */}
+      <Footer />
     </div>
   );
 }

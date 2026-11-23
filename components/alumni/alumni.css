@@ -1,0 +1,665 @@
+/* Exact Alumni Layout & Styling */
+/* Redesigned to match https://de-paul-about-motion.lankypier2.chatgpt.site/alumni/ */
+
+.alumni-page {
+  --navy: #0b1b3d;
+  --blue: #173e82;
+  --secondary: #475871;
+  --line: #d7e0ec;
+  --pale: #edf3fa;
+  --paper: #f8fafc;
+  --page-gutter: 20px;
+  --page-max: 1380px;
+  --ink: var(--navy);
+  --muted: var(--secondary);
+  --profile-rule: var(--line);
+
+  background: #f3f6fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
+  color: var(--navy);
+}
+
+.alumni-page main {
+  padding-top: 109px;
+  flex: 1;
+}
+
+.alumni-page .wrap {
+  width: min(var(--page-max), calc(100% - 2 * var(--page-gutter)));
+  margin-inline: auto;
+}
+
+/* Hero Section */
+.alumni-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 41fr) minmax(0, 59fr);
+  min-height: clamp(350px, 34vw, 460px);
+  color: white;
+  background: var(--navy);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.alumni-hero .hero-copy {
+  align-self: center;
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.alumni-hero .label {
+  font-size: 0.83rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: #a9c6ed;
+  margin-bottom: 9px;
+}
+
+.alumni-hero h1 {
+  font-size: clamp(3.25rem, 6.7vw, 6.1rem);
+  line-height: 0.99;
+  font-weight: 800;
+  letter-spacing: -0.061em;
+  color: white;
+  margin: 0;
+}
+
+.alumni-hero h1 span {
+  white-space: nowrap;
+}
+
+.alumni-hero .lede {
+  margin-top: 10px;
+  margin-block: 20px;
+  max-width: 32ch;
+  color: #e0eafa;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.alumni-hero .hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.alumni-hero .contact-action {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 9px 18px;
+  color: #0b1b3d;
+  background: #edf3fa;
+  border-radius: 6px;
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 150ms ease;
+  cursor: pointer;
+}
+
+.alumni-hero .contact-action:hover {
+  background: #d9e8fb;
+}
+
+.alumni-hero .register-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 9px 18px;
+  color: #ffffff;
+  background: #2059aa;
+  border: 1px solid #3c77cb;
+  border-radius: 6px;
+  font-weight: 800;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: background-color 150ms ease;
+  cursor: pointer;
+}
+
+.alumni-hero .register-action:hover {
+  background: #17478d;
+}
+
+.alumni-hero .hero-photo {
+  position: relative;
+  min-width: 0;
+  background: #233952;
+  margin: 0;
+}
+
+.alumni-hero .hero-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.alumni-hero .hero-photo figcaption {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: 8px 14px;
+  color: #eff5fe;
+  background: var(--navy);
+  font-size: 0.83rem;
+  border-top-left-radius: 6px;
+}
+
+/* Two-column Layout */
+.alumni-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) minmax(0, 7fr);
+  align-items: start;
+  gap: clamp(20px, 3.2vw, 40px);
+  margin-block: clamp(28px, 4.2vw, 54px);
+  padding-bottom: clamp(40px, 6vw, 82px);
+}
+
+.alumni-layout section {
+  min-width: 0;
+  scroll-margin-top: 104px;
+}
+
+.alumni-layout .section-heading {
+  margin-bottom: 18px;
+}
+
+.alumni-layout h2,
+.profile-preview-header h2 {
+  font-size: clamp(1.65rem, 3.5vw, 3rem);
+  font-weight: 800;
+  line-height: 1.12;
+  letter-spacing: -0.055em;
+  color: var(--navy);
+  margin: 0;
+}
+
+/* Events Section */
+.event-section {
+  padding: clamp(16px, 2.4vw, 30px);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--pale);
+}
+
+.event-section h2 {
+  font-size: clamp(1.55rem, 2.5vw, 2.3rem);
+}
+
+.agenda {
+  display: grid;
+  gap: 10px;
+}
+
+.agenda details {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.agenda summary {
+  min-height: 80px;
+  list-style: none;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr) 12px;
+  gap: 10px;
+  align-items: center;
+  padding: 11px;
+  border-radius: 7px;
+  user-select: none;
+}
+
+.agenda summary::-webkit-details-marker {
+  display: none;
+}
+
+.agenda summary:hover {
+  background: var(--paper);
+}
+
+.agenda time {
+  display: block;
+  border-right: 1px solid var(--line);
+  color: var(--blue);
+  font-size: 0.78rem;
+  line-height: 1.2;
+}
+
+.agenda time strong {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.event-name {
+  display: grid;
+  gap: 3px;
+  line-height: 1.35;
+}
+
+.event-name strong {
+  font-weight: 800;
+  color: var(--navy);
+  font-size: 0.95rem;
+}
+
+.event-name span {
+  color: var(--secondary);
+  font-size: 0.88rem;
+}
+
+.expand {
+  width: 9px;
+  height: 9px;
+  border: solid var(--blue);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  justify-self: center;
+  transition: transform 180ms ease;
+}
+
+details[open] .expand {
+  transform: rotate(225deg);
+}
+
+.agenda details p {
+  margin: 0 11px 13px;
+  color: var(--secondary);
+  font-size: 0.94rem;
+  line-height: 1.5;
+}
+
+/* Directory Section */
+#directory {
+  container: directory / inline-size;
+}
+
+.filters {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) repeat(2, minmax(0, 1fr)) auto;
+  gap: 12px;
+  align-items: end;
+  padding: clamp(12px, 2vw, 20px);
+  background: var(--pale);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.field {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+}
+
+.field label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.field input,
+.field select,
+.clear,
+.pagination button {
+  min-height: 46px;
+  padding: 8px 11px;
+  border: 1px solid #adbed3;
+  border-radius: 6px;
+  background-color: white;
+  color: var(--navy);
+  font: inherit;
+  font-size: 0.92rem;
+}
+
+.field input,
+.field select {
+  width: 100%;
+}
+
+.field select {
+  padding-inline-end: 7px;
+  cursor: pointer;
+}
+
+.field input::placeholder {
+  color: var(--secondary);
+  opacity: 1;
+}
+
+.field input:focus-visible,
+.field select:focus-visible,
+.agenda summary:focus-visible {
+  outline: 2px solid #2059aa;
+  outline-offset: 2px;
+}
+
+.clear,
+.pagination button {
+  color: var(--blue);
+  font-weight: 700;
+  cursor: pointer;
+  background: white;
+  transition: background-color 150ms ease;
+}
+
+.clear:hover,
+.pagination button:hover:not(:disabled) {
+  background: #d9e8fb;
+}
+
+.result-count {
+  margin: 18px 0 9px;
+  color: var(--secondary);
+  font-size: 0.9rem;
+  scroll-margin-top: 104px;
+}
+
+.empty {
+  padding-block: 28px;
+  color: var(--secondary);
+  font-size: 0.95rem;
+}
+
+/* Alumni Cards */
+.alumni-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.alumni-list li {
+  min-width: 0;
+  position: relative;
+  display: grid;
+  gap: 11px;
+  padding: 16px 16px 9px;
+  background: white;
+  border: 1px solid var(--profile-rule);
+  border-radius: 10px;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.alumni-list li:hover,
+.alumni-list li:focus-within {
+  border-color: #7ca1c6;
+  box-shadow: 0 4px 14px #0d315810;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.initials {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  flex: none;
+  border-radius: 50%;
+  font-size: 0.87rem;
+  font-weight: 700;
+  background: #e1edf9;
+  color: #164879;
+}
+
+.initials-img {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex: none;
+}
+
+.alumni-list h3 {
+  font-size: 1.08rem;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.alumni-list p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin: 2px 0 0;
+  overflow-wrap: anywhere;
+}
+
+.profile-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0 8px;
+  border-top: 1px solid var(--profile-rule);
+  padding-top: 6px;
+}
+
+.profile-footer p {
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.profile-open,
+.profile-close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--profile-rule);
+  border-radius: 8px;
+  background: #f2f7fc;
+  color: var(--blue);
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.profile-open:hover,
+.profile-close:hover {
+  background: #dfedf9;
+}
+
+.profile-open::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-5px);
+  grid-area: 1 / 1;
+}
+
+.profile-open::after {
+  content: "";
+  width: 13px;
+  height: 7px;
+  border: 1.5px solid currentColor;
+  border-radius: 9px 9px 2px 2px;
+  transform: translateY(5px);
+  grid-area: 1 / 1;
+}
+
+.profile-close::before,
+.profile-close::after {
+  content: "";
+  width: 15px;
+  height: 2px;
+  border-radius: 2px;
+  background: currentColor;
+  grid-area: 1 / 1;
+  transform: rotate(45deg);
+}
+
+.profile-close::after {
+  transform: rotate(-45deg);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  margin-top: 19px;
+}
+
+.pagination span {
+  color: var(--secondary);
+  font-size: 0.9rem;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Profile Preview Modal */
+.profile-preview-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  background: #0a234c85;
+  backdrop-filter: blur(4px);
+}
+
+.profile-preview {
+  position: relative;
+  width: min(500px, calc(100% - 28px));
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  border: 0;
+  border-radius: 14px;
+  color: var(--ink);
+  background: white;
+  box-shadow: 0 22px 70px #0a234c3d;
+}
+
+.profile-preview-header {
+  padding: 25px 26px 21px;
+  background: #eef4fa;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.profile-preview-header .initials,
+.profile-preview-header .initials-img {
+  width: 62px;
+  height: 62px;
+  font-size: 1.1rem;
+  margin-bottom: 11px;
+}
+
+.profile-preview-header h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  font-weight: 800;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+  padding-inline-end: 34px;
+}
+
+.profile-facts {
+  padding: 0 26px;
+  margin: 12px 0 24px;
+}
+
+.profile-facts div {
+  display: grid;
+  grid-template-columns: 6.8rem minmax(0, 1fr);
+  gap: 8px;
+  padding: 11px 0;
+  border-bottom: 1px solid var(--profile-rule);
+}
+
+.profile-facts dt {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.profile-facts dd {
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.95rem;
+}
+
+.profile-actions {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  margin: 0;
+}
+
+/* Responsive Media Queries */
+@media (max-width: 900px) {
+  .alumni-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container directory (max-width: 670px) {
+  .filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .field:first-child {
+    grid-column: 1 / -1;
+  }
+  .clear {
+    justify-self: start;
+  }
+}
+
+@media (max-width: 650px) {
+  .alumni-hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+  .alumni-hero .hero-photo {
+    min-height: 240px;
+    height: 240px;
+  }
+  .alumni-hero .lede {
+    margin-block: 13px 16px;
+  }
+  .alumni-layout section,
+  .result-count {
+    scroll-margin-top: 81px;
+  }
+  .alumni-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expand {
+    transition: none;
+  }
+  .alumni-list li {
+    transition: none;
+  }
+}

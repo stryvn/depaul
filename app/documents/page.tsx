@@ -1,16 +1,16 @@
 import React from "react";
 import type { Metadata } from "next";
 import { getAllDocuments } from "@/db/queries";
-import { DocumentsDirectoryClient } from "./DocumentsDirectoryClient";
+import { DocsDirectoryEditorial } from "@/components/docs/DocsDirectoryEditorial";
+
+export const instant = false;
 
 export const metadata: Metadata = {
-  title: "Official Documents & Disclosures — De Paul Public School Rajamudy",
-  description:
-    "Official CBSE Appendix-IX public disclosures, affiliation certificates, fire safety, building stability, fee structures, and academic handbooks of De Paul Public School & Junior College, Rajamudy (Affiliation No: 930624).",
+  title: "School documents | De Paul Public School Rajamudy",
+  description: "View or download official school documents and CBSE disclosures.",
   openGraph: {
-    title: "Official Documents & Disclosures — De Paul Public School Rajamudy",
-    description:
-      "Access CBSE mandatory disclosures, affiliation certificates, and statutory school policies.",
+    title: "School documents | De Paul Public School Rajamudy",
+    description: "View or download official school documents and CBSE disclosures.",
     url: "https://depaulidukki.com/documents",
   },
 };
@@ -18,5 +18,5 @@ export const metadata: Metadata = {
 export default async function DocumentsPage() {
   const documents = await getAllDocuments();
 
-  return <DocumentsDirectoryClient initialDocuments={documents} />;
+  return <DocsDirectoryEditorial documents={documents} />;
 }

@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { TcPortalClient } from "@/components/tc/TcPortalClient";
 
 export const metadata: Metadata = {
-  title: "Transfer Certificate (TC) Verification — De Paul Public School Rajamudy",
+  title: "Transfer Certificate | De Paul Public School Rajamudy",
   description:
-    "Official Transfer Certificate verification portal for De Paul Public School & Junior College, Rajamudy, Idukki. CBSE Affiliation No. 930624. Verify student withdrawal records and transfer certificates online.",
+    "Verify a transfer certificate issued by De Paul Public School & Junior College in Rajamudy.",
   alternates: {
     canonical: "https://depaulidukki.com/tc",
   },
   openGraph: {
-    title: "Transfer Certificate Verification | De Paul Public School, Rajamudy, Idukki",
+    title: "Transfer Certificate | De Paul Public School Rajamudy",
     description:
-      "Use the official De Paul Public School & Junior College transfer certificate verification portal for Rajamudy, Idukki. CBSE Affiliation No. 930624.",
+      "Verify a transfer certificate issued by De Paul Public School & Junior College in Rajamudy.",
     url: "https://depaulidukki.com/tc",
     siteName: "De Paul Public School & Junior College",
     locale: "en_IN",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Transfer Certificate Verification | De Paul Public School, Rajamudy",
+    title: "Transfer Certificate | De Paul Public School Rajamudy",
     description:
-      "Verify student Transfer Certificates online. De Paul Public School & Junior College, Rajamudy, Idukki.",
+      "Verify a transfer certificate issued by De Paul Public School & Junior College in Rajamudy.",
   },
 };
 
