@@ -10,7 +10,7 @@ export function HeroCTA() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, delay: 0.5 }}
-      className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 mt-4 select-none"
+      className="flex flex-wrap items-center justify-start gap-4 sm:gap-6 mt-4 select-none"
     >
       {/* Primary CTA: "Admissions" — firmly anchored (no translateY lift), responds via light, depth, and border transition */}
       <a

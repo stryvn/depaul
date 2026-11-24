@@ -258,6 +258,7 @@
 .ed-hero .hero-copy {
   align-self: center;
   padding: clamp(28px, 4vw, 56px);
+  padding-inline-start: 0;
 }
 
 .ed-hero .label {

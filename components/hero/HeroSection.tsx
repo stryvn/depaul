@@ -43,7 +43,7 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
       </div>
 
       {/* Center Content placed lower to reveal full campus building overhead */}
-      <div className="relative z-20 flex flex-col items-center justify-center site-container mb-6 sm:mb-8">
+      <div className="relative z-20 flex flex-col items-start justify-center site-container mb-6 sm:mb-8">
         <HeroTitle />
         <HeroCTA />
       </div>

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export function HeroTitle() {
   return (
-    <div className="flex flex-col items-center text-center max-w-4xl px-4 select-none">
+    <div className="flex flex-col items-start text-left max-w-4xl select-none">
       <motion.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

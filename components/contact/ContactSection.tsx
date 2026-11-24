@@ -40,9 +40,9 @@ export function ContactSection() {
       aria-labelledby="home-contact-title"
       className="site-container my-10 sm:my-16"
     >
-      <div className="bg-[#0b1b3d] text-white rounded-2xl p-2 sm:p-2.5 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 items-stretch gap-4 sm:gap-6 border border-white/10">
+      <div className="bg-[#0b1b3d] text-white rounded-2xl p-2 ps-0 sm:p-2.5 sm:ps-0 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 items-stretch gap-4 sm:gap-6 ring-1 ring-inset ring-white/10">
         {/* Left Copy Column */}
-        <div className="lg:col-span-5 flex flex-col justify-center p-6 sm:p-8 lg:p-10 min-w-0">
+        <div className="lg:col-span-5 flex flex-col justify-center p-6 ps-0 sm:p-8 sm:ps-0 lg:p-10 lg:ps-0 min-w-0">
           <span className="text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-[#a9c6ed] mb-2 sm:mb-3 block">
             Rajamudy, Idukki
           </span>

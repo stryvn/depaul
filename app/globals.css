@@ -323,6 +323,7 @@ h1, h2, h3, h4, .font-display {
 .ed-hero-copy {
   align-self: center;
   padding: clamp(28px, 4vw, 56px);
+  padding-inline-start: 0;
 }
 
 .ed-hero-copy .ed-label {
@@ -672,7 +673,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 #stories.ed-home {
-  padding: clamp(24px, 4vw, 56px) clamp(14px, 3vw, 40px);
+  padding-block: clamp(24px, 4vw, 56px);
 }
 
 #stories.ed-home + #docs.ed-home,

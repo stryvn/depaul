@@ -39,6 +39,7 @@
 
 .tc-title-copy {
   padding: clamp(26px, 3.6vw, 50px);
+  padding-inline-start: 0;
 }
 
 .tc-document {

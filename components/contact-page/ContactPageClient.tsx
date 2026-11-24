@@ -62,7 +62,7 @@ export function ContactPageClient() {
             className="relative bg-[#0b1b3d] text-white rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-[360px] sm:min-h-[420px] lg:min-h-[450px]"
           >
             {/* Left Copy Column */}
-            <div className="lg:col-span-5 flex flex-col justify-center p-6 sm:p-10 lg:p-12 z-10">
+            <div className="lg:col-span-5 flex flex-col justify-center p-6 ps-0 sm:p-10 sm:ps-0 lg:p-12 lg:ps-0 z-10">
               <p className="text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-[#a9c6ed] mb-2 sm:mb-3">
                 Rajamudy, Idukki
               </p>
