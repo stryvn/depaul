@@ -2,8 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   experimental: { serverActions: { bodySizeLimit: "26mb" } },
-  cacheComponents: true,
-  partialPrefetching: true,
+  // Cloudflare Workers can hang while rendering with Cache Components enabled.
+  cacheComponents: false,
   allowedDevOrigins: [
     "100.92.217.5",
     "100.92.217.5:3000",
