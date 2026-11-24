@@ -10,8 +10,8 @@ export async function GET(
     const isNumeric = /^\d+$/.test(id);
 
     const doc = isNumeric
-      ? incrementDocumentDownloads(parseInt(id, 10))
-      : incrementDocumentDownloadsBySlug(id);
+      ? await incrementDocumentDownloads(parseInt(id, 10))
+      : await incrementDocumentDownloadsBySlug(id);
 
     if (!doc || !doc.fileUrl) {
       return new NextResponse("Document not found", { status: 404 });

@@ -1,5 +1,3 @@
-const SECRET = process.env.JWT_SECRET ?? "dev-secret-change-me";
-
 /* ── helpers ────────────────────────────────────────────────── */
 
 function base64url(buf: ArrayBuffer): string {
@@ -19,10 +17,12 @@ function base64urlDecode(str: string): Uint8Array {
 }
 
 async function getKey(): Promise<CryptoKey> {
+  const secret = process.env.JWT_SECRET;
+  if (!secret) throw new Error("Admin session signing is not configured.");
   const enc = new TextEncoder();
   return crypto.subtle.importKey(
     "raw",
-    enc.encode(SECRET),
+    enc.encode(secret),
     { name: "HMAC", hash: "SHA-256" },
     false,
     ["sign", "verify"]

@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import React from "react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -29,6 +30,7 @@ function formatLongDate(dateStr?: string): string {
 }
 
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
+  await connection();
   const { slug } = await params;
   const story = await getStoryBySlug(slug);
 
@@ -39,7 +41,7 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
   }
 
   return {
-    title: `${story.title} | De Paul Public School Rajamudy`,
+    title: story.title,
     description: story.excerpt,
     openGraph: {
       title: story.title,
@@ -54,6 +56,7 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
 }
 
 export default async function StoryDetailPage({ params }: StoryPageProps) {
+  await connection();
   const { slug } = await params;
   const story = await getStoryBySlug(slug);
 

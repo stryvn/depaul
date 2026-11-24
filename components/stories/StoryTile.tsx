@@ -57,7 +57,6 @@ export function StoryTile({
               target.src = "/assets/stories/sports-day.webp";
             }
           }}
-          className="w-full h-full object-cover"
         />
         <div className="ed-story-caption">
           <div>

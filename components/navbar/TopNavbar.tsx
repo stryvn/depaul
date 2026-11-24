@@ -15,11 +15,11 @@ interface NavbarProps {
 export const NAV_LINKS_LEFT = [
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "Docs", href: "/#docs" },
+  { name: "Docs", href: "/docs" },
 ];
 
 export const NAV_LINKS_RIGHT = [
-  { name: "Stories", href: "/#stories" },
+  { name: "Stories", href: "/stories" },
   { name: "Alumni", href: "/alumni" },
   { name: "TC", href: "/tc" },
 ];
@@ -28,8 +28,8 @@ const MOBILE_MENU_LINKS = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
   { name: "Contact", href: "/contact" },
-  { name: "Docs", href: "/#docs" },
-  { name: "Stories", href: "/#stories" },
+  { name: "Docs", href: "/docs" },
+  { name: "Stories", href: "/stories" },
   { name: "Alumni", href: "/alumni" },
   { name: "TC", href: "/tc" },
 ];
@@ -519,7 +519,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                 {/* Hero Admissions Button Replica */}
                 <div className="pt-1">
                   <a
-                    href="#contact"
+                    href="/contact"
                     onClick={handleLinkClick}
                     className="w-full group relative inline-flex items-center justify-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#0262b6] to-[#02498b] hover:from-[#036bc7] hover:to-[#02539d] text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/20 hover:border-white/40 shadow-[0_4px_20px_rgba(2,86,161,0.3),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_4px_28px_rgba(2,86,161,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] transition-all duration-300"
                   >

@@ -1,0 +1,130 @@
+.about-editorial {
+  & {
+    color-scheme: light;
+    --navy: #0b1b3d;
+    --blue: #173e82;
+    --secondary: #475871;
+    --line: #d7e0ec;
+    --pale: #edf3fa;
+    --paper: #f8fafc;
+    --page-gutter: 20px;
+    --page-max: 1380px;
+    font-family: "Plus Jakarta Sans", system-ui, sans-serif;
+    color: var(--navy);
+    background: var(--paper);
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  &, h1, h2, h3, p, dd, figure { margin: 0; }
+  & { line-height: 1.6; }
+  a { color: inherit; }
+    .text-link { text-decoration: underline; }
+  button { font: inherit; }
+  a:focus-visible, button:focus-visible { outline: 2px solid #2059aa; outline-offset: 4px; }
+  img { display: block; max-width: 100%; }
+  .wrap { width: min(var(--page-max), calc(100% - 2 * var(--page-gutter))); margin-inline: auto; }
+  .skip { position: fixed; top: 6px; left: 8px; z-index: 60; background: white; padding: 10px 15px; transform: translateY(-150%); }
+  .skip:focus { transform: none; }
+
+  main { padding-top: 109px; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 41fr) minmax(0, 59fr);
+    min-height: 470px;
+    color: white;
+    background: var(--navy);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hero-copy { align-self: center; padding: clamp(28px, 4vw, 56px); }
+  .label { font-size: .83rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; color: var(--blue); margin-bottom: 9px; }
+  .hero .label { color: #a9c6ed; }
+  h1 { font-size: clamp(3.25rem, 6.7vw, 6.1rem); line-height: .99; font-weight: 800; letter-spacing: -.061em; }
+  h1 span { white-space: nowrap; }
+  .motto { margin-top: 22px; color: #d5e5fa; font-size: clamp(1.08rem, 2vw, 1.33rem); font-weight: 700; letter-spacing: -.02em; }
+  .lede { margin-top: 10px; max-width: 32ch; color: #e0eafa; }
+  .hero-photo { position: relative; min-width: 0; background: #233952; }
+  .hero-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+  .hero-photo figcaption { position: absolute; bottom: 0; right: 0; padding: 8px 14px; color: #eff5fe; background: var(--navy); font-size: .83rem; }
+
+  .topic-nav { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; border-bottom: 1px solid var(--line); padding-block: 13px; }
+  .topic-nav a { display: grid; place-items: center; text-align: center; min-height: 46px; border-radius: 7px; text-decoration: none; font-weight: 700; color: var(--blue); padding: 5px; }
+  .topic-nav a:hover, .topic-nav a[aria-current="location"] { background: var(--pale); }
+  .topic { scroll-margin-top: 104px; padding-block: clamp(25px, 3.8vw, 54px); border-bottom: 1px solid var(--line); }
+  .split { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: clamp(23px, 6vw, 88px); }
+  .section-copy h2 { font-size: clamp(1.9rem, 4vw, 3.4rem); line-height: 1.1; font-weight: 800; letter-spacing: -.051em; }
+  .section-copy > p:not(.label) { margin-top: 15px; max-width: 64ch; color: var(--secondary); }
+  .school-facts { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); background: var(--pale); border-radius: 12px; padding: 19px 12px; margin: 20px 0 0; }
+  .school-facts div { display: flex; flex-direction: column; justify-content: flex-end; gap: 5px; padding-inline: 10px; }
+  .school-facts div + div { border-left: 1px solid #c7d4e6; }
+  .school-facts dt { color: var(--secondary); font-size: .82rem; line-height: 1.35; }
+  .school-facts dd { font-weight: 800; font-size: clamp(1rem, 2.3vw, 1.8rem); line-height: 1.2; letter-spacing: -.05em; }
+  .section-photo { width: 100%; height: auto; aspect-ratio: 1.65; max-height: 390px; object-fit: cover; border-radius: 12px; background: var(--pale); }
+  .photo-first .section-photo { grid-area: 1 / 1; }
+  .history-photo { object-position: center 53%; }
+  .mission { margin: 16px 0 0; }
+  .mission div { padding: 11px 0; border-top: 1px solid var(--line); }
+  .mission dt { font-weight: 800; color: var(--blue); }
+  .mission dd { margin-top: 3px; color: var(--secondary); }
+  .leadership blockquote {
+    margin: 20px 0 0;
+    padding-left: 17px;
+    border-left: 3px solid var(--blue);
+    font-size: clamp(1.13rem, 2.05vw, 1.6rem);
+    font-weight: 700;
+    line-height: 1.45;
+  }
+  .principal-portrait { position: relative; min-width: 0; }
+  .principal-portrait img { object-position: center 35%; }
+  .principal-portrait figcaption {
+    display: grid;
+    gap: 3px;
+    padding: 14px 17px;
+    margin-top: 5px;
+    border-radius: 8px;
+    background: var(--navy);
+    color: white;
+  }
+  .principal-portrait figcaption span { color: #dae7fa; font-size: .9rem; }
+  .leadership-team { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin-top: 20px; }
+  .team-member {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    min-width: 0;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--pale);
+  }
+  .team-member img { width: 94px; height: 94px; flex: none; object-fit: cover; object-position: center 33%; border-radius: 8px; }
+  .team-member p { color: var(--secondary); font-size: .89rem; }
+  .team-member h3 { font-size: clamp(1rem, 1.8vw, 1.22rem); overflow-wrap: anywhere; line-height: 1.3; margin-top: 3px; }
+  .text-link { display: inline-block; margin-top: 14px; color: var(--blue); font-weight: 700; text-underline-offset: 4px; }
+
+  @media (max-width: 960px) {
+    .hero { min-height: 410px; }
+  }
+  @media (max-width: 650px) {
+    & { --page-gutter: 10px; }
+    main { padding-top: 81px; }
+    .hero, .split, .leadership-team { grid-template-columns: minmax(0, 1fr); }
+    .hero { min-height: unset; }
+    .hero-copy { padding: 27px 22px; }
+    h1 br { display: none; }
+    h1 { font-size: clamp(2.45rem, 9.8vw, 3.45rem); }
+    .motto { margin-top: 14px; }
+    .hero-photo { width: 100%; min-height: 180px; aspect-ratio: 1.9; }
+    .topic-nav { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding-block: 8px; }
+    .topic-nav a { font-size: .9rem; min-height: 44px; }
+    .topic { scroll-margin-top: 81px; }
+    .photo-first .section-photo { grid-area: auto; }
+    .school-facts { padding: 17px 5px; }
+  }
+  @media (max-width: 440px) {
+    h1 { letter-spacing: -.045em; }
+    .topic-nav { display: flex; flex-wrap: wrap; justify-content: center; }
+    .topic-nav a { flex: 0 1 calc((100% - 6px) / 3); }
+    .team-member img { width: 72px; height: 72px; }
+  }
+}

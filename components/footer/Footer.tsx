@@ -71,11 +71,11 @@ export function Footer() {
                 href="https://wa.me/919605602400"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 hover:bg-emerald-600 border border-slate-900/10 hover:border-emerald-600 text-slate-700 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#d7e0ec] bg-white px-3.5 text-xs font-semibold text-[#173e82] transition-colors hover:border-[#173e82] hover:bg-[#edf3fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#173e82]"
                 title="WhatsApp Us"
                 aria-label="WhatsApp Channel"
               >
-                <WhatsAppIcon className="w-3.5 h-3.5 text-emerald-600 group-hover:text-white transition-colors" />
+                <WhatsAppIcon className="w-3.5 h-3.5" />
                 <span>WhatsApp</span>
               </a>
 
@@ -83,11 +83,11 @@ export function Footer() {
                 href="https://www.instagram.com/depaulschoolrajamudy"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 border border-slate-900/10 hover:border-pink-500 text-slate-700 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#d7e0ec] bg-white px-3.5 text-xs font-semibold text-[#173e82] transition-colors hover:border-[#173e82] hover:bg-[#edf3fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#173e82]"
                 title="Instagram Profile"
                 aria-label="Instagram Profile"
               >
-                <InstagramIcon className="w-3.5 h-3.5 text-pink-600 group-hover:text-white transition-colors" />
+                <InstagramIcon className="w-3.5 h-3.5" />
                 <span>Instagram</span>
               </a>
 
@@ -95,11 +95,11 @@ export function Footer() {
                 href="https://www.facebook.com/depaulschoolrajamudy"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 hover:bg-blue-600 border border-slate-900/10 hover:border-blue-600 text-slate-700 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#d7e0ec] bg-white px-3.5 text-xs font-semibold text-[#173e82] transition-colors hover:border-[#173e82] hover:bg-[#edf3fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#173e82]"
                 title="Facebook Page"
                 aria-label="Facebook Page"
               >
-                <FacebookIcon className="w-3.5 h-3.5 text-blue-600 group-hover:text-white transition-colors" />
+                <FacebookIcon className="w-3.5 h-3.5" />
                 <span>Facebook</span>
               </a>
 
@@ -107,11 +107,11 @@ export function Footer() {
                 href="https://www.youtube.com/@depaulschoolrajamudy"
                 target="_blank"
                 rel="noreferrer"
-                className="group inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/5 hover:bg-red-600 border border-slate-900/10 hover:border-red-600 text-slate-700 hover:text-white text-xs font-semibold tracking-wide transition-all shadow-sm active:scale-95"
+                className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#d7e0ec] bg-white px-3.5 text-xs font-semibold text-[#173e82] transition-colors hover:border-[#173e82] hover:bg-[#edf3fa] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#173e82]"
                 title="YouTube Channel"
                 aria-label="YouTube Channel"
               >
-                <YoutubeIcon className="w-3.5 h-3.5 text-red-600 group-hover:text-white transition-colors" />
+                <YoutubeIcon className="w-3.5 h-3.5" />
                 <span>YouTube</span>
               </a>
             </div>
@@ -132,7 +132,7 @@ export function Footer() {
                 <Link href="/about#leadership" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Administration
                 </Link>
-                <Link href="/about#mission" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link href="/about#values" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Mission &amp; Vision
                 </Link>
               </div>
@@ -147,10 +147,10 @@ export function Footer() {
                 <Link href="/stories" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Stories
                 </Link>
-                <Link href="/gallery" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link href="https://depaulidukki.com/gallery/" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Gallery
                 </Link>
-                <Link href="/#contact" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link href="/contact" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Admission
                 </Link>
                 <Link href="/contact" className="text-slate-700 hover:text-brand-royal transition-colors">
@@ -165,7 +165,7 @@ export function Footer() {
                 DOCUMENTS
               </h4>
               <div className="flex flex-col space-y-2 text-xs sm:text-sm font-medium">
-                <Link href="/#docs" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link href="/docs" className="text-slate-700 hover:text-brand-royal transition-colors">
                   School documents
                 </Link>
                 <Link href="/tc" className="text-slate-700 hover:text-brand-royal transition-colors">

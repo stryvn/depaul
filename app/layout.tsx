@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import { Suspense } from "react";
+import { SiteMotion } from "@/components/motion/SiteMotion";
 import "./globals.css";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
@@ -34,13 +36,6 @@ export const metadata: Metadata = {
     "Junior College Rajamudy",
     "Vincentian School Idukki",
   ],
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/assets/branding/logo.png" },
-    ],
-    apple: "/apple-icon.png",
-  },
   openGraph: {
     title: "De Paul Public School Rajamudy — For God & Country",
     description:
@@ -76,9 +71,6 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "https://depaulidukki.com",
-  },
 };
 
 export default function RootLayout({
@@ -92,6 +84,7 @@ export default function RootLayout({
       className={`${plusJakartaSans.variable} scroll-smooth antialiased`}
     >
       <body className="min-h-screen bg-surface-offwhite font-sans text-surface-dark selection:bg-brand-royal selection:text-white">
+        <Suspense fallback={null}><SiteMotion /></Suspense>
         {children}
       </body>
     </html>

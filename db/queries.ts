@@ -3,7 +3,7 @@ import { db } from "./index";
 import { stories, alumni, documents, type NewAlumni, type Document } from "./schema";
 
 /** Latest N stories (default 6), newest first. */
-export function getLatestStories(limit = 6) {
+export async function getLatestStories(limit = 6) {
   return db
     .select()
     .from(stories)
@@ -12,22 +12,22 @@ export function getLatestStories(limit = 6) {
 }
 
 /** All stories, newest first. */
-export function getAllStories() {
+export async function getAllStories() {
   return db.select().from(stories).orderBy(desc(stories.publishedAt));
 }
 
 /** Single story by its unique slug. */
-export function getStoryBySlug(slug: string) {
+export async function getStoryBySlug(slug: string) {
   return db.select().from(stories).where(eq(stories.slug, slug)).get();
 }
 
 /** Single story by primary key. */
-export function getStoryById(id: number) {
+export async function getStoryById(id: number) {
   return db.select().from(stories).where(eq(stories.id, id)).get();
 }
 
 /** Lightweight list for the admin panel. */
-export function getAllStoriesForAdmin() {
+export async function getAllStoriesForAdmin() {
   return db
     .select({
       id: stories.id,
@@ -45,8 +45,8 @@ export function getAllStoriesForAdmin() {
 ───────────────────────────────────────────────────────────────────────────── */
 
 /** Get distinct batch years of active alumni for filter dropdowns. */
-export function getAlumniBatchYears() {
-  const rows = db
+export async function getAlumniBatchYears() {
+  const rows = await db
     .selectDistinct({ batchYear: alumni.batchYear })
     .from(alumni)
     .where(eq(alumni.status, "ACTIVE"))
@@ -56,7 +56,7 @@ export function getAlumniBatchYears() {
 }
 
 /** Public directory listing: phone is strictly excluded, email excluded unless showEmailPublicly is true. */
-export function getPublicAlumniList(params: {
+export async function getPublicAlumniList(params: {
   batchYear?: number;
   search?: string;
   limit?: number;
@@ -84,7 +84,7 @@ export function getPublicAlumniList(params: {
 
   const whereClause = and(...conditions);
 
-  const items = db
+  const items = await db
     .select({
       id: alumni.id,
       name: alumni.name,
@@ -108,7 +108,7 @@ export function getPublicAlumniList(params: {
     .offset(offset)
     .all();
 
-  const countResult = db
+  const countResult = await db
     .select({ count: sql<number>`count(*)` })
     .from(alumni)
     .where(whereClause)
@@ -121,7 +121,7 @@ export function getPublicAlumniList(params: {
 }
 
 /** Featured alumni for spotlights / homepage highlights. */
-export function getFeaturedAlumni(limit = 6) {
+export async function getFeaturedAlumni(limit = 6) {
   return db
     .select({
       id: alumni.id,
@@ -147,7 +147,7 @@ export function getFeaturedAlumni(limit = 6) {
 }
 
 /** Check if an alumnus already registered with this email. */
-export function getAlumniByEmail(email: string) {
+export async function getAlumniByEmail(email: string) {
   return db
     .select()
     .from(alumni)
@@ -156,12 +156,12 @@ export function getAlumniByEmail(email: string) {
 }
 
 /** Single alumnus by primary key (admin view). */
-export function getAlumniById(id: number) {
+export async function getAlumniById(id: number) {
   return db.select().from(alumni).where(eq(alumni.id, id)).get();
 }
 
 /** Admin panel listing with full search, filter, and unmasked fields. */
-export function getAdminAlumniList(params: {
+export async function getAdminAlumniList(params: {
   status?: string;
   batchYear?: number;
   search?: string;
@@ -196,7 +196,7 @@ export function getAdminAlumniList(params: {
 
   const whereClause = conditions.length ? and(...conditions) : undefined;
 
-  const items = db
+  const items = await db
     .select()
     .from(alumni)
     .where(whereClause)
@@ -205,7 +205,7 @@ export function getAdminAlumniList(params: {
     .offset(offset)
     .all();
 
-  const countResult = db
+  const countResult = await db
     .select({ count: sql<number>`count(*)` })
     .from(alumni)
     .where(whereClause)
@@ -218,18 +218,18 @@ export function getAdminAlumniList(params: {
 }
 
 /** Admin overview metrics. */
-export function getAlumniMetrics() {
-  const total = db.select({ count: sql<number>`count(*)` }).from(alumni).get()?.count ?? 0;
-  const active = db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "ACTIVE")).get()?.count ?? 0;
-  const hidden = db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "HIDDEN")).get()?.count ?? 0;
-  const flagged = db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "FLAGGED")).get()?.count ?? 0;
-  const featured = db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.isFeatured, true)).get()?.count ?? 0;
+export async function getAlumniMetrics() {
+  const total = (await db.select({ count: sql<number>`count(*)` }).from(alumni).get())?.count ?? 0;
+  const active = (await db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "ACTIVE")).get())?.count ?? 0;
+  const hidden = (await db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "HIDDEN")).get())?.count ?? 0;
+  const flagged = (await db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.status, "FLAGGED")).get())?.count ?? 0;
+  const featured = (await db.select({ count: sql<number>`count(*)` }).from(alumni).where(eq(alumni.isFeatured, true)).get())?.count ?? 0;
 
   return { total, active, hidden, flagged, featured };
 }
 
 /** Full list for CSV export. */
-export function getAllAlumniForExport() {
+export async function getAllAlumniForExport() {
   return db
     .select()
     .from(alumni)
@@ -238,12 +238,12 @@ export function getAllAlumniForExport() {
 }
 
 /** Insert a new alumni record. */
-export function createAlumni(data: NewAlumni) {
+export async function createAlumni(data: NewAlumni) {
   return db.insert(alumni).values(data).returning().get();
 }
 
 /** Update an existing alumni record. */
-export function updateAlumni(id: number, data: Partial<NewAlumni>) {
+export async function updateAlumni(id: number, data: Partial<NewAlumni>) {
   return db
     .update(alumni)
     .set({
@@ -256,7 +256,7 @@ export function updateAlumni(id: number, data: Partial<NewAlumni>) {
 }
 
 /** Delete an alumni record. */
-export function deleteAlumni(id: number) {
+export async function deleteAlumni(id: number) {
   return db.delete(alumni).where(eq(alumni.id, id)).returning().get();
 }
 
@@ -265,7 +265,7 @@ export function deleteAlumni(id: number) {
 ───────────────────────────────────────────────────────────────────────────── */
 
 /** Documents for the home page BentoGrid: featured first, then sorted by display order / date. */
-export function getBentoDocuments(limit = 5): Document[] {
+export async function getBentoDocuments(limit = 5): Promise<Document[]> {
   return db
     .select()
     .from(documents)
@@ -275,7 +275,7 @@ export function getBentoDocuments(limit = 5): Document[] {
 }
 
 /** All public documents, optionally filtered by category. */
-export function getAllDocuments(category?: string): Document[] {
+export async function getAllDocuments(category?: string): Promise<Document[]> {
   if (category && category !== "All") {
     return db
       .select()
@@ -292,17 +292,17 @@ export function getAllDocuments(category?: string): Document[] {
 }
 
 /** Single document by primary key. */
-export function getDocumentById(id: number): Document | undefined {
+export async function getDocumentById(id: number): Promise<Document | undefined> {
   return db.select().from(documents).where(eq(documents.id, id)).get();
 }
 
 /** Single document by its unique slug. */
-export function getDocumentBySlug(slug: string): Document | undefined {
+export async function getDocumentBySlug(slug: string): Promise<Document | undefined> {
   return db.select().from(documents).where(eq(documents.slug, slug)).get();
 }
 
 /** Lightweight list for the admin documents panel. */
-export function getAllDocumentsForAdmin() {
+export async function getAllDocumentsForAdmin() {
   return db
     .select({
       id: documents.id,
@@ -324,7 +324,7 @@ export function getAllDocumentsForAdmin() {
 }
 
 /** Atomically increment download counter for a document and return updated document. */
-export function incrementDocumentDownloads(id: number): Document | undefined {
+export async function incrementDocumentDownloads(id: number): Promise<Document | undefined> {
   return db
     .update(documents)
     .set({
@@ -336,7 +336,7 @@ export function incrementDocumentDownloads(id: number): Document | undefined {
 }
 
 /** Atomically increment download counter by slug. */
-export function incrementDocumentDownloadsBySlug(slug: string): Document | undefined {
+export async function incrementDocumentDownloadsBySlug(slug: string): Promise<Document | undefined> {
   return db
     .update(documents)
     .set({
@@ -348,10 +348,10 @@ export function incrementDocumentDownloadsBySlug(slug: string): Document | undef
 }
 
 /** Document statistics for admin overview cards. */
-export function getDocumentStats() {
-  const total = db.select({ count: sql<number>`count(*)` }).from(documents).get()?.count ?? 0;
-  const featured = db.select({ count: sql<number>`count(*)` }).from(documents).where(eq(documents.isFeatured, true)).get()?.count ?? 0;
-  const totalDownloads = db.select({ sum: sql<number>`sum(${documents.downloadsCount})` }).from(documents).get()?.sum ?? 0;
+export async function getDocumentStats() {
+  const total = (await db.select({ count: sql<number>`count(*)` }).from(documents).get())?.count ?? 0;
+  const featured = (await db.select({ count: sql<number>`count(*)` }).from(documents).where(eq(documents.isFeatured, true)).get())?.count ?? 0;
+  const totalDownloads = (await db.select({ sum: sql<number>`sum(${documents.downloadsCount})` }).from(documents).get())?.sum ?? 0;
   
   return {
     total,

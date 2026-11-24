@@ -4,9 +4,6 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { signJwt } from "@/lib/auth";
 
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME ?? "admin";
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD ?? "admin123";
-
 export async function loginAction(
   _prevState: { error?: string } | undefined,
   formData: FormData
@@ -16,6 +13,11 @@ export async function loginAction(
 
   if (!username || !password) {
     return { error: "Please provide both username and password." };
+  }
+
+  const { ADMIN_USERNAME, ADMIN_PASSWORD, JWT_SECRET } = process.env;
+  if (!ADMIN_USERNAME || !ADMIN_PASSWORD || !JWT_SECRET) {
+    return { error: "Admin sign-in is not configured." };
   }
 
   if (username !== ADMIN_USERNAME || password !== ADMIN_PASSWORD) {

@@ -13,7 +13,7 @@ async function ensureUniqueSlug(desiredSlug: string, currentId?: number): Promis
   let counter = 1;
 
   while (true) {
-    const query = currentId
+    const query = await (currentId
       ? db
           .select({ id: stories.id })
           .from(stories)
@@ -23,7 +23,7 @@ async function ensureUniqueSlug(desiredSlug: string, currentId?: number): Promis
           .select({ id: stories.id })
           .from(stories)
           .where(eq(stories.slug, slug))
-          .get();
+          .get());
 
     if (!query) {
       return slug;
@@ -57,7 +57,7 @@ export async function createStory(formData: FormData) {
   const baseSlug = customSlug ? generateSlug(customSlug) : generateSlug(title);
   const slug = await ensureUniqueSlug(baseSlug);
 
-  db.insert(stories)
+  await db.insert(stories)
     .values({
       title,
       slug,
@@ -98,7 +98,7 @@ export async function updateStory(id: number, formData: FormData) {
   const baseSlug = customSlug ? generateSlug(customSlug) : generateSlug(title);
   const slug = await ensureUniqueSlug(baseSlug, id);
 
-  db.update(stories)
+  await db.update(stories)
     .set({
       title,
       slug,
@@ -124,7 +124,7 @@ export async function deleteStory(id: number) {
     throw new Error("Unauthorized");
   }
 
-  db.delete(stories).where(eq(stories.id, id)).run();
+  await db.delete(stories).where(eq(stories.id, id)).run();
 
   revalidatePath("/");
   revalidatePath("/stories");

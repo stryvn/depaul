@@ -66,16 +66,10 @@ interface MasonryGridProps {
 
 export function MasonryGrid({ stories }: MasonryGridProps) {
   const items = stories && stories.length > 0 ? stories : STORIES_DATA;
-  const leadStory = items[0];
-  const supportingStories = items.slice(1, 5);
-
-  if (!leadStory) return null;
-
   return (
-    <div className="ed-story-grid">
-      <StoryTile story={leadStory} isLead={true} showDate={true} />
-      {supportingStories.map((story) => (
-        <StoryTile key={story.id} story={story} />
+    <div className="ed-story-grid ed-home-story-grid">
+      {items.slice(0, 6).map((story) => (
+        <StoryTile key={story.id} story={story} showDate={true} />
       ))}
     </div>
   );

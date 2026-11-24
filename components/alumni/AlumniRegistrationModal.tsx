@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useTransition } from "react";
 import Image from "next/image";
+import { TurnstileChallenge } from "./TurnstileChallenge";
 import {
   X,
   Upload,
@@ -24,6 +25,7 @@ export function AlumniRegistrationModal({ isOpen, onClose, onSuccess }: Props) {
   const [shrunkBlob, setShrunkBlob] = useState<Blob | null>(null);
   const [fileSizeInfo, setFileSizeInfo] = useState<string | null>(null);
   const [state, setState] = useState<RegisterAlumniState | null>(null);
+  const [challengeAttempt, setChallengeAttempt] = useState(0);
   const [isPending, startTransition] = useTransition();
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -98,14 +100,10 @@ export function AlumniRegistrationModal({ isOpen, onClose, onSuccess }: Props) {
       formData.set("avatar", shrunkBlob, "avatar.webp");
     }
 
-    // Set mock or actual turnstile token
-    if (!formData.has("cf-turnstile-response")) {
-      formData.set("cf-turnstile-response", "mock-turnstile-secret");
-    }
-
     startTransition(async () => {
       const res = await registerAlumniAction(undefined, formData);
       setState(res);
+      if (!res.success) setChallengeAttempt((attempt) => attempt + 1);
       if (res.success) {
         if (onSuccess) onSuccess();
       }
@@ -442,6 +440,7 @@ export function AlumniRegistrationModal({ isOpen, onClose, onSuccess }: Props) {
                 >
                   Cancel
                 </button>
+                <TurnstileChallenge attempt={challengeAttempt} />
                 <button
                   type="submit"
                   disabled={isPending}

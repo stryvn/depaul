@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import "./editorial-docs.css";
 import type { DocItem } from "./DocCard";
@@ -109,9 +110,6 @@ export function DocsSection({ docs }: DocsSectionProps) {
       <div className="ed-doc-intro">
         <h2 id="home-docs">School documents</h2>
         <p>Find CBSE disclosures, the academic calendar and school records.</p>
-        <Link className="ed-text-link" href="/docs">
-          All documents
-        </Link>
       </div>
 
       <div className="ed-doc-grid">
@@ -192,6 +190,12 @@ export function DocsSection({ docs }: DocsSectionProps) {
             <span className="ed-arrow" aria-hidden="true" />
           </Link>
         </div>
+      </div>
+      <div className="ed-section-actions">
+        <Link className="ed-section-cta" href="/docs">
+          View all documents
+          <ArrowRight size={17} aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );

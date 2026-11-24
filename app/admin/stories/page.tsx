@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { getCurrentSession } from "@/lib/auth";
 import React from "react";
 import Link from "next/link";
 import { Plus, Edit, ExternalLink } from "lucide-react";
@@ -5,6 +7,7 @@ import { getAllStoriesForAdmin } from "@/db/queries";
 import { DeleteStoryButton } from "./DeleteStoryButton";
 
 export default async function AdminStoriesPage() {
+  if (!(await getCurrentSession())) redirect("/admin/login");
   const storiesList = await getAllStoriesForAdmin();
 
   return (

@@ -11,8 +11,7 @@ import {
   updateAlumni,
   deleteAlumni,
 } from "@/db/queries";
-import { promises as fs } from "fs";
-import path from "path";
+import { removeAlumniPhoto } from "@/lib/uploads";
 
 export interface RegisterAlumniState {
   success?: boolean;
@@ -111,7 +110,7 @@ export async function registerAlumniAction(
   }
 
   // 4. Duplicate check: Has this email already registered?
-  const existing = getAlumniByEmail(email);
+  const existing = await getAlumniByEmail(email);
   if (existing) {
     return {
       error:
@@ -132,7 +131,7 @@ export async function registerAlumniAction(
 
   // 6. Insert new active alumni record
   try {
-    createAlumni({
+    await createAlumni({
       name,
       email,
       phone,
@@ -176,7 +175,7 @@ export async function updateAlumniStatusAction(id: number, status: "ACTIVE" | "H
   const session = await getCurrentSession();
   if (!session) throw new Error("Unauthorized");
 
-  updateAlumni(id, { status });
+  await updateAlumni(id, { status });
   revalidatePath("/alumni");
   revalidatePath("/admin/alumni");
   return { success: true };
@@ -187,7 +186,7 @@ export async function toggleFeaturedAlumniAction(id: number, isFeatured: boolean
   const session = await getCurrentSession();
   if (!session) throw new Error("Unauthorized");
 
-  updateAlumni(id, { isFeatured });
+  await updateAlumni(id, { isFeatured });
   revalidatePath("/alumni");
   revalidatePath("/admin/alumni");
   return { success: true };
@@ -244,7 +243,7 @@ export async function updateAlumniAction(id: number, formData: FormData) {
     }
   }
 
-  updateAlumni(id, updates);
+  await updateAlumni(id, updates);
   revalidatePath("/alumni");
   revalidatePath("/admin/alumni");
   return { success: true };
@@ -255,18 +254,9 @@ export async function deleteAlumniAction(id: number) {
   const session = await getCurrentSession();
   if (!session) throw new Error("Unauthorized");
 
-  const existing = getAlumniById(id);
-  if (existing?.avatarUrl && existing.avatarUrl.startsWith("/uploads/alumni/")) {
-    try {
-      const filename = path.basename(existing.avatarUrl);
-      const filePath = path.join(process.cwd(), "public", "uploads", "alumni", filename);
-      await fs.unlink(filePath).catch(() => {});
-    } catch {
-      // Ignore filesystem unlink errors if already deleted
-    }
-  }
-
-  deleteAlumni(id);
+  const existing = await getAlumniById(id);
+  await deleteAlumni(id);
+  if (existing?.avatarUrl) await removeAlumniPhoto(existing.avatarUrl).catch(console.error);
   revalidatePath("/alumni");
   revalidatePath("/admin/alumni");
   return { success: true };

@@ -249,7 +249,7 @@
   grid-template-columns: minmax(0, 41fr) minmax(0, 59fr);
   min-height: 470px;
   color: white;
-  background: var(--ed-navy);
+  background-color: #0b1b3d;
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 12px 36px rgba(11, 27, 61, 0.12);
@@ -366,12 +366,6 @@
   letter-spacing: .05em;
 }
 
-.ed-file p:last-child {
-  margin-top: 6px;
-  font-size: 0.95rem;
-  line-height: 1.5;
-  max-width: 75ch;
-}
 
 .ed-file-actions {
   display: flex;

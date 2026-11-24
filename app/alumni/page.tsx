@@ -1,9 +1,13 @@
+import { connection } from "next/server";
 import type { Metadata } from "next";
 import { getPublicAlumniList, getFeaturedAlumni, getAlumniBatchYears } from "@/db/queries";
 import { AlumniDirectoryClient } from "@/components/alumni/AlumniDirectoryClient";
 
+export const instant = false;
+
 export const metadata: Metadata = {
-  title: "Alumni Network | De Paul Public School & Junior College, Rajamudy",
+  title: "Alumni Network",
+  alternates: { canonical: "/alumni" },
   description:
     "Explore the official alumni network of De Paul Public School Rajamudy. Connect with fellow graduates across batches, discover career achievements, and register your alumni profile.",
   openGraph: {
@@ -17,9 +21,10 @@ export const metadata: Metadata = {
 };
 
 export default async function AlumniPage() {
-  const { items, total } = getPublicAlumniList({ limit: 200 });
-  const featured = getFeaturedAlumni(6);
-  const batchYears = getAlumniBatchYears();
+  await connection();
+  const { items, total } = await getPublicAlumniList({ limit: 200 });
+  const featured = await getFeaturedAlumni(6);
+  const batchYears = await getAlumniBatchYears();
 
   return (
     <AlumniDirectoryClient

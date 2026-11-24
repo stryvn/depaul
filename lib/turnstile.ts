@@ -7,7 +7,7 @@ export async function verifyTurnstileToken(token: string, ip?: string): Promise<
 
   // Development bypass if no secret or set to test key
   if (!secret || secret === "mock-turnstile-secret" || secret.startsWith("1x0000000000000000000000000000000AA")) {
-    return true;
+    return process.env.NODE_ENV !== "production";
   }
 
   if (!token || !token.trim()) {
@@ -33,7 +33,7 @@ export async function verifyTurnstileToken(token: string, ip?: string): Promise<
       return false;
     }
 
-    const data = await res.json();
+    const data = (await res.json()) as { success?: boolean };
     return Boolean(data.success);
   } catch (err) {
     console.error("Turnstile verification failed:", err);

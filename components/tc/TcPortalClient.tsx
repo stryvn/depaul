@@ -11,6 +11,13 @@ const TC_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbyEYcq_8pN-In_BKIqZf9_1dPf3BJ0lDsxI4OpwRg6CsEm1tmnpifMp3fYaAM8KCvvk/exec";
 
 export function TcPortalClient() {
+  const [frameReady, setFrameReady] = React.useState(false);
+  const [showFrame, setShowFrame] = React.useState(false);
+
+  React.useEffect(() => {
+    setShowFrame(true);
+  }, []);
+
   return (
     <div className="tc-page selection:bg-brand-royal selection:text-white">
       {/* Existing reusable site navbar */}
@@ -60,12 +67,25 @@ export function TcPortalClient() {
             </aside>
           </div>
           <section className="tc-verification" aria-label="Verify a transfer certificate">
-            <iframe
-              className="tc-frame"
-              src={TC_SCRIPT_URL}
-              title="De Paul transfer certificate verification form"
-              referrerPolicy="no-referrer"
-            />
+            <div className="tc-frame-container">
+              {!frameReady && (
+                <div className="tc-loading" role="status">
+                  <span className="tc-loading-spinner" aria-hidden="true" />
+                  Loading TC verification…
+                </div>
+              )}
+              {showFrame ? (
+                <iframe
+                  className="tc-frame"
+                  src={TC_SCRIPT_URL}
+                  title="De Paul transfer certificate verification form"
+                  referrerPolicy="no-referrer"
+                  onLoad={() => setFrameReady(true)}
+                />
+              ) : (
+                <div className="tc-frame" aria-hidden="true" />
+              )}
+            </div>
             <div className="tc-fallback">
               <a
                 href={TC_SCRIPT_URL}

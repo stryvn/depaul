@@ -1,7 +1,6 @@
 "use server";
 
-import { promises as fs } from "fs";
-import path from "path";
+import { saveUpload } from "@/lib/uploads";
 import crypto from "crypto";
 import { getCurrentSession } from "@/lib/auth";
 
@@ -47,17 +46,12 @@ export async function uploadImage(formData: FormData): Promise<{ url?: string; e
     return { error: "Image size must be 5MB or less." };
   }
 
-  const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const ext = file.type === "image/jpeg" ? "jpg" : file.type.split("/")[1];
   const randomName = `${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
 
-  const uploadDir = path.join(process.cwd(), "public", "uploads", "stories");
-  await fs.mkdir(uploadDir, { recursive: true });
+  const url = await saveUpload("stories", randomName, new Uint8Array(await file.arrayBuffer()), file.type);
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filePath = path.join(uploadDir, randomName);
-  await fs.writeFile(filePath, buffer);
-
-  return { url: `/uploads/stories/${randomName}` };
+  return { url: url };
 }
 
 export async function uploadDocument(
@@ -81,19 +75,14 @@ export async function uploadDocument(
     return { error: "Document size must be 25MB or less." };
   }
 
-  const ext = file.name.split(".").pop()?.toLowerCase() || "pdf";
+  const ext = file.type === "application/pdf" ? "pdf" : file.type === "application/msword" ? "doc" : "docx";
   const fileType: "PDF" | "DOC" = ext === "pdf" ? "PDF" : "DOC";
   const randomName = `${Date.now()}-${crypto.randomBytes(6).toString("hex")}.${ext}`;
 
-  const uploadDir = path.join(process.cwd(), "public", "uploads", "documents");
-  await fs.mkdir(uploadDir, { recursive: true });
-
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const filePath = path.join(uploadDir, randomName);
-  await fs.writeFile(filePath, buffer);
+  const url = await saveUpload("documents", randomName, new Uint8Array(await file.arrayBuffer()), file.type);
 
   return {
-    url: `/uploads/documents/${randomName}`,
+    url: url,
     size: formatFileSize(file.size),
     fileType,
   };

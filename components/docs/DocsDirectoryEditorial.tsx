@@ -72,7 +72,7 @@ export function DocsDirectoryEditorial({ documents }: DocsDirectoryEditorialProp
 
       <main id="main" tabIndex={-1} className="pt-[100px] flex-1">
         {/* Editorial Hero Section */}
-        <section className="hero ed-wrap ed-hero" aria-labelledby="ed-title">
+        <section className="ed-wrap ed-hero" aria-labelledby="ed-title">
           <div className="hero-copy">
             <p className="label">Rajamudy, Idukki</p>
             <h1 id="ed-title">
@@ -163,7 +163,6 @@ export function DocsDirectoryEditorial({ documents }: DocsDirectoryEditorialProp
               {filteredDocuments.map((doc) => {
                 const aliasId = SLUG_ALIASES[doc.slug] || doc.slug;
                 const fileType = doc.fileType || "PDF";
-                const fileSize = doc.fileSize || "1.0 MB";
                 const downloadUrl = `/api/documents/${doc.slug}/download`;
 
                 return (
@@ -175,10 +174,9 @@ export function DocsDirectoryEditorial({ documents }: DocsDirectoryEditorialProp
                     <li id={aliasId} className="ed-file">
                       <div>
                         <p>
-                          {doc.category} · {fileType} · {fileSize}
+                          {doc.category} · {fileType}
                         </p>
                         <h3>{doc.title}</h3>
-                        <p>{doc.description}</p>
                       </div>
                       <div className="ed-file-actions">
                         <a

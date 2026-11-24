@@ -1,10 +1,14 @@
+import { connection } from "next/server";
 import React from "react";
 import { getLatestStories, getBentoDocuments } from "@/db/queries";
 import { HomePageClient } from "@/components/home/HomePageClient";
 
 export const instant = false;
 
+export const metadata = { alternates: { canonical: "/" } };
+
 export default async function HomePage() {
+  await connection();
   const [stories, docs] = await Promise.all([
     getLatestStories(6),
     getBentoDocuments(5),
@@ -12,7 +16,8 @@ export default async function HomePage() {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "EducationalOrganization",
+    "@type": "School",
+    "@id": "https://depaulidukki.com/#school",
     name: "De Paul Public School & Junior College, Rajamudy",
     alternateName: "De Paul Public School Rajamudy",
     url: "https://depaulidukki.com",

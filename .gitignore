@@ -39,3 +39,10 @@ next-env.d.ts
 # Local SQLite & Uploads
 local.db*
 /public/uploads/
+
+# Sites build staging
+.sites-runtime/
+
+.open-next/
+.wrangler/
+.dev.vars*

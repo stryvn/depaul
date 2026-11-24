@@ -14,7 +14,7 @@ export async function GET(request: NextRequest) {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 
-  const alumniList = getAllAlumniForExport();
+  const alumniList = await getAllAlumniForExport();
 
   const headers = [
     "ID",

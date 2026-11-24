@@ -1,5 +1,4 @@
-import { promises as fs } from "fs";
-import path from "path";
+import { saveUpload } from "./uploads";
 import crypto from "crypto";
 
 const MAX_IMAGE_BYTES = 200 * 1024; // 200KB hard ceiling (client compresses to < 50KB)
@@ -169,10 +168,6 @@ export async function sanitizeAndSaveAvatar(file: File): Promise<{ url?: string;
 
   const randomHash = crypto.randomBytes(8).toString("hex");
   const filename = `alumni-${Date.now()}-${randomHash}.${ext}`;
-  const uploadDir = path.join(process.cwd(), "public", "uploads", "alumni");
-
-  await fs.mkdir(uploadDir, { recursive: true });
-  await fs.writeFile(path.join(uploadDir, filename), sanitizedBuffer);
-
-  return { url: `/uploads/alumni/${filename}` };
+  const url = await saveUpload("alumni", filename, new Uint8Array(sanitizedBuffer), mime);
+  return { url };
 }

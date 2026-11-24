@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import React from "react";
 import Link from "next/link";
 import { getAllStories } from "@/db/queries";
@@ -8,11 +9,14 @@ import { Footer } from "@/components/footer/Footer";
 export const instant = false;
 
 export const metadata = {
-  title: "Stories | De Paul Public School Rajamudy",
+  title: "Stories",
+  openGraph: { title: "Stories | De Paul Public School Rajamudy", url: "/stories" },
+  alternates: { canonical: "/stories" },
   description: "Read stories from De Paul Public School & Junior College Rajamudy.",
 };
 
 export default async function StoriesListingPage() {
+  await connection();
   const stories = await getAllStories();
   const heroImage =
     stories[0]?.coverImage || "/assets/stories/sports-day.webp";

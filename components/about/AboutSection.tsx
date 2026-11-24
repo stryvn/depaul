@@ -1,5 +1,4 @@
 import React from "react";
-import { SectionHeading } from "../ui/SectionHeading";
 import { AboutMotionGallery } from "./AboutMotionGallery";
 import { ScrollReveal } from "../ui/ScrollReveal";
 
@@ -18,11 +17,9 @@ export function AboutSection() {
 
       <div className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 relative z-10">
         <ScrollReveal>
-          <SectionHeading
-            title="About Us"
-            align="left"
-            className="mb-8 md:mb-10"
-          />
+          <div className="ed-section mb-8 md:mb-10">
+            <h2>About De Paul</h2>
+          </div>
         </ScrollReveal>
 
         <AboutMotionGallery />

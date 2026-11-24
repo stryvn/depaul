@@ -13,7 +13,7 @@ async function ensureUniqueDocumentSlug(desiredSlug: string, currentId?: number)
   let counter = 1;
 
   while (true) {
-    const query = currentId
+    const query = await (currentId
       ? db
           .select({ id: documents.id })
           .from(documents)
@@ -23,7 +23,7 @@ async function ensureUniqueDocumentSlug(desiredSlug: string, currentId?: number)
           .select({ id: documents.id })
           .from(documents)
           .where(eq(documents.slug, slug))
-          .get();
+          .get());
 
     if (!query) {
       return slug;
@@ -58,7 +58,7 @@ export async function createDocument(formData: FormData) {
   const baseSlug = customSlug ? generateSlug(customSlug) : generateSlug(title);
   const slug = await ensureUniqueDocumentSlug(baseSlug);
 
-  db.insert(documents)
+  await db.insert(documents)
     .values({
       title,
       slug,
@@ -106,7 +106,7 @@ export async function updateDocument(id: number, formData: FormData) {
   const baseSlug = customSlug ? generateSlug(customSlug) : generateSlug(title);
   const slug = await ensureUniqueDocumentSlug(baseSlug, id);
 
-  db.update(documents)
+  await db.update(documents)
     .set({
       title,
       slug,
@@ -135,7 +135,7 @@ export async function deleteDocument(id: number) {
     throw new Error("Unauthorized");
   }
 
-  db.delete(documents).where(eq(documents.id, id)).run();
+  await db.delete(documents).where(eq(documents.id, id)).run();
 
   revalidatePath("/");
   revalidatePath("/documents");

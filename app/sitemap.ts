@@ -1,38 +1,18 @@
+import { connection } from "next/server";
 import type { MetadataRoute } from "next";
+import { getAllStories } from "@/db/queries";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://depaulidukki.com";
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await connection();
+  const site = "https://depaulidukki.com";
+  const pages = ["/", "/about", "/contact", "/docs", "/stories", "/alumni", "/tc"];
+  const stories = await getAllStories();
 
   return [
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/stories`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/tc`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
+    ...pages.map((path) => ({ url: new URL(path, site).href })),
+    ...stories.map(({ slug, publishedAt }) => ({
+      url: new URL(`/stories/${slug}`, site).href,
+      ...(publishedAt && !Number.isNaN(Date.parse(publishedAt)) ? { lastModified: new Date(publishedAt) } : {}),
+    })),
   ];
 }

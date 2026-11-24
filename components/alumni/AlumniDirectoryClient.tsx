@@ -121,10 +121,6 @@ export function AlumniDirectoryClient({
 
   return (
     <div className="alumni-page">
-      <a className="skip" href="#main">
-        Skip to content
-      </a>
-
       {/* Official Top Navbar */}
       <TopNavbar isMerged={true} />
 

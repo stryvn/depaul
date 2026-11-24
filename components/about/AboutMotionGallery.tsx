@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import "./about-motion.css";
 
 export interface AboutTopic {
@@ -307,14 +307,9 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
 
           {/* Primary CTA to /about */}
           {showCta && (
-            <Link
-              href="/about"
-              className="group relative inline-flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-gradient-to-b from-[#0262b6] to-[#02498b] hover:from-[#036bc7] hover:to-[#02539d] text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/20 hover:border-white/40 shadow-[0_4px_20px_rgba(2,86,161,0.25),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_4px_26px_rgba(2,86,161,0.45),inset_0_1px_0_rgba(255,255,255,0.4)] transition-all duration-300 active:scale-[0.98]"
-            >
-              <span>Explore Full About Us</span>
-              <span className="w-5 h-5 rounded-full bg-white/10 group-hover:bg-white/20 flex items-center justify-center transition-colors duration-200">
-                <ArrowUpRight className="w-3.5 h-3.5 text-white/90 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
-              </span>
+            <Link href="/about" className="ed-section-cta">
+              About De Paul
+              <ArrowRight size={17} aria-hidden="true" />
             </Link>
           )}
         </div>

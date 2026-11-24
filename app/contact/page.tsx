@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { ContactPageClient } from "@/components/contact-page/ContactPageClient";
 
 export const metadata: Metadata = {
-  title: "Contact Us — De Paul Public School Rajamudy",
+  title: "Contact",
   description:
     "Contact the school office or find directions to the campus of De Paul Public School & Junior College in Rajamudy, Idukki, Kerala. CBSE Affiliation No. 930624.",
   alternates: {

@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { getCurrentSession } from "@/lib/auth";
 import React from "react";
 import Link from "next/link";
 import { Plus, Edit, ExternalLink, FileText, Download, ShieldCheck, Star } from "lucide-react";
@@ -5,6 +7,7 @@ import { getAllDocumentsForAdmin, getDocumentStats } from "@/db/queries";
 import { DeleteDocumentButton } from "./DeleteDocumentButton";
 
 export default async function AdminDocumentsPage() {
+  if (!(await getCurrentSession())) redirect("/admin/login");
   const documentsList = await getAllDocumentsForAdmin();
   const stats = await getDocumentStats();
 

@@ -15,29 +15,21 @@ const SOCIAL_LINKS = [
     name: "WhatsApp",
     href: "https://wa.me/919605602400",
     icon: WhatsAppIcon,
-    className:
-      "bg-emerald-500/20 hover:bg-emerald-600 border-emerald-500/30 text-emerald-300 hover:text-white",
   },
   {
     name: "Instagram",
     href: "https://www.instagram.com/depaulschoolrajamudy",
     icon: InstagramIcon,
-    className:
-      "bg-pink-500/20 hover:bg-gradient-to-r hover:from-purple-600 hover:to-pink-600 border-pink-500/30 text-pink-300 hover:text-white",
   },
   {
     name: "Facebook",
     href: "https://www.facebook.com/depaulschoolrajamudy",
     icon: FacebookIcon,
-    className:
-      "bg-blue-500/20 hover:bg-blue-600 border-blue-500/30 text-blue-300 hover:text-white",
   },
   {
     name: "YouTube",
     href: "https://www.youtube.com/@depaulschoolrajamudy",
     icon: YoutubeIcon,
-    className:
-      "bg-red-500/20 hover:bg-red-600 border-red-500/30 text-red-300 hover:text-white",
   },
 ];
 
@@ -126,7 +118,7 @@ export function ContactSection() {
                     href={item.href}
                     target="_blank"
                     rel="noreferrer"
-                    className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-xs font-semibold tracking-wide transition-all duration-200 active:scale-95 ${item.className}`}
+                    className="inline-flex min-h-11 items-center gap-2 rounded-full border border-white/20 bg-white/5 px-3.5 text-xs font-semibold text-[#e0eafa] transition-colors hover:border-[#a9c6ed] hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
                     title={item.name}
                     aria-label={item.name}
                   >

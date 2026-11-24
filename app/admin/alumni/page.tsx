@@ -10,9 +10,9 @@ export default async function AdminAlumniPage() {
     redirect("/admin/login");
   }
 
-  const { items: alumniList } = getAdminAlumniList({ limit: 1000 });
-  const metrics = getAlumniMetrics();
-  const batchYears = getAlumniBatchYears();
+  const { items: alumniList } = await getAdminAlumniList({ limit: 1000 });
+  const metrics = await getAlumniMetrics();
+  const batchYears = await getAlumniBatchYears();
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">

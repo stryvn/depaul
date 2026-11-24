@@ -1,3 +1,4 @@
+import { connection } from "next/server";
 import React from "react";
 import type { Metadata } from "next";
 import { getAllDocuments } from "@/db/queries";
@@ -6,7 +7,8 @@ import { DocsDirectoryEditorial } from "@/components/docs/DocsDirectoryEditorial
 export const instant = false;
 
 export const metadata: Metadata = {
-  title: "School documents | De Paul Public School Rajamudy",
+  title: "School documents",
+  alternates: { canonical: "/docs" },
   description: "View or download official school documents and CBSE disclosures.",
   openGraph: {
     title: "School documents | De Paul Public School Rajamudy",
@@ -16,6 +18,7 @@ export const metadata: Metadata = {
 };
 
 export default async function DocsPage() {
+  await connection();
   const documents = await getAllDocuments();
 
   return <DocsDirectoryEditorial documents={documents} />;

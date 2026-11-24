@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { TcPortalClient } from "@/components/tc/TcPortalClient";
 
 export const metadata: Metadata = {
-  title: "Transfer Certificate | De Paul Public School Rajamudy",
+  title: "Transfer Certificate",
   description:
     "Verify a transfer certificate issued by De Paul Public School & Junior College in Rajamudy.",
   alternates: {
