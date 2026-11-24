@@ -73,7 +73,7 @@ export function StoryDetailClient({
 
       <main id="main" className="flex-1 w-full pt-20 sm:pt-24 pb-16 sm:pb-24">
         {/* 2. Hero Section: Deep Navy Card matching Contact and Alumni */}
-        <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 min-[1180px]:px-0">
+        <div className="site-container">
           <motion.section
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -151,7 +151,7 @@ export function StoryDetailClient({
         </div>
 
         {/* 3. Main Grid: Story Content (8 cols) + Sidebar Widgets (4 cols) */}
-        <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 min-[1180px]:px-0 mt-8 sm:mt-12">
+        <div className="site-container mt-8 sm:mt-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Full Editorial Body */}
             <section

@@ -22,7 +22,7 @@ export function Footer() {
       <div className="absolute -top-32 -left-32 w-80 h-80 bg-brand-royal/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-sky/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 relative z-10">
+      <div className="site-container relative z-10">
         
         {/* 1. Footer Top Bar: Eyebrow motto + Back to top */}
         <div className="flex items-center justify-between pb-6 sm:pb-8 border-b border-slate-200/70">

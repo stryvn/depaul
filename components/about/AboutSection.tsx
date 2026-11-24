@@ -15,7 +15,7 @@ export function AboutSection() {
       <div className="absolute -top-40 -right-40 w-96 h-96 bg-brand-sky/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-brand-royal/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 relative z-10">
+      <div className="site-container relative z-10">
         <ScrollReveal>
           <div className="ed-section mb-8 md:mb-10">
             <h2>About De Paul</h2>

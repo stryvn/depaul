@@ -53,7 +53,7 @@ export function ContactPageClient() {
 
       <main id="main" className="flex-1 w-full pt-20 sm:pt-24 pb-16 sm:pb-24">
         {/* 2. Contact Hero Card */}
-        <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 min-[1180px]:px-0">
+        <div className="site-container">
           <motion.section
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export function ContactPageClient() {
         </div>
 
         {/* 3. Contact Details & Interactive Campus Map */}
-        <div className="w-full max-w-[1140px] mx-auto px-4 sm:px-6 min-[1180px]:px-0 mt-8 sm:mt-12">
+        <div className="site-container mt-8 sm:mt-12">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}

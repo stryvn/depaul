@@ -87,12 +87,11 @@ export function TopNavbar({ isMerged }: NavbarProps) {
       )}
 
       {/* Main Top Header Navbar */}
-      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex flex-col items-center px-3 sm:px-5 pointer-events-none">
+      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex flex-col items-center pointer-events-none">
         {/* Main Pill Navbar */}
         <div
-          style={{ maxWidth: isMerged ? "1140px" : "780px" }}
           className={cn(
-            "pointer-events-auto relative w-full border px-3 py-2 sm:px-5 sm:py-2.5 rounded-full flex items-center justify-between select-none shadow-xl transition-all duration-300 ease-out",
+            "site-container pointer-events-auto relative border px-3 py-2 sm:px-5 sm:py-2.5 rounded-full flex items-center justify-between select-none shadow-xl transition-all duration-300 ease-out",
             isMerged
               ? "bg-white/80 backdrop-blur-xl border-white/60 text-slate-800 shadow-xl shadow-slate-900/10"
               : "bg-white/20 hover:bg-white/25 backdrop-blur-md border-white/30 text-white shadow-black/20"

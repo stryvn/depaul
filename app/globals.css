@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+:root {
+  --site-gutter: 12px;
+  --site-width: min(1140px, calc(100% - 2 * var(--site-gutter)));
+}
+
+@media (min-width: 640px) {
+  :root { --site-gutter: 20px; }
+}
+
+.site-container {
+  width: var(--site-width);
+  margin-inline: auto;
+}
+
 @theme {
   --color-brand-royal: #0256a1;
   --color-brand-blue: #0256a1;
@@ -150,7 +164,7 @@ h1, h2, h3, h4, .font-display {
 }
 
 .ed-home {
-  width: min(1380px, calc(100% - 40px));
+  width: var(--site-width);
   margin: clamp(34px, 6vw, 82px) auto;
 }
 
@@ -292,7 +306,7 @@ h1, h2, h3, h4, .font-display {
 
 /* Stories Page Hero Section */
 .ed-hero-wrap {
-  width: min(1380px, calc(100% - 40px));
+  width: var(--site-width);
   margin: 0 auto;
 }
 
@@ -638,10 +652,6 @@ h1, h2, h3, h4, .font-display {
 }
 
 @media (max-width: 650px) {
-  .ed-home,
-  .ed-hero-wrap {
-    width: calc(100% - 20px);
-  }
   .ed-story-grid {
     grid-template-columns: 1fr;
   }

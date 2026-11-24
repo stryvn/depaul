@@ -38,7 +38,7 @@ export function ContactSection() {
     <section
       id="contact"
       aria-labelledby="home-contact-title"
-      className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 my-10 sm:my-16"
+      className="site-container my-10 sm:my-16"
     >
       <div className="bg-[#0b1b3d] text-white rounded-2xl p-2 sm:p-2.5 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 items-stretch gap-4 sm:gap-6 border border-white/10">
         {/* Left Copy Column */}

@@ -8,8 +8,6 @@
   --line: #d7e0ec;
   --pale: #edf3fa;
   --paper: #f8fafc;
-  --page-gutter: 20px;
-  --page-max: 1380px;
   --ink: var(--navy);
   --muted: var(--secondary);
   --profile-rule: var(--line);
@@ -28,7 +26,7 @@
 }
 
 .alumni-page .wrap {
-  width: min(var(--page-max), calc(100% - 2 * var(--page-gutter)));
+  width: var(--site-width);
   margin-inline: auto;
 }
 
