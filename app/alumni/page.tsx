@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { getPublicAlumniList, getFeaturedAlumni, getAlumniBatchYears } from "@/db/queries";
 import { AlumniDirectoryClient } from "@/components/alumni/AlumniDirectoryClient";
 
-export const instant = false;
 
 export const metadata: Metadata = {
   title: "Alumni Network",

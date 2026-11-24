@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { AdminNav } from "./AdminNav";
 
-export const instant = false;
 
 export const metadata = {
   title: "Admin Portal — De Paul Public School",

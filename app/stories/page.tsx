@@ -6,7 +6,6 @@ import { StoryTile } from "@/components/stories/StoryTile";
 import { TopNavbar } from "@/components/navbar/TopNavbar";
 import { Footer } from "@/components/footer/Footer";
 
-export const instant = false;
 
 export const metadata = {
   title: "Stories",

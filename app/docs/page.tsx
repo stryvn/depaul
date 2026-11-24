@@ -4,7 +4,6 @@ import type { Metadata } from "next";
 import { getAllDocuments } from "@/db/queries";
 import { DocsDirectoryEditorial } from "@/components/docs/DocsDirectoryEditorial";
 
-export const instant = false;
 
 export const metadata: Metadata = {
   title: "School documents",

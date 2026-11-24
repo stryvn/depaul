@@ -6,7 +6,6 @@ import { getStoryBySlug, getLatestStories } from "@/db/queries";
 import { renderMarkdown } from "@/lib/markdown";
 import { StoryDetailClient } from "@/components/stories/StoryDetailClient";
 
-export const instant = false;
 
 interface StoryPageProps {
   params: Promise<{ slug: string }>;

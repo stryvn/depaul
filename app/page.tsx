@@ -3,7 +3,6 @@ import React from "react";
 import { getLatestStories, getBentoDocuments } from "@/db/queries";
 import { HomePageClient } from "@/components/home/HomePageClient";
 
-export const instant = false;
 
 export const metadata = { alternates: { canonical: "/" } };
 
