@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { storyImageSources } from "./storyImageSources";
 import { cn } from "../ui/utils";
 
 export interface StoryItem {
@@ -46,14 +47,17 @@ export function StoryTile({
 
   return (
     <article className={cn("ed-story", isLead && "ed-lead", className)}>
-      <Link href={href} className="group">
+      <Link prefetch={false} href={href} className="group">
         <img
-          src={imageUrl}
+          {...storyImageSources(imageUrl)}
+          sizes={isLead ? "(max-width: 650px) 100vw, 50vw" : "(max-width: 650px) 50vw, 30vw"}
           alt={story.title}
+          loading="lazy"
           decoding="async"
           onError={(e) => {
             const target = e.currentTarget;
-            if (target.src !== "/assets/stories/sports-day.webp") {
+            if (target.getAttribute("src") !== "/assets/stories/sports-day.webp") {
+              target.removeAttribute("srcset");
               target.src = "/assets/stories/sports-day.webp";
             }
           }}

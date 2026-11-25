@@ -114,7 +114,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
 
       <div className="ed-doc-grid">
         <div className="ed-doc-featured">
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-disclosure"
             href={`/docs#${disclosureDoc.slug}`}
           >
@@ -133,7 +133,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
             <span className="ed-arrow" aria-hidden="true" />
           </Link>
 
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-calendar"
             href={`/docs#${calendarDoc.slug}`}
           >
@@ -146,7 +146,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
         </div>
 
         <div className="ed-doc-secondary">
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-affiliation"
             href={`/docs#${affiliationDoc.slug}`}
           >
@@ -157,7 +157,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
             <span className="ed-arrow" aria-hidden="true" />
           </Link>
 
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-teachers"
             href={`/docs#${teachersDoc.slug}`}
           >
@@ -168,7 +168,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
             <span className="ed-arrow" aria-hidden="true" />
           </Link>
 
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-fire-safety"
             href={`/docs#${fireSafetyDoc.slug}`}
           >
@@ -179,7 +179,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
             <span className="ed-arrow" aria-hidden="true" />
           </Link>
 
-          <Link
+          <Link prefetch={false}
             className="ed-doc ed-doc-pta"
             href={`/docs#${ptaDoc.slug}`}
           >
@@ -192,7 +192,7 @@ export function DocsSection({ docs }: DocsSectionProps) {
         </div>
       </div>
       <div className="ed-section-actions">
-        <Link className="ed-section-cta" href="/docs">
+        <Link prefetch={false} className="ed-section-cta" href="/docs">
           View all documents
           <ArrowRight size={17} aria-hidden="true" />
         </Link>

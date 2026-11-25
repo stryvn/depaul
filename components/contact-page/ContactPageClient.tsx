@@ -1,5 +1,6 @@
 "use client";
 
+import { CampusMap } from "@/components/contact/CampusMap";
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -53,7 +54,7 @@ export function ContactPageClient() {
 
       <main id="main" className="flex-1 w-full pt-20 sm:pt-24 pb-16 sm:pb-24">
         {/* 2. Contact Hero Card */}
-        <div className="site-container">
+        <div className="w-[var(--public-content-width)] mx-auto">
           <motion.section
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -62,7 +63,7 @@ export function ContactPageClient() {
             className="relative bg-[#0b1b3d] text-white rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-[360px] sm:min-h-[420px] lg:min-h-[450px]"
           >
             {/* Left Copy Column */}
-            <div className="lg:col-span-5 flex flex-col justify-center p-6 ps-0 sm:p-10 sm:ps-0 lg:p-12 lg:ps-0 z-10">
+            <div className="lg:col-span-5 flex flex-col items-center text-center justify-center p-6 sm:p-10 lg:p-12 z-10">
               <p className="text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-[#a9c6ed] mb-2 sm:mb-3">
                 Rajamudy, Idukki
               </p>
@@ -106,7 +107,7 @@ export function ContactPageClient() {
         </div>
 
         {/* 3. Contact Details & Interactive Campus Map */}
-        <div className="site-container mt-8 sm:mt-12">
+        <div className="w-[var(--public-content-width)] mx-auto mt-8 sm:mt-12">
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
@@ -189,9 +190,9 @@ export function ContactPageClient() {
                 </div>
 
                 <div>
-                  <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">
+                  <h3 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-500 mb-2">
                     Social &amp; Direct Messaging
-                  </h4>
+                  </h3>
                   <div className="flex flex-wrap items-center gap-2">
                     {SOCIAL_LINKS.map((item) => {
                       const Icon = item.icon;
@@ -239,15 +240,7 @@ export function ContactPageClient() {
               </div>
 
               {/* Embedded Google Maps Container */}
-              <div className="relative w-full flex-1 min-h-[350px] sm:min-h-[420px] rounded-xl border border-[#c9d6e5] overflow-hidden bg-[#eef0ed] shadow-sm">
-                <iframe
-                  src="https://maps.google.com/maps?q=De+Paul+Public+School+Rajamudy+Idukki&t=&z=15&ie=UTF8&iwloc=&output=embed"
-                  title="Google Maps interactive location of De Paul Public School Rajamudy"
-                  loading="lazy"
-                  className="w-full h-full border-0 absolute inset-0"
-                  allowFullScreen
-                />
-              </div>
+              <CampusMap className="relative w-full flex-1 min-h-[350px] sm:min-h-[420px] rounded-xl border border-[#c9d6e5] overflow-hidden bg-[#eef0ed] shadow-sm" />
             </section>
           </motion.div>
         </div>

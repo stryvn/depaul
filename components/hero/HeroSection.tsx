@@ -1,7 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef } from "react";
 import { HeroTitle } from "./HeroTitle";
 import { HeroCTA } from "./HeroCTA";
 import { BottomNavBar } from "../navbar/BottomNavBar";
@@ -11,14 +10,26 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ isMerged }: HeroSectionProps) {
-  const [scrollY, setScrollY] = useState(0);
+  const backgroundRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
+    const background = backgroundRef.current;
+    if (!background) return;
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateParallax = () => {
+      background.style.transform = reducedMotion.matches
+        ? ""
+        : `translate3d(0, ${window.scrollY * 0.25}px, 0)`;
     };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    updateParallax();
+    window.addEventListener("scroll", updateParallax, { passive: true });
+    reducedMotion.addEventListener("change", updateParallax);
+    return () => {
+      window.removeEventListener("scroll", updateParallax);
+      reducedMotion.removeEventListener("change", updateParallax);
+    };
   }, []);
 
   return (
@@ -26,18 +37,17 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
       {/* Background Campus Exterior from project curated assets with parallax */}
       <div
         className="absolute inset-0 w-full h-[120%] -top-[10%] z-0 will-change-transform"
-        style={{
-          transform: `translate3d(0, ${scrollY * 0.25}px, 0)`,
-        }}
+        ref={backgroundRef}
       >
-        <Image
-          src="/assets/campus_exterior/drone-shot-final-frame.jpeg"
-          alt="De Paul Public School Rajamudy Campus Drone Shot"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center filter brightness-95"
-        />
+        <picture>
+          <source media="(max-width: 639px) and (orientation: portrait)" srcSet="/assets/campus_exterior/drone-shot-portrait.webp" />
+          <img
+            src="/assets/campus_exterior/drone-shot-final-frame.webp"
+            alt="Aerial view of De Paul Public School in Rajamudy"
+            fetchPriority="high"
+            className="absolute inset-0 h-full w-full object-cover object-center brightness-95"
+          />
+        </picture>
         {/* Balanced gradient overlay: leaves the top and middle school building visible, darkening towards bottom for legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80" />
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useNearViewport } from "@/components/ui/useNearViewport";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,11 +13,7 @@ const TC_SCRIPT_URL =
 
 export function TcPortalClient() {
   const [frameReady, setFrameReady] = React.useState(false);
-  const [showFrame, setShowFrame] = React.useState(false);
-
-  React.useEffect(() => {
-    setShowFrame(true);
-  }, []);
+  const { ref, isNear: showFrame } = useNearViewport();
 
   return (
     <div className="tc-page selection:bg-brand-royal selection:text-white">
@@ -26,7 +23,7 @@ export function TcPortalClient() {
       <main id="main" tabIndex={-1}>
         <div className="wrap tc-layout">
           <div className="tc-intro">
-            <section className="tc-title" aria-labelledby="tc-title">
+            <section className="tc-title hero-card-copy" aria-labelledby="tc-title">
               <div className="tc-title-copy">
                 <svg
                   className="tc-document"
@@ -67,8 +64,8 @@ export function TcPortalClient() {
             </aside>
           </div>
           <section className="tc-verification" aria-label="Verify a transfer certificate">
-            <div className="tc-frame-container">
-              {!frameReady && (
+            <div ref={ref} className="tc-frame-container">
+              {showFrame && !frameReady && (
                 <div className="tc-loading" role="status">
                   <span className="tc-loading-spinner" aria-hidden="true" />
                   Loading TC verification…

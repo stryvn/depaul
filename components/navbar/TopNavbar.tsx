@@ -87,11 +87,12 @@ export function TopNavbar({ isMerged }: NavbarProps) {
       )}
 
       {/* Main Top Header Navbar */}
-      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex flex-col items-center pointer-events-none">
+      <header className="fixed top-3 sm:top-5 left-0 right-0 z-50 flex flex-col items-center px-3 sm:px-5 pointer-events-none">
         {/* Main Pill Navbar */}
         <div
+          style={{ maxWidth: isMerged ? "1140px" : "780px" }}
           className={cn(
-            "site-container pointer-events-auto relative border px-3 py-2 sm:px-5 sm:py-2.5 rounded-full flex items-center justify-between select-none shadow-xl transition-all duration-300 ease-out",
+            "pointer-events-auto relative w-full border px-3 py-2 sm:px-5 sm:py-2.5 rounded-full flex items-center justify-between select-none shadow-xl transition-all duration-300 ease-out",
             isMerged
               ? "bg-white/80 backdrop-blur-xl border-white/60 text-slate-800 shadow-xl shadow-slate-900/10"
               : "bg-white/20 hover:bg-white/25 backdrop-blur-md border-white/30 text-white shadow-black/20"
@@ -326,7 +327,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
               >
                 <div className="relative w-7 h-7 sm:w-8 sm:h-8 shrink-0 group-hover:scale-105 transition-transform">
                   <Image
-                    src="/assets/branding/logo.png"
+                    src="/assets/branding/logo-navbar.png"
                     alt="De Paul School Logo"
                     fill
                     sizes="32px"
@@ -518,7 +519,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                 {/* Hero Admissions Button Replica */}
                 <div className="pt-1">
                   <a
-                    href="/contact"
+                    href="/admissions"
                     onClick={handleLinkClick}
                     className="w-full group relative inline-flex items-center justify-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-gradient-to-b from-[#0262b6] to-[#02498b] hover:from-[#036bc7] hover:to-[#02539d] text-white text-xs sm:text-sm font-semibold tracking-wide border border-white/20 hover:border-white/40 shadow-[0_4px_20px_rgba(2,86,161,0.3),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_4px_28px_rgba(2,86,161,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] transition-all duration-300"
                   >

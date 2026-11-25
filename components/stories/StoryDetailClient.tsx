@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { storyImageSources } from "./storyImageSources";
 import {
   ArrowLeft,
   ArrowUpRight,
@@ -73,20 +73,17 @@ export function StoryDetailClient({
 
       <main id="main" className="flex-1 w-full pt-20 sm:pt-24 pb-16 sm:pb-24">
         {/* 2. Hero Section: Deep Navy Card matching Contact and Alumni */}
-        <div className="site-container">
-          <motion.section
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, ease: "easeOut" }}
+        <div className="w-[var(--public-content-width)] mx-auto">
+          <section
             aria-labelledby="story-title"
-            className="relative bg-[#0b1b3d] text-white rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]"
+            className="hero-copy-enter relative bg-[#0b1b3d] text-white rounded-2xl overflow-hidden shadow-xl grid grid-cols-1 lg:grid-cols-12 min-h-[380px] sm:min-h-[420px] lg:min-h-[460px]"
           >
             {/* Left Copy Column */}
-            <div className="lg:col-span-6 flex flex-col justify-between p-6 ps-0 sm:p-10 sm:ps-0 lg:p-12 lg:ps-0 z-10">
+            <div className="lg:col-span-6 flex flex-col text-center justify-between p-6 sm:p-10 lg:p-12 z-10">
               <div>
                 {/* Back Link Breadcrumb */}
-                <div className="flex flex-wrap items-center gap-2 mb-4">
-                  <Link
+                <div className="flex flex-wrap items-center justify-center gap-2 mb-4">
+                  <Link prefetch={false}
                     href="/stories"
                     className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-[#a9c6ed] hover:text-white transition-colors group"
                   >
@@ -119,7 +116,7 @@ export function StoryDetailClient({
               </div>
 
               {/* Story Meta & Read Time */}
-              <div className="mt-6 pt-5 border-t border-[#1b2f5b] flex flex-wrap items-center gap-4 sm:gap-6 text-xs sm:text-sm font-semibold text-[#a9c6ed]">
+              <div className="mt-6 pt-5 border-t border-[#1b2f5b] flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs sm:text-sm font-semibold text-[#a9c6ed]">
                 {formattedDate && (
                   <div className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4 text-[#7ba5de]" />
@@ -135,33 +132,29 @@ export function StoryDetailClient({
 
             {/* Right Hero Cover Photo Column */}
             <figure className="lg:col-span-6 relative min-h-[260px] sm:min-h-[320px] lg:min-h-full bg-[#1b2b4d] overflow-hidden">
-              <Image
-                src={story.coverImage}
+              <img
+                {...storyImageSources(story.coverImage)}
                 alt={story.title}
-                fill
-                priority
+                fetchPriority="high"
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover object-center"
+                className="absolute inset-0 h-full w-full object-cover object-center"
               />
               <figcaption className="absolute bottom-0 right-0 px-3.5 py-2 bg-[#0b1b3d]/95 backdrop-blur-sm text-[#eff5fe] text-xs sm:text-[13px] font-medium tracking-wide">
                 De Paul Public School &amp; Junior College
               </figcaption>
             </figure>
-          </motion.section>
+          </section>
         </div>
 
         {/* 3. Main Grid: Story Content (8 cols) + Sidebar Widgets (4 cols) */}
-        <div className="site-container mt-8 sm:mt-12">
+        <div className="w-[var(--public-content-width)] mx-auto mt-8 sm:mt-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             {/* Left Column: Full Editorial Body */}
             <section
               aria-label="Story content"
               className="lg:col-span-8 space-y-8"
             >
-              <motion.article
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.1, ease: "easeOut" }}
+              <article
                 className="bg-white border border-[#d7e0ec] rounded-2xl p-6 sm:p-10 lg:p-12 shadow-xs"
               >
                 {/* Rendered Markdown Prose */}
@@ -228,7 +221,7 @@ export function StoryDetailClient({
                   </div>
 
                   {/* Return Link */}
-                  <Link
+                  <Link prefetch={false}
                     href="/stories"
                     className="inline-flex items-center gap-1.5 text-xs font-bold text-[#173e82] hover:text-[#0b1b3d] hover:underline underline-offset-4 transition-colors"
                   >
@@ -236,17 +229,14 @@ export function StoryDetailClient({
                     <span>Back to all stories</span>
                   </Link>
                 </div>
-              </motion.article>
+              </article>
             </section>
 
             {/* Right Sidebar: Recent Stories & School Office Contact */}
             <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-28">
               {/* Widget 1: More Recent Stories */}
               {recentStories.length > 0 && (
-                <motion.section
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.45, delay: 0.15, ease: "easeOut" }}
+                <section
                   aria-labelledby="recent-stories-title"
                   className="bg-white border border-[#d7e0ec] rounded-2xl p-6 shadow-xs"
                 >
@@ -257,7 +247,7 @@ export function StoryDetailClient({
                     >
                       More Stories
                     </h2>
-                    <Link
+                    <Link prefetch={false}
                       href="/stories"
                       className="text-xs font-bold text-[#173e82] hover:underline"
                     >
@@ -267,18 +257,19 @@ export function StoryDetailClient({
 
                   <div className="mt-4 divide-y divide-[#edf3fa]">
                     {recentStories.map((item) => (
-                      <Link
+                      <Link prefetch={false}
                         key={item.id}
                         href={`/stories/${item.slug}`}
                         className="group flex items-center gap-3.5 py-3.5 first:pt-1 last:pb-1 transition-colors"
                       >
                         <div className="relative w-16 h-16 shrink-0 rounded-lg overflow-hidden bg-slate-100 border border-[#d7e0ec]">
-                          <Image
-                            src={item.coverImage}
+                          <img
+                            {...storyImageSources(item.coverImage)}
                             alt={item.title}
-                            fill
+                            loading="lazy"
+                            decoding="async"
                             sizes="64px"
-                            className="object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="absolute inset-0 h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                           />
                         </div>
 
@@ -297,14 +288,11 @@ export function StoryDetailClient({
                       </Link>
                     ))}
                   </div>
-                </motion.section>
+                </section>
               )}
 
               {/* Widget 2: School Office Card (Matching Contact Page) */}
-              <motion.section
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.2, ease: "easeOut" }}
+              <section
                 aria-labelledby="sidebar-office-title"
                 className="bg-[#edf3fa] border border-[#d7e0ec] rounded-2xl p-6 shadow-xs"
               >
@@ -319,44 +307,38 @@ export function StoryDetailClient({
                 </p>
 
                 <dl className="mt-4 space-y-3 text-xs">
-                  <div className="flex items-start gap-2.5">
-                    <Phone className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
-                    <div>
-                      <dt className="sr-only">Phone</dt>
-                      <dd>
-                        <a
-                          href="tel:+919605602400"
-                          className="font-bold text-[#0b1b3d] hover:text-[#0256a1] transition-colors"
-                        >
-                          +91 96056 02400
-                        </a>
-                      </dd>
-                    </div>
+                  <div>
+                    <dt className="sr-only">Phone</dt>
+                    <dd className="flex items-start gap-2.5">
+                      <Phone aria-hidden="true" className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
+                      <a
+                        href="tel:+919605602400"
+                        className="font-bold text-[#0b1b3d] hover:text-[#0256a1] transition-colors"
+                      >
+                        +91 96056 02400
+                      </a>
+                    </dd>
                   </div>
 
-                  <div className="flex items-start gap-2.5">
-                    <Mail className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
-                    <div>
-                      <dt className="sr-only">Email</dt>
-                      <dd>
-                        <a
-                          href="mailto:depaulrajamudy@gmail.com"
-                          className="font-bold text-[#0b1b3d] hover:text-[#0256a1] transition-colors break-all"
-                        >
-                          depaulrajamudy@gmail.com
-                        </a>
-                      </dd>
-                    </div>
+                  <div>
+                    <dt className="sr-only">Email</dt>
+                    <dd className="flex items-start gap-2.5">
+                      <Mail aria-hidden="true" className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
+                      <a
+                        href="mailto:depaulrajamudy@gmail.com"
+                        className="font-bold text-[#0b1b3d] hover:text-[#0256a1] transition-colors break-all"
+                      >
+                        depaulrajamudy@gmail.com
+                      </a>
+                    </dd>
                   </div>
 
-                  <div className="flex items-start gap-2.5">
-                    <MapPin className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
-                    <div>
-                      <dt className="sr-only">Address</dt>
-                      <dd className="text-slate-600">
-                        Upputhode Road, Rajamudy P.O, Idukki - 685604
-                      </dd>
-                    </div>
+                  <div>
+                    <dt className="sr-only">Address</dt>
+                    <dd className="flex items-start gap-2.5 text-slate-600">
+                      <MapPin aria-hidden="true" className="w-4 h-4 text-[#0256a1] shrink-0 mt-0.5" />
+                      Upputhode Road, Rajamudy P.O, Idukki - 685604
+                    </dd>
                   </div>
                 </dl>
 
@@ -371,19 +353,16 @@ export function StoryDetailClient({
                     <span>Chat on WhatsApp</span>
                   </a>
                 </div>
-              </motion.section>
+              </section>
 
               {/* Widget 3: Institutional Credential Card */}
-              <motion.section
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, delay: 0.25, ease: "easeOut" }}
+              <section
                 className="bg-[#0b1b3d] text-white rounded-2xl p-6 shadow-md"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 relative shrink-0 bg-white/10 rounded-xl p-1 border border-white/20">
                     <Image
-                      src="/assets/branding/logo.png"
+                      src="/assets/branding/logo-navbar.png"
                       alt="De Paul School Crest"
                       fill
                       className="object-contain p-0.5"
@@ -407,7 +386,7 @@ export function StoryDetailClient({
                     CBSE Affiliation No. 930624 &bull; School Code: 75543
                   </p>
                 </div>
-              </motion.section>
+              </section>
             </aside>
           </div>
         </div>

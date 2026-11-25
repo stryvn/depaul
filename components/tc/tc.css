@@ -21,7 +21,7 @@
 }
 
 .tc-layout {
-  width: var(--site-width);
+  width: var(--public-content-width);
   margin-inline: auto;
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -39,7 +39,6 @@
 
 .tc-title-copy {
   padding: clamp(26px, 3.6vw, 50px);
-  padding-inline-start: 0;
 }
 
 .tc-document {

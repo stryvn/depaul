@@ -17,7 +17,7 @@ export function StoriesSection({ stories }: StoriesSectionProps) {
 
       <MasonryGrid stories={stories} />
       <div className="ed-section-actions">
-        <Link className="ed-section-cta" href="/stories">
+        <Link prefetch={false} className="ed-section-cta" href="/stories">
           View all stories
           <ArrowRight size={17} aria-hidden="true" />
         </Link>

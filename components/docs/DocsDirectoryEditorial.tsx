@@ -73,7 +73,7 @@ export function DocsDirectoryEditorial({ documents }: DocsDirectoryEditorialProp
       <main id="main" tabIndex={-1} className="pt-[100px] flex-1">
         {/* Editorial Hero Section */}
         <section className="ed-wrap ed-hero" aria-labelledby="ed-title">
-          <div className="hero-copy">
+          <div className="hero-copy hero-card-copy">
             <p className="label">Rajamudy, Idukki</p>
             <h1 id="ed-title">
               School<br /> <span>documents</span>

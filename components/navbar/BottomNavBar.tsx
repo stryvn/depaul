@@ -23,6 +23,7 @@ export function BottomNavBar({ isMerged }: BottomNavBarProps) {
   return (
     <div
       id="bottom-nav-container"
+      inert={isMerged}
       className={cn(
         "absolute bottom-3 sm:bottom-8 left-0 right-0 z-40 flex justify-center px-3 sm:px-5 pointer-events-none transition-all duration-300",
         isMerged ? "opacity-0 -translate-y-4" : "opacity-100"

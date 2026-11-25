@@ -2,6 +2,8 @@ import { connection } from "next/server";
 import React from "react";
 import Link from "next/link";
 import { getAllStories } from "@/db/queries";
+import { MasonryGrid } from "@/components/stories/MasonryGrid";
+import { storyImageSources } from "@/components/stories/storyImageSources";
 import { StoryTile } from "@/components/stories/StoryTile";
 import { TopNavbar } from "@/components/navbar/TopNavbar";
 import { Footer } from "@/components/footer/Footer";
@@ -29,7 +31,7 @@ export default async function StoriesListingPage() {
         {/* Editorial Hero Section */}
         <div className="ed-hero-wrap">
           <section className="ed-hero-container" aria-labelledby="ed-title">
-            <div className="ed-hero-copy">
+            <div className="ed-hero-copy hero-card-copy">
               <p className="ed-label">Rajamudy, Idukki</p>
               <h1 id="ed-title">
                 De Paul
@@ -41,7 +43,8 @@ export default async function StoriesListingPage() {
             </div>
             <figure className="ed-hero-photo">
               <img
-                src={heroImage}
+                {...storyImageSources(heroImage)}
+                sizes="(max-width: 850px) 100vw, 60vw"
                 alt="De Paul Campus Stories"
                 fetchPriority="high"
               />
@@ -69,16 +72,16 @@ export default async function StoriesListingPage() {
               </Link>
             </div>
           ) : (
-            <div className="ed-story-grid ed-archive">
-              {stories.map((story) => (
-                <StoryTile
-                  key={story.id}
-                  story={story}
-                  isLead={true}
-                  showDate={true}
-                />
-              ))}
-            </div>
+            <>
+              <MasonryGrid stories={stories} />
+              {stories.length > 6 && (
+                <div className="ed-story-grid ed-archive">
+                  {stories.slice(6).map((story) => (
+                    <StoryTile key={story.id} story={story} showDate />
+                  ))}
+                </div>
+              )}
+            </>
           )}
         </section>
       </main>

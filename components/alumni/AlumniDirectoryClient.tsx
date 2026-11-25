@@ -127,7 +127,7 @@ export function AlumniDirectoryClient({
       <main id="main" tabIndex={-1}>
         {/* Hero Section */}
         <section className="hero wrap alumni-hero" aria-labelledby="alumni-title">
-          <div className="hero-copy">
+          <div className="hero-copy hero-card-copy">
             <p className="label">Rajamudy, Idukki</p>
             <h1 id="alumni-title">
               De Paul<br /> <span>Alumni</span>

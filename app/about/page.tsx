@@ -19,7 +19,7 @@ export default function AboutPage() {
         <a className="skip" href="#main">Skip to content</a>
     <main id="main" tabIndex={-1}>
     <section className="hero wrap" aria-labelledby="title">
-      <div className="hero-copy">
+      <div className="hero-copy hero-card-copy">
         <p className="label">Rajamudy, Idukki</p>
         <h1 id="title">About<br /> <span>De Paul</span></h1>
         <p className="motto">For God &amp; Country</p>
@@ -99,7 +99,7 @@ export default function AboutPage() {
           <p className="label">Facilities</p>
           <h2 id="facilities-title">Learning by doing</h2>
           <p>Science and computing labs give students room for practical work. Classrooms, the library and sports grounds support study, recreation and activities beyond the classroom.</p>
-          <a className="text-link" href="https://depaulidukki.com/gallery/">Explore the campus gallery</a>
+          <a className="text-link" href="/gallery">Explore the campus gallery</a>
         </div>
         <img className="section-photo" src="/reference-about/assets/learning.webp" alt="De Paul students taking part in a practical science activity" width="600" height="400" loading="lazy" />
       </section>
@@ -112,7 +112,7 @@ export default function AboutPage() {
             <div><dt>School hours</dt><dd><time dateTime="09:30">9:30 am</time> – <time dateTime="15:50">3:50 pm</time></dd></div>
             <div><dt>Classes offered</dt><dd>LKG to XII</dd></div>
           </dl>
-          <a className="text-link" href="/contact">Visit admissions</a>
+          <a className="text-link" href="/admissions">Visit admissions</a>
         </div>
         <img className="section-photo" src="/reference-about/assets/sports.webp" alt="De Paul students taking part in school sports" loading="lazy" />
       </section>

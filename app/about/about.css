@@ -20,7 +20,7 @@
   button { font: inherit; }
   a:focus-visible, button:focus-visible { outline: 2px solid #2059aa; outline-offset: 4px; }
   img { display: block; max-width: 100%; }
-  .wrap { width: var(--site-width); margin-inline: auto; }
+  .wrap { width: var(--public-content-width); margin-inline: auto; }
   .skip { position: fixed; top: 6px; left: 8px; z-index: 60; background: white; padding: 10px 15px; transform: translateY(-150%); }
   .skip:focus { transform: none; }
 
@@ -34,7 +34,7 @@
     border-radius: 16px;
     overflow: hidden;
   }
-  .hero-copy { align-self: center; padding: clamp(28px, 4vw, 56px); padding-inline-start: 0; }
+  .hero-copy { align-self: center; padding: clamp(28px, 4vw, 56px); }
   .label { font-size: .83rem; font-weight: 800; letter-spacing: .11em; text-transform: uppercase; color: var(--blue); margin-bottom: 9px; }
   .hero .label { color: #a9c6ed; }
   h1 { font-size: clamp(3.25rem, 6.7vw, 6.1rem); line-height: .99; font-weight: 800; letter-spacing: -.061em; }
@@ -107,7 +107,7 @@
     main { padding-top: 81px; }
     .hero, .split, .leadership-team { grid-template-columns: minmax(0, 1fr); }
     .hero { min-height: unset; }
-    .hero-copy { padding: 27px 22px 27px 0; }
+    .hero-copy { padding: 27px 22px; }
     h1 br { display: none; }
     h1 { font-size: clamp(2.45rem, 9.8vw, 3.45rem); }
     .motto { margin-top: 14px; }

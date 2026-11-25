@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 const pageNames: Record<string, string> = {
   "/": "Home",
   "/about": "About",
+  "/admissions": "Admissions",
   "/contact": "Contact",
   "/docs": "School Documents",
   "/documents": "School Documents",
@@ -32,7 +33,7 @@ export function SiteMotion() {
       if (preference.matches) return;
       image.animate(
         [{ clipPath: "inset(22% 0 0 0)", opacity: 0.75 }, { clipPath: "inset(0)", opacity: 1 }],
-        { duration: 440, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
+        { duration: 500, easing: "cubic-bezier(0.22, 1, 0.36, 1)" },
       );
     }
 

@@ -12,11 +12,6 @@
   font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, sans-serif;
 }
 
-.ed-home {
-  width: var(--site-width);
-  margin: clamp(34px, 6vw, 82px) auto;
-}
-
 .ed-body {
   margin-block: clamp(28px, 5vw, 64px);
 }
@@ -256,9 +251,9 @@
 }
 
 .ed-hero .hero-copy {
+  container-type: inline-size;
   align-self: center;
   padding: clamp(28px, 4vw, 56px);
-  padding-inline-start: 0;
 }
 
 .ed-hero .label {
@@ -271,7 +266,7 @@
 }
 
 .ed-hero h1 {
-  font-size: clamp(3.25rem, 6.7vw, 6.1rem);
+  font-size: min(19cqi, clamp(3rem, 6.1vw, 5.2rem));
   line-height: .99;
   font-weight: 800;
   letter-spacing: -.061em;
@@ -308,7 +303,7 @@
 }
 
 .ed-wrap {
-  width: var(--site-width);
+  width: var(--public-content-width);
   margin-inline: auto;
 }
 

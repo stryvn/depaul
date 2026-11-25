@@ -3,6 +3,12 @@ import React from "react";
 import { getLatestStories, getBentoDocuments } from "@/db/queries";
 import { HomePageClient } from "@/components/home/HomePageClient";
 
+import { AboutSection } from "@/components/about/AboutSection";
+import { StoriesSection } from "@/components/stories/StoriesSection";
+import { DocsSection } from "@/components/docs/DocsSection";
+import { ContactSection } from "@/components/contact/ContactSection";
+import { Footer } from "@/components/footer/Footer";
+
 
 export const metadata = { alternates: { canonical: "/" } };
 
@@ -43,7 +49,13 @@ export default async function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <HomePageClient stories={stories} docs={docs} />
+      <HomePageClient>
+        <AboutSection />
+        <StoriesSection stories={stories} />
+        <DocsSection docs={docs} />
+        <ContactSection />
+      </HomePageClient>
+      <Footer />
     </>
   );
 }

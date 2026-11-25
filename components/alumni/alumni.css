@@ -26,7 +26,7 @@
 }
 
 .alumni-page .wrap {
-  width: var(--site-width);
+  width: var(--public-content-width);
   margin-inline: auto;
 }
 
@@ -44,7 +44,6 @@
 .alumni-hero .hero-copy {
   align-self: center;
   padding: clamp(28px, 4vw, 56px);
-  padding-inline-start: 0;
 }
 
 .alumni-hero .label {

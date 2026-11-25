@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { StoryTile, StoryItem } from "./StoryTile";
 
@@ -67,10 +65,15 @@ interface MasonryGridProps {
 export function MasonryGrid({ stories }: MasonryGridProps) {
   const items = stories && stories.length > 0 ? stories : STORIES_DATA;
   return (
-    <div className="ed-story-grid ed-home-story-grid">
-      {items.slice(0, 6).map((story) => (
-        <StoryTile key={story.id} story={story} showDate={true} />
-      ))}
-    </div>
+    <>
+      <div className="ed-story-grid ed-story-feature">
+        {items.slice(0, 5).map((story, index) => (
+          <StoryTile key={story.id} story={story} isLead={index === 0} />
+        ))}
+      </div>
+      {items[5] && (
+        <StoryTile story={items[5]} className="ed-story-followup" showDate />
+      )}
+    </>
   );
 }

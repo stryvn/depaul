@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
@@ -114,30 +114,66 @@ export const ABOUT_TOPICS: AboutTopic[] = [
   },
 ];
 
+const AUTO_PLAY_DELAY = 4500;
+const MANUAL_SELECTION_DELAY = 7000;
+
 interface AboutMotionGalleryProps {
   skipIntro?: boolean;
   showCta?: boolean;
 }
 
 export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) {
-  // Default to index 2 (Leadership)
-  const [activeIndex, setActiveIndex] = useState<number>(2);
-
+  const [selection, setSelection] = useState({ index: 2, delay: AUTO_PLAY_DELAY });
+  const [canAutoPlay, setCanAutoPlay] = useState(false);
+  const desktopGalleryRef = useRef<HTMLDivElement>(null);
+  const activeIndex = selection.index;
   const activeTopic = ABOUT_TOPICS[activeIndex];
 
-  const handlePrev = () => {
-    setActiveIndex((prev) => (prev === 0 ? ABOUT_TOPICS.length - 1 : prev - 1));
-  };
+  useEffect(() => {
+    const gallery = desktopGalleryRef.current;
+    if (!gallery || !("IntersectionObserver" in window)) return;
 
-  const handleNext = () => {
-    setActiveIndex((prev) => (prev === ABOUT_TOPICS.length - 1 ? 0 : prev + 1));
-  };
+    const desktopMotion = window.matchMedia("(min-width: 901px) and (prefers-reduced-motion: no-preference)");
+    let inView = false;
+    const updateAutoPlay = () => {
+      setCanAutoPlay(inView && desktopMotion.matches && !document.hidden);
+    };
+    const observer = new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting && entry.intersectionRatio >= 0.2;
+      updateAutoPlay();
+    }, { threshold: 0.2 });
+
+    observer.observe(gallery);
+    desktopMotion.addEventListener("change", updateAutoPlay);
+    document.addEventListener("visibilitychange", updateAutoPlay);
+    return () => {
+      observer.disconnect();
+      desktopMotion.removeEventListener("change", updateAutoPlay);
+      document.removeEventListener("visibilitychange", updateAutoPlay);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!canAutoPlay) return;
+
+    const timer = window.setTimeout(() => {
+      setSelection((current) => current === selection
+        ? { index: (current.index + 1) % ABOUT_TOPICS.length, delay: AUTO_PLAY_DELAY }
+        : current);
+    }, selection.delay);
+
+    return () => window.clearTimeout(timer);
+  }, [canAutoPlay, selection]);
+
+  const selectTopic = (index: number) => setSelection({ index, delay: MANUAL_SELECTION_DELAY });
+  const handlePrev = () => selectTopic((activeIndex + ABOUT_TOPICS.length - 1) % ABOUT_TOPICS.length);
+  const handleNext = () => selectTopic((activeIndex + 1) % ABOUT_TOPICS.length);
 
   return (
     <div className="depaul-about-root w-full select-none">
       <div className="about-gallery">
         {/* ── Desktop Accordion (>= 901px) ── */}
-        <div className="about-gallery-window about-track-desktop">
+        <div className="about-gallery-window about-track-desktop" ref={desktopGalleryRef}>
           <div className="about-track" role="group" aria-label="About De Paul topics">
             {ABOUT_TOPICS.map((topic, index) => {
               const isActive = activeIndex === index;
@@ -147,7 +183,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                   key={topic.id}
                   className="about-card group"
                   data-active={isActive ? "true" : "false"}
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => selectTopic(index)}
                   aria-expanded={isActive}
                 >
                   {/* Photo container */}
@@ -157,7 +193,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                       alt={topic.title}
                       fill
                       sizes="(max-width: 900px) 240px, 460px"
-                      priority={index === 2}
+
                       style={{ objectPosition: topic.position }}
                     />
                   </div>
@@ -184,7 +220,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                         className="about-card-trigger"
                         onClick={(e) => {
                           e.stopPropagation();
-                          setActiveIndex(index);
+                          selectTopic(index);
                         }}
                       >
                         <span>{topic.title}</span>
@@ -225,7 +261,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                   aria-selected={isCurrent}
                   className="about-mobile-tab-pill"
                   data-active={isCurrent ? "true" : "false"}
-                  onClick={() => setActiveIndex(i)}
+                  onClick={() => selectTopic(i)}
                 >
                   {topic.title}
                 </button>
@@ -240,7 +276,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                 src={activeTopic.photo}
                 alt={activeTopic.title}
                 fill
-                priority
+
                 sizes="(max-width: 900px) 100vw, 500px"
                 className="object-cover"
                 style={{ objectPosition: activeTopic.position }}
@@ -299,7 +335,7 @@ export function AboutMotionGallery({ showCta = true }: AboutMotionGalleryProps) 
                   data-current={isCurrent ? "true" : "false"}
                   aria-label={topic.title}
                   title={topic.title}
-                  onClick={() => setActiveIndex(i)}
+                  onClick={() => selectTopic(i)}
                 />
               );
             })}

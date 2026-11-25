@@ -45,7 +45,7 @@ export function AboutCTA() {
             {/* Action Buttons Row */}
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-4 sm:gap-6">
               <Link
-                href="/#contact"
+                href="/admissions"
                 className="group relative inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-b from-[#0262b6] to-[#02498b] hover:from-[#036bc7] hover:to-[#02539d] text-white text-sm sm:text-base font-semibold tracking-wide border border-white/20 hover:border-white/40 shadow-[0_4px_20px_rgba(2,86,161,0.3),inset_0_1px_0_rgba(255,255,255,0.25)] hover:shadow-[0_4px_28px_rgba(2,86,161,0.5),inset_0_1px_0_rgba(255,255,255,0.4)] transition-all duration-300"
               >
                 <span>Apply for Admission / Inquire</span>

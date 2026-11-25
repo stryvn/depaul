@@ -1,5 +1,6 @@
 "use client";
 
+import { CampusMap } from "@/components/contact/CampusMap";
 import React from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -38,11 +39,11 @@ export function ContactSection() {
     <section
       id="contact"
       aria-labelledby="home-contact-title"
-      className="site-container my-10 sm:my-16"
+      className="w-[var(--public-content-width)] mx-auto my-10 sm:my-16"
     >
-      <div className="bg-[#0b1b3d] text-white rounded-2xl p-2 ps-0 sm:p-2.5 sm:ps-0 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 items-stretch gap-4 sm:gap-6 ring-1 ring-inset ring-white/10">
+      <div className="bg-[#0b1b3d] text-white rounded-2xl p-2 sm:p-2.5 overflow-hidden shadow-2xl grid grid-cols-1 lg:grid-cols-12 items-stretch gap-4 sm:gap-6 border border-white/10">
         {/* Left Copy Column */}
-        <div className="lg:col-span-5 flex flex-col justify-center p-6 ps-0 sm:p-8 sm:ps-0 lg:p-10 lg:ps-0 min-w-0">
+        <div className="lg:col-span-5 flex flex-col justify-center p-6 sm:p-8 lg:p-10 min-w-0">
           <span className="text-xs sm:text-[13px] font-extrabold uppercase tracking-widest text-[#a9c6ed] mb-2 sm:mb-3 block">
             Rajamudy, Idukki
           </span>
@@ -106,9 +107,9 @@ export function ContactSection() {
 
           {/* Social Links on Contact Section */}
           <div className="mt-7 pt-6 border-t border-white/15">
-            <h4 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300 mb-3">
+            <h3 className="text-[11px] font-extrabold uppercase tracking-wider text-slate-300 mb-3">
               Connect With De Paul
-            </h4>
+            </h3>
             <div className="flex flex-wrap items-center gap-2">
               {SOCIAL_LINKS.map((item) => {
                 const Icon = item.icon;
@@ -132,15 +133,7 @@ export function ContactSection() {
         </div>
 
         {/* Right Column: Google Maps Embed */}
-        <div className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-full rounded-xl overflow-hidden border border-white/10 bg-slate-900 shadow-inner">
-          <iframe
-            src="https://maps.google.com/maps?q=De+Paul+Public+School+Rajamudy+Idukki&t=&z=15&ie=UTF8&iwloc=&output=embed"
-            title="Google Maps location of De Paul Public School Rajamudy"
-            loading="lazy"
-            className="w-full h-full border-0 absolute inset-0"
-            allowFullScreen
-          />
-        </div>
+        <CampusMap className="lg:col-span-7 relative min-h-[300px] sm:min-h-[380px] lg:min-h-full rounded-xl overflow-hidden border border-white/10 bg-slate-900 shadow-inner" />
       </div>
     </section>
   );

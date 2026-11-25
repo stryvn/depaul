@@ -5,7 +5,7 @@ import { getAllStories } from "@/db/queries";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   await connection();
   const site = "https://depaulidukki.com";
-  const pages = ["/", "/about", "/contact", "/docs", "/stories", "/alumni", "/tc"];
+  const pages = ["/", "/about", "/admissions", "/contact", "/gallery", "/docs", "/stories", "/alumni", "/tc"];
   const stories = await getAllStories();
 
   return [

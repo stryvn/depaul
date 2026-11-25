@@ -22,7 +22,7 @@ export function Footer() {
       <div className="absolute -top-32 -left-32 w-80 h-80 bg-brand-royal/5 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -bottom-32 -right-32 w-80 h-80 bg-brand-sky/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="site-container relative z-10">
+      <div className="w-full max-w-[1140px] mx-auto px-3 sm:px-5 min-[1180px]:px-0 relative z-10">
         
         {/* 1. Footer Top Bar: Eyebrow motto + Back to top */}
         <div className="flex items-center justify-between pb-6 sm:pb-8 border-b border-slate-200/70">
@@ -46,7 +46,7 @@ export function Footer() {
           {/* Left Column (5 cols): Inline Title Lockup + Credentials + Social Media Buttons */}
           <div className="lg:col-span-5 space-y-4">
             <div>
-              <Link href="/" className="group inline-block">
+              <Link prefetch={false} href="/" className="group inline-block">
                 <h3 className="font-display font-black text-2xl sm:text-3xl text-slate-900 leading-snug group-hover:text-brand-royal transition-colors">
                   De Paul{" "}
                   <span className="font-bold text-lg sm:text-xl text-slate-700 block sm:inline font-sans">
@@ -122,17 +122,17 @@ export function Footer() {
             
             {/* Column 1: INSTITUTION */}
             <div className="space-y-3">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-600 font-sans">
                 INSTITUTION
-              </h4>
+              </h2>
               <div className="flex flex-col space-y-2 text-xs sm:text-sm font-medium">
-                <Link href="/about" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/about" className="text-slate-700 hover:text-brand-royal transition-colors">
                   About the school
                 </Link>
-                <Link href="/about#leadership" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/about#leadership" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Administration
                 </Link>
-                <Link href="/about#values" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/about#values" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Mission &amp; Vision
                 </Link>
               </div>
@@ -140,20 +140,20 @@ export function Footer() {
 
             {/* Column 2: NAVIGATION */}
             <div className="space-y-3">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-600 font-sans">
                 NAVIGATION
-              </h4>
+              </h2>
               <div className="flex flex-col space-y-2 text-xs sm:text-sm font-medium">
-                <Link href="/stories" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/stories" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Stories
                 </Link>
-                <Link href="https://depaulidukki.com/gallery/" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/gallery" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Gallery
                 </Link>
-                <Link href="/contact" className="text-slate-700 hover:text-brand-royal transition-colors">
-                  Admission
+                <Link prefetch={false} href="/admissions" className="text-slate-700 hover:text-brand-royal transition-colors">
+                  Admissions
                 </Link>
-                <Link href="/contact" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/contact" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Contact
                 </Link>
               </div>
@@ -161,17 +161,17 @@ export function Footer() {
 
             {/* Column 3: DOCUMENTS */}
             <div className="space-y-3">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-600 font-sans">
                 DOCUMENTS
-              </h4>
+              </h2>
               <div className="flex flex-col space-y-2 text-xs sm:text-sm font-medium">
-                <Link href="/docs" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/docs" className="text-slate-700 hover:text-brand-royal transition-colors">
                   School documents
                 </Link>
-                <Link href="/tc" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/tc" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Transfer certificate
                 </Link>
-                <Link href="/alumni" className="text-slate-700 hover:text-brand-royal transition-colors">
+                <Link prefetch={false} href="/alumni" className="text-slate-700 hover:text-brand-royal transition-colors">
                   Alumni Network
                 </Link>
               </div>
@@ -179,9 +179,9 @@ export function Footer() {
 
             {/* Column 4: CONTACT */}
             <div className="space-y-3">
-              <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-400 font-sans">
+              <h2 className="text-[11px] font-bold uppercase tracking-wider text-slate-600 font-sans">
                 CONTACT
-              </h4>
+              </h2>
               <div className="flex flex-col space-y-2 text-xs sm:text-sm font-medium">
                 <a href="tel:+919605602400" className="text-slate-700 hover:text-brand-royal transition-colors">
                   +91 96056 02400
