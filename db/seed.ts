@@ -1,5 +1,5 @@
 import { db } from "./index";
-import { stories, documents } from "./schema";
+import { documents } from "./schema";
 
 const initialDocuments = [
   {
@@ -228,75 +228,7 @@ const initialDocuments = [
   },
 ];
 
-const initialStories = [
-  {
-    title: "Annual Sports Meet 'Athlos' Celebrates Athletic Brilliance",
-    slug: "annual-sports-meet-athlos-celebrates-athletic-brilliance",
-    excerpt:
-      "A thrilling display of sportsmanship, track events, and house championships conducted with distinguished regional sports dignitaries on campus.",
-    body: `## Athlos 2026 Highlights\n\nA thrilling display of sportsmanship, track events, and house championships conducted with distinguished regional sports dignitaries on campus.\n\nStudents from all four houses showcased exemplary dedication, camaraderie, and athletic brilliance throughout the multi-day tournament.\n\n### Key Events\n- 100m, 200m, and 400m Track Finals\n- 4x100m Relay Championships\n- Shot Put and High Jump Arena Competitions\n\nCongratulations to all participants and champions for setting new campus benchmarks!`,
-    category: "Sports & Athletics",
-    coverImage: "/assets/events/sportsday01.jpeg",
-    publishedAt: "2026-11-15",
-  },
-  {
-    title: "Nexora Fest — Inter-School Tech & Cultural Summit",
-    slug: "nexora-fest-inter-school-tech-cultural-summit",
-    excerpt: "Students engineered autonomous prototypes and showcased artistic brilliance.",
-    body: `## Nexora 2026\n\nStudents engineered autonomous prototypes and showcased artistic brilliance across competitive coding, robotics, and creative arts exhibitions.\n\nOver 20 schools participated in this annual celebration of innovation, logic, and creative expression.`,
-    category: "Academics & Tech",
-    coverImage: "/assets/events/Nexora2k26.jpeg",
-    publishedAt: "2026-11-10",
-  },
-  {
-    title: "Children's Day Commemoration & Cultural Assemblies",
-    slug: "childrens-day-commemoration-cultural-assemblies",
-    excerpt: "Vibrant performances and games honoring the spirit of our young learners.",
-    body: `## Celebrating Our Students\n\nVibrant performances and games honoring the spirit of our young learners on campus.\n\nTeachers led special cultural programs, music ensembles, and games designed to spark joy across all grade levels.`,
-    category: "Campus Life",
-    coverImage: "/assets/events/childrensday.jpeg",
-    publishedAt: "2026-11-14",
-  },
-  {
-    title: "Environment Day Greenery & Plantation Drive",
-    slug: "environment-day-greenery-plantation-drive",
-    excerpt: "Planting native trees across the campus grounds to champion ecological harmony.",
-    body: `## Greening Our Western Ghats Foothills\n\nPlanting native trees across the campus grounds to champion ecological harmony and sustainable environmental stewardship.\n\nOur eco-club members committed to nurturing over 200 native saplings planted around the school perimeters.`,
-    category: "Social Outreach",
-    coverImage: "/assets/events/environmentday.jpg",
-    publishedAt: "2026-11-05",
-  },
-  {
-    title: "Inter-House Track & Field Championships",
-    slug: "inter-house-track-field-championships",
-    excerpt: "Athletes competing across track relays, sprints, and field events with spirited house pride.",
-    body: `## House Pride and Athletic Prowess\n\nAthletes competing across track relays, sprints, and field events with spirited house pride and exceptional sportsmanship.\n\nThe annual championship brought together students, coaches, and alumni in a spirited atmosphere.`,
-    category: "Sports",
-    coverImage: "/assets/events/sportsday02.jpeg",
-    publishedAt: "2026-10-28",
-  },
-  {
-    title: "Advanced Laboratories & Experiential STEM Curriculum",
-    slug: "advanced-laboratories-experiential-stem-curriculum",
-    excerpt: "Hands-on scientific inquiry and laboratory discovery guiding higher secondary scholars.",
-    body: `## Modern STEM Learning Environments\n\nHands-on scientific inquiry and laboratory discovery guiding higher secondary scholars through modern biology, chemistry, and physics labs.\n\nWith upgraded apparatus and safety standards, De Paul fosters genuine scientific curiosity.`,
-    category: "Academics",
-    coverImage: "/assets/attachments/biologylab.jpg",
-    publishedAt: "2026-10-15",
-  },
-];
-
 async function seed() {
-  console.log("Seeding initial stories...");
-  for (const story of initialStories) {
-    try {
-      await db.insert(stories).values(story).onConflictDoNothing();
-      console.log(`Seeded story: ${story.title}`);
-    } catch (err) {
-      console.error(`Error inserting story ${story.title}:`, err);
-    }
-  }
-
   console.log("Seeding initial documents & disclosures...");
   for (const doc of initialDocuments) {
     try {
