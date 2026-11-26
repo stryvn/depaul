@@ -8,6 +8,7 @@
     "start": "next start -H 0.0.0.0",
     "lint": "eslint",
     "build:next": "next build",
+    "prebuild:cloudflare": "node scripts/fix-opennext-cookie-import.mjs",
     "build:cloudflare": "opennextjs-cloudflare build",
     "preview:cloudflare": "opennextjs-cloudflare preview",
     "deploy:cloudflare": "opennextjs-cloudflare deploy"
