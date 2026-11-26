@@ -34,6 +34,12 @@ const MOBILE_MENU_LINKS = [
   { name: "TC", href: "/tc" },
 ];
 
+const SOCIAL_LINKS = [
+  { label: "YouTube", href: "https://www.youtube.com/@depaulschoolrajamudy", Icon: YoutubeIcon, hoverClass: "hover:text-brand-crimson" },
+  { label: "Instagram", href: "https://www.instagram.com/depaulschoolrajamudy", Icon: InstagramIcon, hoverClass: "hover:text-brand-royal" },
+  { label: "Facebook", href: "https://www.facebook.com/depaulschoolrajamudy", Icon: FacebookIcon, hoverClass: "hover:text-brand-royal" },
+];
+
 export function TopNavbar({ isMerged }: NavbarProps) {
   const [activeModal, setActiveModal] = useState<"phone" | "whatsapp" | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -103,32 +109,32 @@ export function TopNavbar({ isMerged }: NavbarProps) {
             {/* Left Column: Contact Triggers (or Mobile Hamburger) + Left Nav Links */}
             <div className="flex items-center justify-between min-w-0 pr-2">
               <div className="relative flex items-center gap-1.5 sm:gap-2 shrink-0">
+                <button
+                  type="button"
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className={cn(
+                    "lg:hidden relative flex items-center justify-center w-8 h-8 rounded-full border transition-colors active:scale-95 shrink-0",
+                    isMerged ? "bg-slate-900/5 hover:bg-slate-900/10 border-slate-900/10 text-slate-800" : "bg-white/15 hover:bg-white/30 border-white/25 text-white"
+                  )}
+                  aria-expanded={isMobileMenuOpen}
+                  aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+                >
+                  <motion.div
+                    key={isMobileMenuOpen ? "close" : "open"}
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.18 }}
+                    className="flex items-center justify-center"
+                  >
+                    {isMobileMenuOpen ? (
+                      <X className="w-4 h-4" />
+                    ) : (
+                      <Menu className="w-4 h-4" />
+                    )}
+                  </motion.div>
+                </button>
                 {isMerged ? (
-                  <>
-                    {/* Mobile: Hamburger / Close toggle */}
-                    <button
-                      type="button"
-                      onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                      className="lg:hidden relative flex items-center justify-center w-8 h-8 rounded-full bg-slate-900/5 hover:bg-slate-900/10 border border-slate-900/10 text-slate-800 transition-colors active:scale-95 shrink-0"
-                      aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-                    >
-                      <motion.div
-                        key={isMobileMenuOpen ? "close" : "open"}
-                        initial={{ rotate: -90, opacity: 0 }}
-                        animate={{ rotate: 0, opacity: 1 }}
-                        exit={{ rotate: 90, opacity: 0 }}
-                        transition={{ duration: 0.18 }}
-                        className="flex items-center justify-center"
-                      >
-                        {isMobileMenuOpen ? (
-                          <X className="w-4 h-4 text-slate-800" />
-                        ) : (
-                          <Menu className="w-4 h-4 text-slate-800" />
-                        )}
-                      </motion.div>
-                    </button>
-
-                    {/* Desktop: Contact buttons */}
                     <div className="hidden lg:flex relative items-center gap-1.5 sm:gap-2 shrink-0">
                       <button
                         type="button"
@@ -160,10 +166,9 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                         <WhatsAppIcon className="w-3.5 h-3.5 group-hover:scale-110 transition-transform shrink-0" />
                       </button>
                     </div>
-                  </>
                 ) : (
-                  /* Unmerged state (initial hero): Contact trigger buttons */
-                  <div className="relative flex items-center gap-1.5 sm:gap-2 shrink-0">
+                  /* Desktop contact buttons over the hero */
+                  <div className="hidden lg:flex relative items-center gap-1.5 sm:gap-2 shrink-0">
                     <button
                       type="button"
                       onClick={() => setActiveModal(activeModal === "phone" ? null : "phone")}
@@ -369,58 +374,25 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                 <div className="hidden lg:block mr-auto" />
               )}
 
-              {/* Social icons: on desktop (>= lg) always visible; on mobile (< lg) only visible in unmerged/hero state, hidden when full/merged */}
-              <div
-                className={cn(
-                  "flex items-center gap-1 shrink-0 ml-auto",
-                  isMerged ? "hidden lg:flex" : "flex"
-                )}
-              >
-                <a
-                  href="https://www.youtube.com/@depaulschoolrajamudy"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(
-                    "p-1.5 rounded-full transition-all",
-                    isMerged
-                      ? "text-slate-600 hover:text-brand-crimson hover:bg-slate-900/5"
-                      : "text-white/80 hover:text-white hover:bg-white/20"
-                  )}
-                  title="YouTube Channel"
-                  aria-label="YouTube Channel"
-                >
-                  <YoutubeIcon className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://www.instagram.com/depaulschoolrajamudy"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(
-                    "p-1.5 rounded-full transition-all",
-                    isMerged
-                      ? "text-slate-600 hover:text-brand-royal hover:bg-slate-900/5"
-                      : "text-white/80 hover:text-white hover:bg-white/20"
-                  )}
-                  title="Instagram"
-                  aria-label="Instagram"
-                >
-                  <InstagramIcon className="w-3.5 h-3.5" />
-                </a>
-                <a
-                  href="https://www.facebook.com/depaulschoolrajamudy"
-                  target="_blank"
-                  rel="noreferrer"
-                  className={cn(
-                    "p-1.5 rounded-full transition-all",
-                    isMerged
-                      ? "text-slate-600 hover:text-brand-royal hover:bg-slate-900/5"
-                      : "text-white/80 hover:text-white hover:bg-white/20"
-                  )}
-                  title="Facebook"
-                  aria-label="Facebook"
-                >
-                  <FacebookIcon className="w-3.5 h-3.5" />
-                </a>
+              <div className="hidden lg:flex items-center gap-1 shrink-0 ml-auto">
+                {SOCIAL_LINKS.map(({ label, href, Icon, hoverClass }) => (
+                  <a
+                    key={href}
+                    href={href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={cn(
+                      "p-1.5 rounded-full transition-all",
+                      isMerged
+                        ? cn("text-slate-600 hover:bg-slate-900/5", hoverClass)
+                        : "text-white/80 hover:text-white hover:bg-white/20"
+                    )}
+                    title={label}
+                    aria-label={label}
+                  >
+                    <Icon className="w-3.5 h-3.5" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -439,7 +411,7 @@ export function TopNavbar({ isMerged }: NavbarProps) {
               }}
               style={{ maxWidth: "780px" }}
               className={cn(
-                "pointer-events-auto w-full mt-2 rounded-[28px] border p-3.5 flex flex-col select-none overflow-y-auto max-h-[80vh] shadow-2xl backdrop-blur-2xl transition-colors",
+                "lg:hidden pointer-events-auto w-full mt-2 rounded-[28px] border p-3.5 flex flex-col select-none overflow-y-auto max-h-[80vh] shadow-2xl backdrop-blur-2xl transition-colors",
                 isMerged
                   ? "bg-white/95 border-slate-200/80 text-slate-800 shadow-slate-900/15"
                   : "bg-slate-900/90 border-white/20 text-white shadow-black/50"
@@ -514,6 +486,26 @@ export function TopNavbar({ isMerged }: NavbarProps) {
                     />
                     <span>WhatsApp</span>
                   </a>
+                </div>
+
+                <div role="group" aria-label="Social media" className="flex flex-wrap items-center justify-center gap-2 pt-1">
+                  {SOCIAL_LINKS.map(({ label, href, Icon, hoverClass }) => (
+                    <a
+                      key={href}
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={cn(
+                        "inline-flex min-h-11 items-center justify-center gap-1.5 rounded-full border px-3 text-xs font-semibold transition-colors",
+                        isMerged
+                          ? cn("border-slate-200 bg-slate-900/5 text-slate-700 hover:bg-slate-900/10", hoverClass)
+                          : "border-white/25 bg-white/15 text-white hover:bg-white/25"
+                      )}
+                    >
+                      <Icon className="size-3.5 shrink-0" aria-hidden="true" />
+                      {label}
+                    </a>
+                  ))}
                 </div>
 
                 {/* Hero Admissions Button Replica */}
