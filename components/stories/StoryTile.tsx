@@ -41,7 +41,7 @@ export function StoryTile({
   isLead = false,
   showDate = false,
 }: StoryTileProps) {
-  const imageUrl = story.coverImage || story.image || "/assets/about-campus.webp";
+  const imageUrl = story.coverImage || story.image || "/assets/stories/sports-day.webp";
   const href = story.slug ? `/stories/${story.slug}` : "/stories";
   const dateFormatted = formatDate(story.publishedAt || story.date);
 
@@ -56,9 +56,9 @@ export function StoryTile({
           decoding="async"
           onError={(e) => {
             const target = e.currentTarget;
-            if (target.getAttribute("src") !== "/assets/about-campus.webp") {
+            if (target.getAttribute("src") !== "/assets/stories/sports-day.webp") {
               target.removeAttribute("srcset");
-              target.src = "/assets/about-campus.webp";
+              target.src = "/assets/stories/sports-day.webp";
             }
           }}
         />

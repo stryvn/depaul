@@ -5,7 +5,7 @@ import { MasonryGrid } from "./MasonryGrid";
 import type { StoryItem } from "./StoryTile";
 
 interface StoriesSectionProps {
-  stories: StoryItem[];
+  stories?: StoryItem[];
 }
 
 export function StoriesSection({ stories }: StoriesSectionProps) {
@@ -15,11 +15,7 @@ export function StoriesSection({ stories }: StoriesSectionProps) {
         <h2 id="home-stories">De Paul Stories</h2>
       </div>
 
-      {stories.length > 0 ? (
-        <MasonryGrid stories={stories} />
-      ) : (
-        <p className="text-slate-600">No stories are currently published.</p>
-      )}
+      <MasonryGrid stories={stories} />
       <div className="ed-section-actions">
         <Link prefetch={false} className="ed-section-cta" href="/stories">
           View all stories

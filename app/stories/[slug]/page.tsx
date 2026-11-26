@@ -1,9 +1,5 @@
 import { connection } from "next/server";
 import React from "react";
-import Link from "next/link";
-import { Footer } from "@/components/footer/Footer";
-import { TopNavbar } from "@/components/navbar/TopNavbar";
-import { withdrawnStorySlugs } from "@/lib/withdrawn-stories";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { getStoryBySlug, getLatestStories } from "@/db/queries";
@@ -35,10 +31,6 @@ function formatLongDate(dateStr?: string): string {
 export async function generateMetadata({ params }: StoryPageProps): Promise<Metadata> {
   await connection();
   const { slug } = await params;
-  if (withdrawnStorySlugs.includes(slug)) {
-    return { title: "Story withdrawn", robots: { index: false, follow: true } };
-  }
-
   const story = await getStoryBySlug(slug);
 
   if (!story) {
@@ -65,22 +57,6 @@ export async function generateMetadata({ params }: StoryPageProps): Promise<Meta
 export default async function StoryDetailPage({ params }: StoryPageProps) {
   await connection();
   const { slug } = await params;
-  if (withdrawnStorySlugs.includes(slug)) {
-    return (
-      <>
-        <TopNavbar isMerged />
-        <main className="mx-auto min-h-[50vh] w-[var(--public-content-width)] pb-16 pt-[104px]">
-          <h1 className="text-4xl font-bold text-[#0b1b3d]">Story withdrawn</h1>
-          <p className="mt-4 text-slate-600">This story was withdrawn because it contained inaccurate information.</p>
-          <Link href="/stories" className="mt-6 inline-block font-semibold text-[#173e82] hover:underline">
-            Back to Stories
-          </Link>
-        </main>
-        <Footer />
-      </>
-    );
-  }
-
   const story = await getStoryBySlug(slug);
 
   if (!story) {

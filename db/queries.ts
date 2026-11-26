@@ -1,28 +1,24 @@
-import { eq, desc, asc, and, or, like, sql, notInArray } from "drizzle-orm";
+import { eq, desc, asc, and, or, like, sql } from "drizzle-orm";
 import { db } from "./index";
-import { withdrawnStorySlugs } from "@/lib/withdrawn-stories";
 import { stories, alumni, documents, type NewAlumni, type Document } from "./schema";
-
-const publicStories = notInArray(stories.slug, withdrawnStorySlugs);
 
 /** Latest N stories (default 6), newest first. */
 export async function getLatestStories(limit = 6) {
   return db
     .select()
     .from(stories)
-    .where(publicStories)
     .orderBy(desc(stories.publishedAt))
     .limit(limit);
 }
 
 /** All stories, newest first. */
 export async function getAllStories() {
-  return db.select().from(stories).where(publicStories).orderBy(desc(stories.publishedAt));
+  return db.select().from(stories).orderBy(desc(stories.publishedAt));
 }
 
 /** Single story by its unique slug. */
 export async function getStoryBySlug(slug: string) {
-  return db.select().from(stories).where(and(eq(stories.slug, slug), publicStories)).get();
+  return db.select().from(stories).where(eq(stories.slug, slug)).get();
 }
 
 /** Single story by primary key. */
