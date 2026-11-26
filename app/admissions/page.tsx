@@ -1,3 +1,4 @@
+import { AdmissionEnquiryForm } from "./AdmissionEnquiryForm";
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +28,7 @@ export default function AdmissionsPage() {
             <p className="text-xs font-bold uppercase tracking-widest text-[#a9c6ed]">Rajamudy, Idukki</p>
             <h1 id="admissions-title" className="text-4xl font-extrabold tracking-tight sm:text-5xl">Admissions</h1>
             <p className="max-w-sm text-[#e0eafa]">Kindergarten to Senior Secondary at De Paul Public School &amp; Junior College.</p>
-            <a className="mt-2 inline-flex min-h-11 items-center rounded-lg bg-white px-5 text-sm font-bold text-[#173e82]" href="tel:+919605602400">Call for admissions</a>
+            <a className="mt-2 inline-flex min-h-11 items-center rounded-lg bg-white px-5 text-sm font-bold text-[#173e82]" href="#enquiries">Enquire about admission</a>
           </div>
           <div className="relative min-h-56 sm:min-h-72">
             <Image src="/assets/campus.webp" alt="De Paul Public School campus in Rajamudy" fill sizes="(max-width: 767px) 100vw, 50vw" fetchPriority="high" className="object-cover" />
@@ -45,8 +46,10 @@ export default function AdmissionsPage() {
           </ol>
         </section>
         <section className="rounded-xl border border-[#d7e0ec] bg-white p-6" aria-labelledby="enquiries">
-          <h2 id="enquiries" className="text-xl font-bold text-[#0b1b3d]">Admissions enquiries</h2>
-          <div className="mt-4 flex flex-wrap gap-4 text-sm font-semibold text-[#173e82]">
+          <h2 id="enquiries" className="scroll-mt-24 text-xl font-bold text-[#0b1b3d]">Admissions enquiries</h2>
+          <p className="mb-5 mt-2 text-sm text-slate-700">Ask about a place or request application details. Submitting an enquiry does not confirm admission.</p>
+          <AdmissionEnquiryForm />
+          <div className="mt-6 flex flex-wrap gap-4 border-t border-slate-200 pt-4 text-sm font-semibold text-[#173e82]">
             <a className="underline underline-offset-4" href="tel:+919605602400">+91 96056 02400</a>
             <a className="break-all underline underline-offset-4" href="mailto:depaulrajamudy@gmail.com?subject=Admissions%20enquiry">Email the school office</a>
             <Link prefetch={false} className="underline underline-offset-4" href="/contact/">Contact and directions</Link>

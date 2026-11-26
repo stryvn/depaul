@@ -35,7 +35,7 @@ export async function loginAction(
     maxAge: 60 * 60 * 24 * 7, // 7 days
   });
 
-  redirect("/admin/stories");
+  redirect("/admin");
 }
 
 export async function logoutAction() {

@@ -11,7 +11,7 @@ export async function AdminNav() {
   return (
     <header className="bg-white border-b border-slate-200 sticky top-0 z-30 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <div className="flex items-center gap-6">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-6">
           <Link href="/admin/stories" className="flex items-center gap-3">
             <Image
               src="/assets/branding/logo.png"
@@ -24,7 +24,8 @@ export async function AdminNav() {
               De Paul CMS
             </span>
           </Link>
-          <nav className="flex items-center gap-4 text-sm font-medium">
+          <nav aria-label="Admin" className="flex min-w-0 items-center gap-1 overflow-x-auto whitespace-nowrap text-sm font-medium">
+            <Link href="/admin/admissions" className="rounded-lg px-3 py-1.5 text-slate-700 hover:bg-slate-100 hover:text-brand-royal">Admissions</Link>
             <Link
               href="/admin/stories"
               className="px-3 py-1.5 rounded-lg text-slate-700 hover:text-brand-royal hover:bg-slate-100 transition-colors"

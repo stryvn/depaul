@@ -32,6 +32,7 @@ stripDynamicHints(path.join(stage, 'app'));
 const alumniSource = readFileSync(path.join(root, 'app/actions/alumni.ts'), 'utf8');
 const stateType = alumniSource.match(/export interface RegisterAlumniState \{[\s\S]*?\n\}/)[0];
 writeFileSync(path.join(stage, 'app/actions/alumni.ts'), `${stateType}\nexport async function registerAlumniAction(_previous: RegisterAlumniState | undefined, _data: FormData): Promise<RegisterAlumniState> { return { error: 'This is a website preview. Alumni registration is not connected here; no details have been saved.' }; }\n`);
+writeFileSync(path.join(stage, 'app/admissions/AdmissionEnquiryForm.tsx'), `export function AdmissionEnquiryForm() { return <p>Online enquiries are available on the deployed Worker. You can also contact the school office below.</p>; }\n`);
 writeFileSync(path.join(stage, 'next.config.ts'), `import type { NextConfig } from 'next';
 const config: NextConfig = {
  output: 'export', trailingSlash: true,

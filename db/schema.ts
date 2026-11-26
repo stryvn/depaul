@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import { sqliteTable, integer, text } from "drizzle-orm/sqlite-core";
 
 export const stories = sqliteTable("stories", {
@@ -71,3 +72,17 @@ export const documents = sqliteTable("documents", {
 export type Document = typeof documents.$inferSelect;
 export type NewDocument = typeof documents.$inferInsert;
 
+
+export const admissionRegistrations = sqliteTable("admission_registrations", {
+  id: text("id").primaryKey(),
+  studentName: text("student_name").notNull(),
+  classSought: text("class_sought").notNull(),
+  guardianName: text("guardian_name").notNull(),
+  guardianPhone: text("guardian_phone").notNull(),
+  guardianEmail: text("guardian_email"),
+  message: text("message"),
+  consent: integer("consent", { mode: "boolean" }).notNull(),
+  status: text("status").notNull().default("new"),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+  expiresAt: text("expires_at").notNull().default(sql`(datetime('now', '+12 months'))`),
+});
