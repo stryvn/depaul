@@ -2,6 +2,7 @@
 
 @theme {
   --color-brand-royal: #0256a1;
+  --color-brand-navy: #0b1b3d;
   --color-brand-blue: #0256a1;
   --color-brand-cyan: #0087da;
   --color-brand-crimson: #DC2626;
@@ -34,6 +35,8 @@
 }
 
 html {
+  /* The document canvas is exposed during native overscroll. */
+  background-color: var(--color-brand-navy);
   font-family: var(--font-plus-jakarta), "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 }
 

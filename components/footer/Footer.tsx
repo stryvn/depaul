@@ -14,7 +14,7 @@ export function Footer() {
   };
 
   return (
-    <footer className="relative bg-[#f8fafc] text-slate-800 overflow-hidden pt-14 sm:pt-16 pb-12 sm:pb-14 select-none border-t border-slate-200/80">
+    <footer className="relative bg-surface-offwhite text-slate-800 overflow-hidden pt-14 sm:pt-16 select-none border-t border-slate-200/80">
       {/* Subtle hairline gradient accent matching About & Stories */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-slate-300 to-transparent" />
 
@@ -41,7 +41,7 @@ export function Footer() {
         </div>
 
         {/* 2. Main Content Grid: Left Brand Column (inline lockup + social buttons) + Right 4 Nav Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pt-8 sm:pt-10 pb-10 sm:pb-12 border-b border-slate-200/70">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 pt-8 sm:pt-10 pb-10 sm:pb-12">
           
           {/* Left Column (5 cols): Inline Title Lockup + Credentials + Social Media Buttons */}
           <div className="lg:col-span-5 space-y-4">
@@ -199,12 +199,14 @@ export function Footer() {
 
         </div>
 
-        {/* 3. Footer Bottom: Copyright ONLY (STRYVN watermark completely removed) */}
-        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500 font-sans">
+      </div>
+
+      <div className="relative bg-brand-navy py-6 text-slate-200">
+        <div className="mx-auto flex w-full max-w-[1140px] flex-col items-center justify-between gap-3 px-3 text-center font-sans text-xs sm:flex-row sm:px-5 sm:text-left min-[1180px]:px-0">
           <span>
             &copy; {currentYear} De Paul Public School &amp; Junior College, Rajamudy
           </span>
-          <div className="flex items-center gap-4 text-slate-500">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
             <span>CBSE School Code: 75543</span>
             <span>·</span>
             <span>All rights reserved</span>

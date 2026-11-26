@@ -20,7 +20,7 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
     const updateParallax = () => {
       background.style.transform = reducedMotion.matches
         ? ""
-        : `translate3d(0, ${window.scrollY * 0.25}px, 0)`;
+        : `translate3d(0, ${Math.max(0, window.scrollY) * 0.25}px, 0)`;
     };
 
     updateParallax();
@@ -33,7 +33,7 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
   }, []);
 
   return (
-    <section className="relative w-full h-screen min-h-[680px] flex flex-col justify-end overflow-hidden pb-24 sm:pb-28">
+    <section className="relative w-full h-screen min-h-[680px] flex flex-col justify-end overflow-hidden bg-brand-navy pb-24 sm:pb-28">
       {/* Background Campus Exterior from project curated assets with parallax */}
       <div
         className="absolute inset-0 w-full h-[120%] -top-[10%] z-0 will-change-transform"
@@ -51,6 +51,7 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
         {/* Balanced gradient overlay: leaves the top and middle school building visible, darkening towards bottom for legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80" />
       </div>
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-brand-navy to-transparent sm:h-32" />
 
       {/* Center Content placed lower to reveal full campus building overhead */}
       <div className="relative z-20 flex flex-col mx-auto w-full max-w-5xl items-center px-4 mb-6 sm:mb-8">
