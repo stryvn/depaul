@@ -51,7 +51,6 @@ export function HeroSection({ isMerged }: HeroSectionProps) {
         {/* Balanced gradient overlay: leaves the top and middle school building visible, darkening towards bottom for legibility */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/80" />
       </div>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-10 h-24 bg-gradient-to-b from-brand-navy to-transparent sm:h-32" />
 
       {/* Center Content placed lower to reveal full campus building overhead */}
       <div className="relative z-20 flex flex-col mx-auto w-full max-w-5xl items-center px-4 mb-6 sm:mb-8">
