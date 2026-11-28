@@ -36,6 +36,13 @@ export const metadata: Metadata = {
     "Junior College Rajamudy",
     "Vincentian School Idukki",
   ],
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/assets/branding/logo.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     title: "De Paul Public School Rajamudy — For God & Country",
     description:
@@ -46,10 +53,10 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/opengraph-image.png",
-        width: 1200,
-        height: 630,
-        alt: "De Paul Public School & Junior College, Rajamudy",
+        url: "/assets/campus_exterior/drone-shot-final-frame.webp",
+        width: 1280,
+        height: 720,
+        alt: "Aerial view of De Paul Public School in Rajamudy",
       },
     ],
   },
@@ -58,7 +65,7 @@ export const metadata: Metadata = {
     title: "De Paul Public School Rajamudy",
     description:
       "De Paul Public School & Junior College, Rajamudy, Idukki, Kerala. For God & Country.",
-    images: ["/twitter-image.png"],
+    images: ["/assets/campus_exterior/drone-shot-final-frame.webp"],
   },
   robots: {
     index: true,
